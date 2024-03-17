@@ -6,7 +6,7 @@ class AppColors {
     Color.fromARGB(255, 238, 238, 238),
     Color.fromARGB(255, 255, 255, 255)
   ];
-  static const List<Color> catClasicColors = [
+  static const List<Color> catClassicColors = [
     Color.fromARGB(255, 255, 166, 114),
     Color.fromARGB(255, 255, 227, 200)
   ];
