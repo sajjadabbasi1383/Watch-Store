@@ -6,8 +6,8 @@ import 'package:watch_store/res/strings.dart';
 import 'package:watch_store/widget/app_text_field.dart';
 import 'package:watch_store/widget/main_button.dart';
 
-class SendOtpScreen extends StatelessWidget {
-  SendOtpScreen({super.key});
+class GetOtpScreen extends StatelessWidget {
+  GetOtpScreen({super.key});
 
   final TextEditingController _controller=TextEditingController();
   @override
@@ -22,8 +22,12 @@ class SendOtpScreen extends StatelessWidget {
           children: [
             Image.asset(Assets.png.mainLogo.path),
             AppDimens.large.height,
-            AppTextField(lable: AppStrings.enterYourNumber, hint: AppStrings.hintPhoneNumber, controller: _controller),
-            MainButton(text: AppStrings.sendOtpCode, onPressed: () {},)
+            Text(AppStrings.otpCodeSendFor.replaceAll(AppStrings.replace, "092236576531")),
+            AppDimens.small.height,
+            const Text(AppStrings.wrongNumberEditNumber),
+            AppDimens.large.height,
+            AppTextField(lable: AppStrings.enterVerificationCode,pefixLable: "2:54", hint: AppStrings.hintVerificationCode, controller: _controller),
+            MainButton(text: AppStrings.next, onPressed: () {},)
           ],
         ),
       ),
