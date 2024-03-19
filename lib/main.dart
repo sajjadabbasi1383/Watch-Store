@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:watch_store/component/theme.dart';
+import 'package:watch_store/screens/get_otp_screen.dart';
+import 'package:watch_store/screens/register_screen.dart';
 import 'package:watch_store/screens/send_otp_screen.dart';
 
 void main() {
@@ -13,7 +15,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: lightTheme(),
-      home: SendOtpScreen(),
+      home: GetOtpScreen(),
     );
   }
 }

@@ -4,7 +4,7 @@ import 'package:watch_store/res/dimens.dart';
 
 ThemeData lightTheme(){
   return ThemeData(
-    useMaterial3: true,
+    useMaterial3: false,
     brightness: Brightness.light,
     iconTheme: const IconThemeData(color: Colors.black),
     primaryColor: AppColors.primaryColor,
@@ -18,13 +18,13 @@ ThemeData lightTheme(){
           return AppColors.unFocusedTextField;
         }
       }),
-      contentPadding: const EdgeInsets.all(Dimens.medium),
+      contentPadding: const EdgeInsets.all(AppDimens.medium),
       enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(Dimens.medium),
+        borderRadius: BorderRadius.circular(AppDimens.medium),
         borderSide: const BorderSide(color: AppColors.borderColor)
       ),
       focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(Dimens.medium),
+        borderRadius: BorderRadius.circular(AppDimens.medium),
         borderSide: const BorderSide(color: AppColors.focusedBorderColor)
       )
     )

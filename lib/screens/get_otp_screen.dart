@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:watch_store/component/extension.dart';
+import 'package:watch_store/component/text_style.dart';
 import 'package:watch_store/gen/assets.gen.dart';
 import 'package:watch_store/res/dimens.dart';
 import 'package:watch_store/res/strings.dart';
@@ -9,7 +10,8 @@ import 'package:watch_store/widget/main_button.dart';
 class GetOtpScreen extends StatelessWidget {
   GetOtpScreen({super.key});
 
-  final TextEditingController _controller=TextEditingController();
+  final TextEditingController _controller = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -22,12 +24,22 @@ class GetOtpScreen extends StatelessWidget {
           children: [
             Image.asset(Assets.png.mainLogo.path),
             AppDimens.large.height,
-            Text(AppStrings.otpCodeSendFor.replaceAll(AppStrings.replace, "092236576531")),
+            Text(AppStrings.otpCodeSendFor
+                .replaceAll(AppStrings.replace, "092236576531"),style: AppTextStyles.avatarText,),
             AppDimens.small.height,
-            const Text(AppStrings.wrongNumberEditNumber),
+            const Text(AppStrings.wrongNumberEditNumber,style: AppTextStyles.primaryStyle,),
             AppDimens.large.height,
-            AppTextField(lable: AppStrings.enterVerificationCode,pefixLable: "2:54", hint: AppStrings.hintVerificationCode, controller: _controller),
-            MainButton(text: AppStrings.next, onPressed: () {},)
+            AppTextField(
+              lable: AppStrings.enterVerificationCode,
+              pefixLable: "2:54",
+              hint: AppStrings.hintVerificationCode,
+              controller: _controller,
+              align: TextAlign.center,
+            ),
+            MainButton(
+              text: AppStrings.next,
+              onPressed: () {},
+            )
           ],
         ),
       ),

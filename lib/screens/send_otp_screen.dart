@@ -9,7 +9,8 @@ import 'package:watch_store/widget/main_button.dart';
 class SendOtpScreen extends StatelessWidget {
   SendOtpScreen({super.key});
 
-  final TextEditingController _controller=TextEditingController();
+  final TextEditingController _controller = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -22,8 +23,15 @@ class SendOtpScreen extends StatelessWidget {
           children: [
             Image.asset(Assets.png.mainLogo.path),
             AppDimens.large.height,
-            AppTextField(lable: AppStrings.enterYourNumber, hint: AppStrings.hintPhoneNumber, controller: _controller),
-            MainButton(text: AppStrings.sendOtpCode, onPressed: () {},)
+            AppTextField(
+                lable: AppStrings.enterYourNumber,
+                hint: AppStrings.hintPhoneNumber,
+                controller: _controller,
+                align: TextAlign.center),
+            MainButton(
+              text: AppStrings.sendOtpCode,
+              onPressed: () {},
+            )
           ],
         ),
       ),

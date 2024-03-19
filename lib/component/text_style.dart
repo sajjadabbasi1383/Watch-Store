@@ -7,8 +7,15 @@ class AppTextStyles{
 
   static const TextStyle textFieldLabel=TextStyle(
       fontFamily: FontFamily.dana,
-      fontSize: 11,
+      fontSize: 12,
       fontWeight: FontWeight.w300,
+      color: AppColors.title
+  );
+
+  static const TextStyle textFieldStyle=TextStyle(
+      fontFamily: FontFamily.dana,
+      fontSize: 14,
+      fontWeight: FontWeight.w500,
       color: AppColors.title
   );
 
@@ -16,7 +23,7 @@ class AppTextStyles{
   static const TextStyle textFieldHint=TextStyle(
     fontFamily: FontFamily.dana,
     fontSize: 11,
-    fontWeight: FontWeight.w300,
+    fontWeight: FontWeight.w400,
     color: AppColors.hint
   );
 
@@ -30,13 +37,20 @@ class AppTextStyles{
   static const TextStyle primaryStyle=TextStyle(
       fontFamily: FontFamily.dana,
       fontSize: 12,
-      fontWeight: FontWeight.w400,
+      fontWeight: FontWeight.w500,
       color: AppColors.primaryColor
   );
 
   static const TextStyle avatarText=TextStyle(
       fontFamily: FontFamily.dana,
-      fontSize: 12,
+      fontSize: 13,
+      fontWeight: FontWeight.w400,
+      color: AppColors.title
+  );
+
+  static const TextStyle appBarText=TextStyle(
+      fontFamily: FontFamily.dana,
+      fontSize: 16,
       fontWeight: FontWeight.w400,
       color: AppColors.title
   );
