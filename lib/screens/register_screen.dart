@@ -25,12 +25,12 @@ class RegisterScreen extends StatelessWidget {
           color: AppColors.appbar,
           child: Padding(
             padding: const EdgeInsets.only(
-                left: AppDimens.medium, right: AppDimens.medium),
+                left: AppDimens.medium, right: AppDimens.large),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 GestureDetector(
-                    onTap: () {},
+                    onTap: () => Navigator.pop(context),
                     child: const Icon(
                       Icons.arrow_back_ios,
                       size: 21,
