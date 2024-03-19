@@ -56,5 +56,12 @@ class AppTextStyles{
   );
 
 
+  static const TextStyle error=TextStyle(
+      fontFamily: FontFamily.dana,
+      fontSize: 18,
+      fontWeight: FontWeight.w500,
+      color: Colors.red);
+
+
 
 }
