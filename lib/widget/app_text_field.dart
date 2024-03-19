@@ -22,7 +22,7 @@ class AppTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size =MediaQuery.sizeOf(context);
-    return Padding(padding: const EdgeInsets.all(AppDimens.medium),
+    return Padding(padding: const EdgeInsets.all(AppDimens.small),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
@@ -36,9 +36,9 @@ class AppTextField extends StatelessWidget {
             ],
           ),
         ),
-        AppDimens.medium.height,
+        AppDimens.small.height,
         SizedBox(
-          height:size.height*.07,
+          height:size.height*.065,
           width: size.width*.75,
           child: TextField(
             textAlign: TextAlign.center,
@@ -46,7 +46,7 @@ class AppTextField extends StatelessWidget {
             keyboardType: inputType,
             decoration: InputDecoration(
               hintText: hint,
-              prefixIcon: icon
+              prefixIcon: icon,
             ),
           ),
         ),
