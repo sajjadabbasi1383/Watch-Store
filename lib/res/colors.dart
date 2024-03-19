@@ -33,8 +33,8 @@ class AppColors {
   static const Color scaffoldBackgroundColor =
   Color.fromARGB(255, 251, 251, 251);
   static const Color borderColor = Colors.grey;
-  static const Color focusedBorderColor = Colors.blue;
-  static const Color primaryColor = Colors.blue;
+  static const Color focusedBorderColor = Color.fromARGB(255, 0, 117, 251);
+  static const Color primaryColor = Color.fromARGB(255, 0, 117, 251);
   static const Color surfaceColor = Color.fromARGB(255, 243, 243, 243);
   static const Color focusedTextField = Colors.white;
   static const Color unFocusedTextField = Color.fromARGB(255, 251, 251, 251);
