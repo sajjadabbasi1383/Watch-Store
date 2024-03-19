@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:watch_store/component/extension.dart';
+import 'package:watch_store/component/text_style.dart';
+import 'package:watch_store/res/colors.dart';
 import 'package:watch_store/res/dimens.dart';
 import 'package:watch_store/res/strings.dart';
 import 'package:watch_store/widget/app_text_field.dart';
@@ -13,9 +15,35 @@ class RegisterScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.sizeOf(context);
     return SafeArea(
         child: Scaffold(
-      appBar: AppBar(),
+      appBar: PreferredSize(
+        preferredSize: Size(size.width, size.height * .07),
+        child: Container(
+          height: size.height * .07,
+          color: AppColors.appbar,
+          child: Padding(
+            padding: const EdgeInsets.only(
+                left: AppDimens.medium, right: AppDimens.medium),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                GestureDetector(
+                    onTap: () {},
+                    child: const Icon(
+                      Icons.arrow_back_ios,
+                      size: 21,
+                    )),
+                const Text(
+                  AppStrings.register,
+                  style: AppTextStyles.appBarText,
+                )
+              ],
+            ),
+          ),
+        ),
+      ),
       body: SizedBox(
         width: double.infinity,
         child: SingleChildScrollView(
