@@ -58,10 +58,20 @@ class AppTextStyles{
 
   static const TextStyle error=TextStyle(
       fontFamily: FontFamily.dana,
-      fontSize: 18,
+      fontSize: 16,
       fontWeight: FontWeight.w500,
       color: Colors.red);
 
+  static const TextStyle btmNavActiveItem=TextStyle(
+      fontFamily: FontFamily.dana,
+      fontSize: 12,
+      fontWeight: FontWeight.w500,
+      color: AppColors.btmNavActiveItem);
 
 
+  static const TextStyle btmNavInActiveItem=TextStyle(
+      fontFamily: FontFamily.dana,
+      fontSize: 12,
+      fontWeight: FontWeight.w500,
+      color: AppColors.btmNavInActiveItem);
 }
