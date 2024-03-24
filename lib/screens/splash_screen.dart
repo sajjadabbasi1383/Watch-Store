@@ -38,6 +38,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   children: [
                     Image.asset(
                       Assets.png.mainLogo.path,
+                      width: 250,
                     ),
                     const SizedBox(
                       height: 20,
@@ -51,9 +52,9 @@ class _SplashScreenState extends State<SplashScreen> {
                   bottom: 40,
                   right: 0,
                   left: 0,
-                  child: SpinKitFadingCircle(
+                  child: SpinKitThreeBounce(
                     color: AppColors.loadingColor,
-                    size: 45,
+                    size: 30,
                   ),
                 )
               ],
@@ -65,6 +66,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   children: [
                     Image.asset(
                       Assets.png.mainLogo.path,
+                      width: 250,
                     ),
                     const SizedBox(
                       height: 20,
@@ -88,7 +90,7 @@ class _SplashScreenState extends State<SplashScreen> {
                         children: [
                           Icon(CupertinoIcons.refresh_thick,
                               color: Colors.red,
-                              size: 28),
+                              ),
                           SizedBox(
                             width: 10,
                           ),
