@@ -93,7 +93,7 @@ class RegisterScreen extends StatelessWidget {
               AppDimens.small.height,
               MainButton(
                 text: AppStrings.register,
-                onPressed: () => Navigator.pushReplacementNamed(
+                onPressed: () => Navigator.pushNamed(
                     context, ScreenNames.mainScreen),
               ),
               70.height,
