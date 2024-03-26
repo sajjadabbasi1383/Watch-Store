@@ -38,10 +38,14 @@ class _MainScreenState extends State<MainScreen> {
               bottom: btmNavHeight,
               child: IndexedStack(
                 index: selectedIndex,
-                children: const [
-                  HomeScreen(),
-                  CartScreen(),
-                  ProfileScreen()
+                children: [
+                  Navigator(
+                    onGenerateRoute: (settings) => MaterialPageRoute(
+                      builder: (context) => const HomeScreen(),
+                    ),
+                  ),
+                  const CartScreen(),
+                  const ProfileScreen()
                 ],
               )),
           Positioned(
@@ -58,18 +62,19 @@ class _MainScreenState extends State<MainScreen> {
                     BtmNavItem(
                         iconPath: Assets.svg.user.path,
                         text: "پروفایل",
-                        isActive: selectedIndex==BtmNavScreenIndex.profile,
-                        onTap: ()=>btmNavOnPressed(BtmNavScreenIndex.profile)),
+                        isActive: selectedIndex == BtmNavScreenIndex.profile,
+                        onTap: () =>
+                            btmNavOnPressed(BtmNavScreenIndex.profile)),
                     BtmNavItem(
                         iconPath: Assets.svg.cart.path,
                         text: "سبد خرید",
-                        isActive: selectedIndex==BtmNavScreenIndex.cart,
-                        onTap: ()=>btmNavOnPressed(BtmNavScreenIndex.cart)),
+                        isActive: selectedIndex == BtmNavScreenIndex.cart,
+                        onTap: () => btmNavOnPressed(BtmNavScreenIndex.cart)),
                     BtmNavItem(
                         iconPath: Assets.svg.home.path,
                         text: "خانه",
-                        isActive: selectedIndex==BtmNavScreenIndex.home,
-                        onTap: ()=>btmNavOnPressed(BtmNavScreenIndex.home)),
+                        isActive: selectedIndex == BtmNavScreenIndex.home,
+                        onTap: () => btmNavOnPressed(BtmNavScreenIndex.home)),
                   ],
                 ),
               ))
@@ -78,9 +83,9 @@ class _MainScreenState extends State<MainScreen> {
     ));
   }
 
-  btmNavOnPressed(int index){
+  btmNavOnPressed(int index) {
     setState(() {
-      selectedIndex=index;
+      selectedIndex = index;
     });
   }
 }
