@@ -26,6 +26,8 @@ class _MainScreenState extends State<MainScreen> {
   final GlobalKey<NavigatorState> _cartkey=GlobalKey();
   final GlobalKey<NavigatorState> _profilekey=GlobalKey();
 
+  final List<int> _routeHistory=[BtmNavScreenIndex.home];
+
   late final map={
     BtmNavScreenIndex.home:_homekey,
     BtmNavScreenIndex.cart:_cartkey,
@@ -35,6 +37,11 @@ class _MainScreenState extends State<MainScreen> {
   Future<bool> _onWillPop()async{
     if(map[selectedIndex]!.currentState!.canPop()){
       map[selectedIndex]!.currentState!.pop();
+    }else if(_routeHistory.length>1){
+      setState(() {
+        _routeHistory.removeLast();
+        selectedIndex=_routeHistory.last;
+      });
     }
     return false;
   }
@@ -116,6 +123,7 @@ class _MainScreenState extends State<MainScreen> {
   btmNavOnPressed(int index) {
     setState(() {
       selectedIndex = index;
+      _routeHistory.add(selectedIndex);
     });
   }
 }
