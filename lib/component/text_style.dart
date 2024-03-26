@@ -74,4 +74,11 @@ class AppTextStyles{
       fontSize: 12,
       fontWeight: FontWeight.w500,
       color: AppColors.btmNavInActiveItem);
+
+  static const TextStyle searchHint=TextStyle(
+      fontFamily: FontFamily.dana,
+      fontSize: 14,
+      fontWeight: FontWeight.w500,
+      color: AppColors.hint
+  );
 }
