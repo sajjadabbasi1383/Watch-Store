@@ -22,6 +22,17 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   int selectedIndex = BtmNavScreenIndex.home;
+  final GlobalKey<NavigatorState> _homekey=GlobalKey();
+  final GlobalKey<NavigatorState> _cartkey=GlobalKey();
+  final GlobalKey<NavigatorState> _profilekey=GlobalKey();
+
+  late final map={
+    BtmNavScreenIndex.home:_homekey,
+    BtmNavScreenIndex.cart:_cartkey,
+    BtmNavScreenIndex.profile:_profilekey,
+  };
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -40,12 +51,23 @@ class _MainScreenState extends State<MainScreen> {
                 index: selectedIndex,
                 children: [
                   Navigator(
+                    key: _homekey,
                     onGenerateRoute: (settings) => MaterialPageRoute(
                       builder: (context) => const HomeScreen(),
                     ),
                   ),
-                  const CartScreen(),
-                  const ProfileScreen()
+                  Navigator(
+                    key: _cartkey,
+                    onGenerateRoute: (settings) => MaterialPageRoute(
+                      builder: (context) => const CartScreen(),
+                    ),
+                  ),
+                  Navigator(
+                    key: _profilekey,
+                    onGenerateRoute: (settings) => MaterialPageRoute(
+                      builder: (context) => const ProfileScreen(),
+                    ),
+                  ),
                 ],
               )),
           Positioned(
