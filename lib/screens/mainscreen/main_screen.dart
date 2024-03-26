@@ -123,7 +123,9 @@ class _MainScreenState extends State<MainScreen> {
   btmNavOnPressed(int index) {
     setState(() {
       selectedIndex = index;
-      _routeHistory.add(selectedIndex);
+      if(_routeHistory.last!=selectedIndex){
+        _routeHistory.add(selectedIndex);
+      }
     });
   }
 }
