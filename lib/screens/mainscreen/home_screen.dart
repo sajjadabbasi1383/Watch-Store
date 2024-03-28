@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../widget/app_slider.dart';
 import '../../widget/search_btn.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -13,7 +14,8 @@ class HomeScreen extends StatelessWidget {
         physics: const BouncingScrollPhysics(),
         child: Column(
           children: [
-            SearchBtn(onTap: () {},)
+            SearchBtn(onTap: () {},),
+            AppSlider(),
           ],
         ),
       )
