@@ -50,7 +50,7 @@ class _AppSliderState extends State<AppSlider> {
             carouselController: _controller,
             items: items,
             options: CarouselOptions(
-              height: 190,
+              height: 195,
               autoPlay: true,
               onPageChanged: (index, reason) {
                 setState(() {

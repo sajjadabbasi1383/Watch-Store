@@ -95,4 +95,41 @@ class AppTextStyles{
       fontWeight: FontWeight.w500,
       color: AppColors.hint
   );
+
+  static const TextStyle oldPrice=TextStyle(
+      fontFamily: FontFamily.dana,
+      fontSize: 15,
+      fontWeight: FontWeight.w500,
+      color: AppColors.oldPrice,
+    decoration: TextDecoration.lineThrough
+  );
+
+  static const TextStyle productPrice=TextStyle(
+      fontFamily: FontFamily.dana,
+      fontSize: 15,
+      fontWeight: FontWeight.w300,
+      color: AppColors.title
+  );
+
+  static const TextStyle discount=TextStyle(
+      fontFamily: FontFamily.dana,
+      fontSize: 14,
+      fontWeight: FontWeight.w500,
+      color: AppColors.mainButtonText
+  );
+
+  static const TextStyle productTimer=TextStyle(
+      fontFamily: FontFamily.dana,
+      fontSize: 15,
+      fontWeight: FontWeight.w400,
+      color: AppColors.primaryColor
+  );
+
+  static const TextStyle amazing=TextStyle(
+      fontFamily: FontFamily.dana,
+      fontSize: 24,
+      fontWeight: FontWeight.w700,
+      color: AppColors.amazingColor
+  );
+
 }
