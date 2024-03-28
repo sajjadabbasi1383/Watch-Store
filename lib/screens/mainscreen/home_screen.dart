@@ -54,6 +54,7 @@ class HomeScreen extends StatelessWidget {
           AppDimens.medium.height,
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
+            physics: const BouncingScrollPhysics(),
             reverse: true,
             child: Row(
               children: [
@@ -65,9 +66,8 @@ class HomeScreen extends StatelessWidget {
                     itemCount: 8,
                     shrinkWrap: true,
                     itemBuilder: (context, index) => Container(
-                      padding: const EdgeInsets.all(AppDimens.small),
+                      padding: const EdgeInsets.all(AppDimens.medium),
                       margin: const EdgeInsets.all(AppDimens.medium),
-                      height: 298,
                       width: 200,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(AppDimens.medium),
@@ -78,6 +78,7 @@ class HomeScreen extends StatelessWidget {
                       child: Column(
                         children: [
                           Image.asset(Assets.png.unnamed.path),
+                          AppDimens.small.height,
                           const Align(
                             alignment: Alignment.centerRight,
                             child: Text(
@@ -85,26 +86,30 @@ class HomeScreen extends StatelessWidget {
                               style: AppTextStyles.productTitle,
                             ),
                           ),
+                          AppDimens.small.height,
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              const Column(
+                               Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text("690000 تومان"),
-                                  Text("690000"),
+                                  Text("${69000.separateWithComma} تومان",style: AppTextStyles.productPrice,),
+                                  Text(122000.separateWithComma,style: AppTextStyles.oldPrice,),
                                 ],
                               ),
                               Container(
-                                padding: const EdgeInsets.all(AppDimens.small * .7),
+                                padding: const EdgeInsets.all(AppDimens.small * .6),
                                 decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20),
+                                    borderRadius: BorderRadius.circular(13),
                                     color: Colors.red),
-                                child: const Text("20%"),
+                                child: const Text("20%",style: AppTextStyles.discount,),
                               ),
                             ],
                           ),
+                          AppDimens.medium.height,
                           Container(width: double.infinity,height: 2,color: Colors.blue,),
-                          const Text("09:26:38")
+                          AppDimens.small.height,
+                          const Text("09:26:38",style: AppTextStyles.productTimer,)
                         ],
                       ),
                     ),
@@ -133,11 +138,14 @@ class VerticalText extends StatelessWidget {
           children: [
             Row(
               children: [
-                SvgPicture.asset(Assets.svg.back.path),
-                const Text("مشاهده همه")
+                Transform.rotate(angle: 1.5,
+                child: SvgPicture.asset(Assets.svg.back.path)),
+                AppDimens.small.width,
+                const Text("مشاهده همه",style: AppTextStyles.productPrice,)
               ],
             ),
-            const Text("شگفت انگیز")
+            AppDimens.small.height,
+            const Text("شگفت انگیز",style: AppTextStyles.amazing,)
           ],
         ),
       ),
