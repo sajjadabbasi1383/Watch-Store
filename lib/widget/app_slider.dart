@@ -54,7 +54,28 @@ class _AppSliderState extends State<AppSlider> {
               },
             ),
           ),
-
+          Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: imgList
+                  .asMap()
+                  .entries
+                  .map((e) => Padding(
+                        padding: const EdgeInsets.fromLTRB(4, 1, 4, 2),
+                        child: GestureDetector(
+                          onTap: () => _controller.animateToPage(e.key),
+                          child: Container(
+                            width: AppDimens.medium,
+                            height: AppDimens.medium,
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                border: Border.all(color: Colors.grey),
+                                color: _current == e.key
+                                    ? Colors.grey
+                                    : Colors.white),
+                          ),
+                        ),
+                      ))
+                  .toList())
         ],
       ),
     );
