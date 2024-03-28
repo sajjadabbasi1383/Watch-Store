@@ -5,7 +5,8 @@ import 'package:watch_store/res/dimens.dart';
 final List<String> imgList = [
   'https://ticktackgallery.com/media/wysiwyg/ticktackbanner/men.png',
   'https://ticktackgallery.com/media/wysiwyg/ticktackbanner/women.png',
-  'https://ticktackgallery.com/media/wysiwyg/ticktackbanner/men.png',
+  'https://ticktackgallery.com/media/wysiwyg/campaign-banner/fetr1401/kennethcole.jpg',
+  'https://ticktackgallery.com/media/wysiwyg/campaign-banner/fetr1401/orient-final.jpg',
   'https://ticktackgallery.com/media/wysiwyg/ticktackbanner/women.png',
 ];
 
@@ -21,16 +22,19 @@ class AppSlider extends StatefulWidget {
 class _AppSliderState extends State<AppSlider> {
   final CarouselController _controller = CarouselController();
   final List<Widget> items = imgList
-      .map((e) => Padding(
-            padding: const EdgeInsets.all(AppDimens.small),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(AppDimens.medium),
-              child: Image.network(
-                e,
-                fit: BoxFit.fill,
+      .map((e) => SizedBox(
+    width: double.infinity,
+        child: Padding(
+              padding: const EdgeInsets.all(AppDimens.small),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(AppDimens.medium),
+                child: Image.network(height: 200,
+                  e,
+                  fit: BoxFit.fill,
+                ),
               ),
             ),
-          ))
+      ))
       .toList();
 
   int _current = 0;
@@ -38,7 +42,7 @@ class _AppSliderState extends State<AppSlider> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 250,
+      height: 215,
       width: double.infinity,
       child: Column(
         children: [
@@ -46,6 +50,7 @@ class _AppSliderState extends State<AppSlider> {
             carouselController: _controller,
             items: items,
             options: CarouselOptions(
+              height: 190,
               autoPlay: true,
               onPageChanged: (index, reason) {
                 setState(() {
@@ -60,7 +65,7 @@ class _AppSliderState extends State<AppSlider> {
                   .asMap()
                   .entries
                   .map((e) => Padding(
-                        padding: const EdgeInsets.fromLTRB(4, 1, 4, 2),
+                        padding: const EdgeInsets.fromLTRB(4, 0, 4, 3),
                         child: GestureDetector(
                           onTap: () => _controller.animateToPage(e.key),
                           child: Container(

@@ -12,6 +12,13 @@ class AppTextStyles{
       color: AppColors.title
   );
 
+  static const TextStyle catTitle=TextStyle(
+      fontFamily: FontFamily.dana,
+      fontSize: 15,
+      fontWeight: FontWeight.w300,
+      color: AppColors.title
+  );
+
   static const TextStyle textFieldStyle=TextStyle(
       fontFamily: FontFamily.dana,
       fontSize: 14,
