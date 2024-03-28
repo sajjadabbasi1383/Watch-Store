@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class AppColors {
   AppColors._();
   static const List<Color> productBgGradiant = [
-    Color.fromARGB(255, 238, 238, 238),
+    Color.fromARGB(255, 230, 230, 230),
     Color.fromARGB(255, 255, 255, 255)
   ];
   static const List<Color> catClassicColors = [
