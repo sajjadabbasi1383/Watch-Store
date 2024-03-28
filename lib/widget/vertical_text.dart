@@ -7,7 +7,10 @@ import '../gen/assets.gen.dart';
 import '../res/dimens.dart';
 
 class VerticalText extends StatelessWidget {
-  const VerticalText({super.key});
+  const VerticalText({required this.title,required this.textStyle,super.key});
+
+  final String title;
+  final TextStyle textStyle;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +29,7 @@ class VerticalText extends StatelessWidget {
               ],
             ),
             AppDimens.small.height,
-            const Text("شگفت انگیز",style: AppTextStyles.amazing,)
+            Text(title,style: textStyle,)
           ],
         ),
       ),

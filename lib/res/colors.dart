@@ -44,6 +44,8 @@ class AppColors {
   static const Color btmNavActiveItem = Color.fromARGB(255, 0, 0, 0);
   static const Color btmNavInActiveItem = Color.fromARGB(255, 170, 170, 170);
   static const Color amazingColor = Color.fromARGB(255, 57, 24, 80);
+  static const Color bestSellersColor = Color.fromARGB(255, 207, 39, 85);
+  static const Color newestColor = Color.fromARGB(255, 119, 119, 119);
   static const Color success = Colors.green;
   static const Color onSuccess = Colors.white;
 }

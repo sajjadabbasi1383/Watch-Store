@@ -125,11 +125,25 @@ class AppTextStyles{
       color: AppColors.primaryColor
   );
 
-  static const TextStyle amazing=TextStyle(
+  static const TextStyle amazingProducts=TextStyle(
       fontFamily: FontFamily.dana,
       fontSize: 24,
       fontWeight: FontWeight.w700,
       color: AppColors.amazingColor
+  );
+
+  static const TextStyle bestSellersProducts=TextStyle(
+      fontFamily: FontFamily.dana,
+      fontSize: 24,
+      fontWeight: FontWeight.w700,
+      color: AppColors.bestSellersColor
+  );
+
+  static const TextStyle newestProducts=TextStyle(
+      fontFamily: FontFamily.dana,
+      fontSize: 24,
+      fontWeight: FontWeight.w700,
+      color: AppColors.newestColor
   );
 
 }
