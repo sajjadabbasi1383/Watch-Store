@@ -5,6 +5,8 @@ import 'package:watch_store/screens/mainscreen/home_screen.dart';
 import 'package:watch_store/screens/mainscreen/profile_screen.dart';
 import 'package:watch_store/widget/btm_nav_item.dart';
 
+import '../../widget/btm_nav_cart_item.dart';
+
 class BtmNavScreenIndex {
   BtmNavScreenIndex._();
 
@@ -101,10 +103,11 @@ class _MainScreenState extends State<MainScreen> {
                           isActive: selectedIndex == BtmNavScreenIndex.profile,
                           onTap: () =>
                               btmNavOnPressed(BtmNavScreenIndex.profile)),
-                      BtmNavItem(
+                      BtmNavCartItem(
                           iconPath: Assets.svg.cart.path,
                           text: "سبد خرید",
                           isActive: selectedIndex == BtmNavScreenIndex.cart,
+                          count: 2,
                           onTap: () => btmNavOnPressed(BtmNavScreenIndex.cart)),
                       BtmNavItem(
                           iconPath: Assets.svg.home.path,
