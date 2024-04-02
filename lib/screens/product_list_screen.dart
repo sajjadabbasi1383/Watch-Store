@@ -7,6 +7,7 @@ import '../component/text_style.dart';
 import '../res/colors.dart';
 import '../res/dimens.dart';
 import '../res/strings.dart';
+import '../widget/product_item.dart';
 
 class ProductListScreen extends StatelessWidget {
   const ProductListScreen({super.key});
@@ -142,4 +143,20 @@ class TagList extends StatelessWidget {
   }
 }
 
+class ProductGridView extends StatelessWidget {
+  const ProductGridView({super.key});
 
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+        child: GridView.builder(
+          itemCount: 20,
+            physics: const BouncingScrollPhysics(),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                mainAxisSpacing: 2,
+                crossAxisSpacing: 2,
+                childAspectRatio: 0.66),
+            itemBuilder: (context, index) => ProductItem(productName: "ساعت مردانه", price: "${69000.separateWithComma} تومان",discount: 20,oldPrice: 122000.separateWithComma,timer: "09:26:38"),));
+  }
+}
