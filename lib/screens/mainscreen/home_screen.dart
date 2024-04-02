@@ -73,7 +73,7 @@ class HomeScreen extends StatelessWidget {
               ],
             ),
           ),
-          AppDimens.medium.height,
+          AppDimens.small.height,
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             physics: const BouncingScrollPhysics(),
@@ -94,7 +94,8 @@ class HomeScreen extends StatelessWidget {
               ],
             ),
           ),
-          AppDimens.medium.height,
+
+          AppDimens.small.height,
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             physics: const BouncingScrollPhysics(),
