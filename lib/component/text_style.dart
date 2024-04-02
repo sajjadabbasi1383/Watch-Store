@@ -146,4 +146,12 @@ class AppTextStyles{
       color: AppColors.newestColor
   );
 
+  static const TextStyle tagTitle=TextStyle(
+      fontFamily: FontFamily.dana,
+      fontSize: 13,
+      fontWeight: FontWeight.w500,
+      color: Colors.white
+  );
+
+
 }

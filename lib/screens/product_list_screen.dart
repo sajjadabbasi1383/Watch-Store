@@ -16,56 +16,55 @@ class ProductListScreen extends StatelessWidget {
     Size size = MediaQuery.sizeOf(context);
     return SafeArea(
         child: Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size(size.width, size.height * .07),
-        child: Container(
-          height: size.height * .07,
-          decoration: const BoxDecoration(
-              color: AppColors.appbar,
-              boxShadow: [
-                BoxShadow(
-                    color: AppColors.shadow,
-                    offset: Offset(0, 2),
-                    blurRadius: 3)
-              ],
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(AppDimens.medium),
-                bottomRight: Radius.circular(AppDimens.medium),
-              )),
-          child: Padding(
-            padding: const EdgeInsets.only(
-                left: AppDimens.medium, right: AppDimens.medium),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const CartBadge(count: 2),
-                Row(
-                  children: [
-                    const Text(
-                      "پرفروش ترین ها",
-                      style: AppTextStyles.avatarText,
-                    ),
-                    AppDimens.small.width,
-                    SvgPicture.asset(
-                      Assets.svg.sort.path,
-                      height: 27,
-                    ),
-                  ],
+            appBar: PreferredSize(
+              preferredSize: Size(size.width, size.height * .07),
+              child: Container(
+                height: size.height * .07,
+                decoration: const BoxDecoration(
+                    color: AppColors.appbar,
+                    boxShadow: [
+                      BoxShadow(
+                          color: AppColors.shadow,
+                          offset: Offset(0, 2),
+                          blurRadius: 3)
+                    ],
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(AppDimens.medium),
+                      bottomRight: Radius.circular(AppDimens.medium),
+                    )),
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                      left: AppDimens.medium, right: AppDimens.medium),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const CartBadge(count: 2),
+                      Row(
+                        children: [
+                          const Text(
+                            "پرفروش ترین ها",
+                            style: AppTextStyles.avatarText,
+                          ),
+                          AppDimens.small.width,
+                          SvgPicture.asset(
+                            Assets.svg.sort.path,
+                            height: 27,
+                          ),
+                        ],
+                      ),
+                      IconButton(
+                        onPressed: () {},
+                        icon: SvgPicture.asset(Assets.svg.close.path),
+                        splashRadius: 0.1,
+                      )
+                    ],
+                  ),
                 ),
-                IconButton(
-                  onPressed: () {},
-                  icon: SvgPicture.asset(Assets.svg.close.path),
-                  splashRadius: 0.1,
-                )
-              ],
+              ),
             ),
-          ),
-        ),
-      ),
-      body: const Center(
-        child: Text("لیست محصولات"),
-      ),
-    ));
+            body: const Column(
+              children: [TagList(), ProductGridView()],
+            )));
   }
 }
 
@@ -105,3 +104,42 @@ class CartBadge extends StatelessWidget {
     );
   }
 }
+
+class TagList extends StatelessWidget {
+  const TagList({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: AppDimens.medium),
+      child: SizedBox(
+        height: 27,
+        child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemCount: 8,
+          reverse: true,
+          itemBuilder: (context, index) {
+            return Container(
+              margin:
+                  const EdgeInsets.symmetric(horizontal: AppDimens.small * .6),
+              padding: const EdgeInsets.symmetric(
+                horizontal: AppDimens.small,
+              ),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(AppDimens.medium),
+                  color: AppColors.primaryColor),
+              child: const Center(
+                child: Text(
+                  "نیوفورس",
+                  style: AppTextStyles.tagTitle,
+                ),
+              ),
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
+
+
