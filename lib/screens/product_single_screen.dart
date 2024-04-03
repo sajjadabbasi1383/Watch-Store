@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:watch_store/component/extension.dart';
 import 'package:watch_store/component/text_style.dart';
 import 'package:watch_store/gen/assets.gen.dart';
+import 'package:watch_store/res/colors.dart';
 import 'package:watch_store/res/dimens.dart';
 import 'package:watch_store/res/strings.dart';
 import 'package:watch_store/widget/app_bar.dart';
@@ -84,9 +85,18 @@ class ProductSingleScreen extends StatelessWidget {
             left: 0,
             child: Container(
               width: double.infinity,
-              height: 71,
+              height: 72,
               padding: const EdgeInsets.all(AppDimens.medium),
-              color: Colors.white,
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: AppColors.shadow,
+                    offset: Offset(0,-2),
+                    blurRadius: 20
+                  )
+                ]
+              ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -105,7 +115,7 @@ class ProductSingleScreen extends StatelessWidget {
                             visible: 20 > 0,
                             child: Container(
                               padding:
-                                  const EdgeInsets.all(AppDimens.small * .2),
+                                  const EdgeInsets.all(AppDimens.small * .31),
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(13),
                                   color: Colors.red),
