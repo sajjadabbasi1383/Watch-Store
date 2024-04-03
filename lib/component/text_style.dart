@@ -19,11 +19,32 @@ class AppTextStyles{
       color: AppColors.title
   );
 
+  static const TextStyle selectedTab=TextStyle(
+      fontFamily: FontFamily.dana,
+      fontSize: 14,
+      fontWeight: FontWeight.w300,
+      color: AppColors.title
+  );
+
+  static TextStyle unSelectedTab=TextStyle(
+      fontFamily: FontFamily.dana,
+      fontSize: 14,
+      fontWeight: FontWeight.w300,
+      color: AppColors.title.withAlpha(125)
+  );
+
   static const TextStyle productTitle=TextStyle(
       fontFamily: FontFamily.dana,
       fontSize: 15,
       fontWeight: FontWeight.w500,
       color: AppColors.title
+  );
+
+  static TextStyle productCaption=TextStyle(
+      fontFamily: FontFamily.dana,
+      fontSize: 14,
+      fontWeight: FontWeight.w300,
+      color: AppColors.title.withAlpha(150)
   );
 
   static const TextStyle textFieldStyle=TextStyle(
