@@ -11,13 +11,100 @@ class ProductSingleScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(child: Scaffold(
-      body: Container(
-        height: double.infinity,
-        width: double.infinity,
-        color: Colors.white,
-        child: Center(child: Text("جزییات محصول"),),
+    return SafeArea(
+        child: Scaffold(
+            body: SafeArea(
+                child: Scaffold(
+      appBar: CustomAppBar(
+        child: Row(
+          children: [
+            const CartBadge(
+              count: 2,
+            ),
+            const Expanded(
+                child: Text(
+              "مسواک بنسر مدل اکسترا",
+              style: AppTextStyles.catTitle,
+              textDirection: TextDirection.rtl,
+            )),
+            IconButton(
+                onPressed: () {}, icon: SvgPicture.asset(Assets.svg.close.path))
+          ],
+        ),
       ),
-    ));
+      body: Column(
+        children: [
+          Image.asset(
+            Assets.png.unnamed.path,
+            fit: BoxFit.cover,
+            width: double.infinity,
+          ),
+          Container(
+            margin: const EdgeInsets.all(AppDimens.medium),
+            padding: const EdgeInsets.all(AppDimens.medium),
+            width: double.infinity,
+            decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(AppDimens.medium)),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                const Text(
+                  "بنسر",
+                  style: AppTextStyles.productTitle,
+                  textDirection: TextDirection.rtl,
+                ),
+                Text(
+                  "مسواک بنسر مدل اکسترا با برس متوسط",
+                  style: AppTextStyles.productCaption,
+                  textDirection: TextDirection.rtl,
+                ),
+                const Divider(),
+                const ProductTabView()
+              ],
+            ),
+          ),
+        ],
+      ),
+    ))));
+  }
+}
+
+class ProductTabView extends StatefulWidget {
+  const ProductTabView({super.key});
+
+  @override
+  State<ProductTabView> createState() => _ProductTabViewState();
+}
+
+class _ProductTabViewState extends State<ProductTabView> {
+  var selectedTab = 2;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: MediaQuery.sizeOf(context).width,
+      height: 50,
+      child: ListView.builder(
+        itemCount: tabs.length,
+        scrollDirection: Axis.horizontal,
+        itemExtent: MediaQuery.sizeOf(context).width / 3,
+        physics: const NeverScrollableScrollPhysics(),
+        itemBuilder: (context, index) {
+          return GestureDetector(
+            onTap: () => setState(() => selectedTab = index),
+            child: Container(
+              padding: const EdgeInsets.all(AppDimens.medium),
+              child: Text(
+                tabs[index],
+                style: index == selectedTab
+                    ? AppTextStyles.selectedTab
+                    : AppTextStyles.unSelectedTab,
+              ),
+            ),
+          );
+        },
+      ),
+    );
   }
 }
