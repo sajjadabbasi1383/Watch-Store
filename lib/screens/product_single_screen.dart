@@ -82,29 +82,37 @@ class _ProductTabViewState extends State<ProductTabView> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: MediaQuery.sizeOf(context).width,
-      height: 50,
-      child: ListView.builder(
-        itemCount: tabs.length,
-        scrollDirection: Axis.horizontal,
-        itemExtent: MediaQuery.sizeOf(context).width / 3,
-        physics: const NeverScrollableScrollPhysics(),
-        itemBuilder: (context, index) {
-          return GestureDetector(
-            onTap: () => setState(() => selectedTab = index),
-            child: Container(
-              padding: const EdgeInsets.all(AppDimens.medium),
-              child: Text(
-                tabs[index],
-                style: index == selectedTab
-                    ? AppTextStyles.selectedTab
-                    : AppTextStyles.unSelectedTab,
-              ),
-            ),
-          );
-        },
-      ),
+    return Column(
+      children: [
+        SizedBox(
+          width: MediaQuery.sizeOf(context).width,
+          height: 50,
+          child: ListView.builder(
+            itemCount: tabs.length,
+            scrollDirection: Axis.horizontal,
+            itemExtent: MediaQuery.sizeOf(context).width / 3,
+            physics: const NeverScrollableScrollPhysics(),
+            itemBuilder: (context, index) {
+              return GestureDetector(
+                onTap: () => setState(() => selectedTab = index),
+                child: Container(
+                  padding: const EdgeInsets.all(AppDimens.medium),
+                  child: Text(
+                    tabs[index],
+                    style: index == selectedTab
+                        ? AppTextStyles.selectedTab
+                        : AppTextStyles.unSelectedTab,
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+        IndexedStack(
+          index: selectedTab,
+          children: [const Comments(), const Review(), const Features()],
+        )
+      ],
     );
   }
 
