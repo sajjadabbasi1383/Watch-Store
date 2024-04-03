@@ -1,16 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:watch_store/component/extension.dart';
 import 'package:watch_store/component/text_style.dart';
 import 'package:watch_store/gen/assets.gen.dart';
 import 'package:watch_store/res/dimens.dart';
+import 'package:watch_store/res/strings.dart';
 import 'package:watch_store/widget/app_bar.dart';
 import 'package:watch_store/widget/cart_badge.dart';
+import 'package:watch_store/widget/main_button.dart';
+
+import '../component/button_style.dart';
 
 class ProductSingleScreen extends StatelessWidget {
   const ProductSingleScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.sizeOf(context);
     return SafeArea(
         child: Scaffold(
             body: SafeArea(
@@ -32,38 +38,109 @@ class ProductSingleScreen extends StatelessWidget {
           ],
         ),
       ),
-      body: Column(
+      body: Stack(
         children: [
-          Image.asset(
-            Assets.png.unnamed.path,
-            fit: BoxFit.cover,
-            width: double.infinity,
-          ),
-          Container(
-            margin: const EdgeInsets.all(AppDimens.medium),
-            padding: const EdgeInsets.all(AppDimens.medium),
-            width: double.infinity,
-            decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(AppDimens.medium)),
+          SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                const Text(
-                  "بنسر",
-                  style: AppTextStyles.productTitle,
-                  textDirection: TextDirection.rtl,
+                Image.asset(
+                  Assets.png.unnamed.path,
+                  fit: BoxFit.cover,
+                  width: double.infinity,
                 ),
-                Text(
-                  "مسواک بنسر مدل اکسترا با برس متوسط",
-                  style: AppTextStyles.productCaption,
-                  textDirection: TextDirection.rtl,
+                Container(
+                  margin: const EdgeInsets.all(AppDimens.medium),
+                  padding: const EdgeInsets.all(AppDimens.medium),
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(AppDimens.medium)),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      const Text(
+                        "بنسر",
+                        style: AppTextStyles.productTitle,
+                        textDirection: TextDirection.rtl,
+                      ),
+                      Text(
+                        "مسواک بنسر مدل اکسترا با برس متوسط",
+                        style: AppTextStyles.productCaption,
+                        textDirection: TextDirection.rtl,
+                      ),
+                      const Divider(),
+                      const ProductTabView()
+                    ],
+                  ),
                 ),
-                const Divider(),
-                const ProductTabView()
+                65.height
               ],
             ),
           ),
+          Positioned(
+            bottom: 0,
+            right: 0,
+            left: 0,
+            child: Container(
+              width: double.infinity,
+              height: 71,
+              padding: const EdgeInsets.all(AppDimens.medium),
+              color: Colors.white,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Text(
+                            "${69000.separateWithComma} تومان",
+                            textDirection: TextDirection.rtl,
+                            style: AppTextStyles.productPrice,
+                          ),
+                          AppDimens.small.width,
+                          Visibility(
+                            visible: 20 > 0,
+                            child: Container(
+                              padding:
+                                  const EdgeInsets.all(AppDimens.small * .2),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(13),
+                                  color: Colors.red),
+                              child: const Text(
+                                "20%",
+                                style: AppTextStyles.discount,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Visibility(
+                          visible: 20 > 0,
+                          child: Text(
+                            122000.separateWithComma,
+                            style: AppTextStyles.oldPrice,
+                          )),
+                    ],
+                  ),
+                  SizedBox(
+                    height: size.height * .055,
+                    width: size.width * .4,
+                    child: ElevatedButton(
+                      style: AppButtonStyle.mainButtonStyle,
+                      onPressed: () {},
+                      child: const Text(
+                        "افزودن به سبد خرید",
+                        style: AppTextStyles.mainButton,
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          )
         ],
       ),
     ))));
