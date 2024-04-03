@@ -47,6 +47,13 @@ class AppTextStyles{
       color: AppColors.title.withAlpha(150)
   );
 
+  static TextStyle productDetail=TextStyle(
+      fontFamily: FontFamily.dana,
+      fontSize: 15,
+      fontWeight: FontWeight.w300,
+      color: AppColors.title.withAlpha(190)
+  );
+
   static const TextStyle textFieldStyle=TextStyle(
       fontFamily: FontFamily.dana,
       fontSize: 14,
@@ -134,7 +141,7 @@ class AppTextStyles{
 
   static const TextStyle discount=TextStyle(
       fontFamily: FontFamily.dana,
-      fontSize: 14,
+      fontSize: 13,
       fontWeight: FontWeight.w500,
       color: AppColors.mainButtonText
   );

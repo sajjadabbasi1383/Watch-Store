@@ -107,4 +107,52 @@ class _ProductTabViewState extends State<ProductTabView> {
       ),
     );
   }
+
+  List<String> tabs = [
+    "نظرات",
+    "نقد وبررسی",
+    "خصوصیات",
+  ];
+}
+
+class Features extends StatelessWidget {
+  const Features({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      AppStrings.lurem,
+      textDirection: TextDirection.rtl,
+      textAlign: TextAlign.justify,
+      style: AppTextStyles.productDetail,
+    );
+  }
+}
+
+class Review extends StatelessWidget {
+  const Review({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(
+        child: Text(
+      "برای این محصول هیچ نقد و بررسی ثبت نشده است!",
+      textDirection: TextDirection.rtl,
+      style: AppTextStyles.appBarText,
+    ));
+  }
+}
+
+class Comments extends StatelessWidget {
+  const Comments({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(
+        child: Text(
+      "برای این محصول هیچ نظری ثبت شده است!",
+      textDirection: TextDirection.rtl,
+      style: AppTextStyles.appBarText,
+    ));
+  }
 }
