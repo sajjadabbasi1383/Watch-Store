@@ -8,7 +8,6 @@ import 'package:watch_store/widget/surface_container.dart';
 import '../../component/text_style.dart';
 import '../../res/strings.dart';
 import '../../widget/app_bar.dart';
-import '../product_single_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -147,7 +146,46 @@ class ProfileScreen extends StatelessWidget {
                     textAlign: TextAlign.right,
                     style: AppTextStyles.selectedTab,
                   )),
-
+                  SurfaceContainer(
+                    child: Padding(
+                      padding: const EdgeInsets.all(AppDimens.medium),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            children: [
+                              SvgPicture.asset(Assets.svg.delivered.path),
+                              AppDimens.small.height,
+                              const Text(
+                                AppStrings.delivered,
+                                style: AppTextStyles.avatarText,
+                              )
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              SvgPicture.asset(Assets.svg.cancelled.path),
+                              AppDimens.small.height,
+                              const Text(
+                                AppStrings.cancelled,
+                                style: AppTextStyles.avatarText,
+                              )
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              SvgPicture.asset(Assets.svg.inProccess.path),
+                              AppDimens.small.height,
+                              const Text(
+                                AppStrings.inProccess,
+                                style: AppTextStyles.avatarText,
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
