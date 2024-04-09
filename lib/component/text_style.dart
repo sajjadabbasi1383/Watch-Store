@@ -35,8 +35,8 @@ class AppTextStyles{
 
   static const TextStyle productTitle=TextStyle(
       fontFamily: FontFamily.dana,
-      fontSize: 15,
-      fontWeight: FontWeight.w500,
+      fontSize: 14,
+      fontWeight: FontWeight.w300,
       color: AppColors.title
   );
 
@@ -134,7 +134,7 @@ class AppTextStyles{
 
   static const TextStyle productPrice=TextStyle(
       fontFamily: FontFamily.dana,
-      fontSize: 15,
+      fontSize: 14,
       fontWeight: FontWeight.w300,
       color: AppColors.title
   );
