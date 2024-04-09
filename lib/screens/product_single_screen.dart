@@ -8,8 +8,6 @@ import 'package:watch_store/res/dimens.dart';
 import 'package:watch_store/res/strings.dart';
 import 'package:watch_store/widget/app_bar.dart';
 import 'package:watch_store/widget/cart_badge.dart';
-import 'package:watch_store/widget/main_button.dart';
-
 import '../component/button_style.dart';
 
 class ProductSingleScreen extends StatelessWidget {

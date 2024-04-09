@@ -46,6 +46,7 @@ class AppStrings {
   static const String continueToPurchase = "مجموع  $replace تومان";
   static const String userProfile = "پروفایل کاربر";
   static const String activeAddress = "آدرس فعال";
+  static const String fakeAddress = "خراسان رضوی، مشهد، بلوار خیام، بلوار شهید شکری، شکری 3";
   static const String termOfService = "قوانین و مقررات";
   static const String inProccess = "درحال پردازش";
   static const String cancelled = "لغو شده";
