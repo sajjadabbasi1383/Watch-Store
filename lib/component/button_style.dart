@@ -10,4 +10,10 @@ class AppButtonStyle {
           const MaterialStatePropertyAll<Color>(AppColors.primaryColor),
       shape: MaterialStatePropertyAll(RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(AppDimens.medium))));
+
+  static ButtonStyle continueShoppingButtonStyle = ButtonStyle(
+      backgroundColor:
+      const MaterialStatePropertyAll<Color>(AppColors.continueShopping),
+      shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(AppDimens.medium))));
 }
