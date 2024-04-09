@@ -7,6 +7,8 @@ import 'package:watch_store/res/dimens.dart';
 import 'package:watch_store/res/strings.dart';
 import 'package:watch_store/widget/app_bar.dart';
 
+import '../../widget/shopping_cart_item.dart';
+
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
 
@@ -14,60 +16,76 @@ class CartScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.sizeOf(context);
     return SafeArea(
-        child: Scaffold(
-            appBar: const CustomAppBar(
-                child: Align(
-              alignment: Alignment.centerRight,
-              child: Text(
-                AppStrings.basket,
-                style: AppTextStyles.avatarText,
-              ),
-            )),
-            body: SingleChildScrollView(
-              child: Column(
+      child: Scaffold(
+        appBar: const CustomAppBar(
+            child: Align(
+          alignment: Alignment.centerRight,
+          child: Text(
+            AppStrings.basket,
+            style: AppTextStyles.appBarText,
+          ),
+        )),
+        body: Column(
+          children: [
+            Container(
+              height: size.height * .105,
+              width: double.infinity,
+              margin: const EdgeInsets.only(
+                  top: AppDimens.medium, bottom: AppDimens.small),
+              padding: const EdgeInsets.all(AppDimens.medium),
+              decoration: const BoxDecoration(color: Colors.white, boxShadow: [
+                BoxShadow(
+                    color: AppColors.shadow,
+                    offset: Offset(0, 2),
+                    blurRadius: 4)
+              ]),
+              child: Row(
                 children: [
-                  Container(
-                    height: size.height * .105,
-                    width: double.infinity,
-                    margin: const EdgeInsets.only(top: AppDimens.large),
-                    padding: const EdgeInsets.all(AppDimens.medium),
-                    decoration: const BoxDecoration(
-                        color: Colors.white,
-                        boxShadow: [
-                          BoxShadow(
-                              color: AppColors.shadow,
-                              offset: Offset(0, 2),
-                              blurRadius: 4)
-                        ]),
-                    child: Row(
+                  IconButton(
+                      onPressed: () {},
+                      icon: SvgPicture.asset(Assets.svg.leftArrow.path)),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        IconButton(
-                            onPressed: () {},
-                            icon: SvgPicture.asset(Assets.svg.leftArrow.path)),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                AppStrings.sendToAddress,
-                                style: AppTextStyles.productCaption,
-                              ),
-                              Text(
-                                AppStrings.fakeAddress,
-                                style: AppTextStyles.productCaption,
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                textDirection: TextDirection.rtl,
-                              ),
-                            ],
-                          ),
-                        )
+                        Text(
+                          AppStrings.sendToAddress,
+                          style: AppTextStyles.productCaption,
+                        ),
+                        Text(
+                          AppStrings.fakeAddress,
+                          style: AppTextStyles.avatarText,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          textDirection: TextDirection.rtl,
+                        ),
                       ],
                     ),
                   ),
                 ],
               ),
-            )));
+            ),
+            Expanded(
+                child: ListView.builder(
+              physics: const BouncingScrollPhysics(),
+              itemCount: 2,
+              itemBuilder: (context, index) {
+                return ShoppingCartItem(
+                  productTitle: "ساعت شیائومی mi Watch lite",
+                  price: 60000,
+                  oldPrice: 50000,
+                );
+              },
+            )),
+            Container(
+              height: 60,
+              width: double.infinity,
+              color: Colors.blueGrey,
+            )
+          ],
+        ),
+      ),
+    );
   }
 }
