@@ -46,7 +46,7 @@ class ProductSingleScreen extends StatelessWidget {
                 Image.asset(
                   Assets.png.unnamed.path,
                   fit: BoxFit.cover,
-                  width: double.infinity,
+                  height: size.height*.3,
                 ),
                 Container(
                   margin: const EdgeInsets.all(AppDimens.medium),
@@ -118,7 +118,7 @@ class ProductSingleScreen extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(13),
                                   color: Colors.red),
                               child: const Text(
-                                "20%",
+                                " 20 % ",
                                 style: AppTextStyles.discount,
                               ),
                             ),
@@ -144,7 +144,7 @@ class ProductSingleScreen extends StatelessWidget {
                         style: AppTextStyles.mainButton,
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
@@ -195,7 +195,7 @@ class _ProductTabViewState extends State<ProductTabView> {
         ),
         IndexedStack(
           index: selectedTab,
-          children: [const Comments(), const Review(), const Features()],
+          children: const [Comments(), Review(), Features()],
         )
       ],
     );

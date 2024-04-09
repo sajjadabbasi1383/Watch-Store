@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:watch_store/gen/assets.gen.dart';
+import 'package:watch_store/res/colors.dart';
 import 'package:watch_store/screens/mainscreen/cart_screen.dart';
 import 'package:watch_store/screens/mainscreen/home_screen.dart';
 import 'package:watch_store/screens/mainscreen/profile_screen.dart';
@@ -92,7 +93,15 @@ class _MainScreenState extends State<MainScreen> {
                 left: 0,
                 child: Container(
                   height: btmNavHeight,
-                  color: Colors.white,
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                            color: AppColors.shadow,
+                            blurRadius: 10
+                        )
+                      ]
+                  ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     crossAxisAlignment: CrossAxisAlignment.center,
