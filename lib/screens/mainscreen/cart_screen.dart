@@ -7,6 +7,7 @@ import 'package:watch_store/res/dimens.dart';
 import 'package:watch_store/res/strings.dart';
 import 'package:watch_store/widget/app_bar.dart';
 
+import '../../component/button_style.dart';
 import '../../widget/shopping_cart_item.dart';
 
 class CartScreen extends StatelessWidget {
@@ -53,7 +54,7 @@ class CartScreen extends StatelessWidget {
                           AppStrings.sendToAddress,
                           style: AppTextStyles.productCaption,
                         ),
-                        Text(
+                        const Text(
                           AppStrings.fakeAddress,
                           style: AppTextStyles.avatarText,
                           maxLines: 1,
@@ -69,9 +70,10 @@ class CartScreen extends StatelessWidget {
             Expanded(
                 child: ListView.builder(
               physics: const BouncingScrollPhysics(),
-              itemCount: 2,
+              padding: const EdgeInsets.only(bottom: AppDimens.large),
+              itemCount: 3,
               itemBuilder: (context, index) {
-                return ShoppingCartItem(
+                return const ShoppingCartItem(
                   productTitle: "ساعت شیائومی mi Watch lite",
                   price: 60000,
                   oldPrice: 50000,
@@ -81,7 +83,33 @@ class CartScreen extends StatelessWidget {
             Container(
               height: 60,
               width: double.infinity,
-              color: Colors.blueGrey,
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: AppColors.shadow,
+                    blurRadius: 10
+                  )
+                ]
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  const Text("مجموع  63,500 تومان",style: AppTextStyles.productPrice,),
+                  SizedBox(
+                    height: size.height * .052,
+                    width: size.width * .38,
+                    child: ElevatedButton(
+                      style: AppButtonStyle.continueShoppingButtonStyle,
+                      onPressed: () {},
+                      child: const Text(
+                        "ادامه فرآیند خرید",
+                        style: AppTextStyles.mainButton,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             )
           ],
         ),

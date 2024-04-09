@@ -35,6 +35,7 @@ class AppColors {
   static const Color borderColor = Colors.grey;
   static const Color focusedBorderColor = Color.fromARGB(255, 0, 117, 251);
   static const Color primaryColor = Color.fromARGB(255, 0, 117, 251);
+  static const Color continueShopping = Color.fromARGB(255, 255, 97, 97);
   static const Color loadingColor = Color.fromARGB(255, 23, 24, 87);
   static const Color surfaceColor = Color.fromARGB(255, 243, 243, 243);
   static const Color focusedTextField = Colors.white;
