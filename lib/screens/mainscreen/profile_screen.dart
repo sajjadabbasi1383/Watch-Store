@@ -71,6 +71,83 @@ class ProfileScreen extends StatelessWidget {
                         ],
                       )),
                   const Divider(),
+                  AppDimens.small.height,
+                  Padding(
+                    padding:
+                        const EdgeInsets.symmetric(vertical: AppDimens.small),
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: Row(
+                        children: [
+                          const Expanded(
+                            child: Text(
+                              "5041721046965523",
+                              textAlign: TextAlign.right,
+                              style: AppTextStyles.selectedTab,
+                            ),
+                          ),
+                          AppDimens.small.width,
+                          SvgPicture.asset(
+                            Assets.svg.postalCode.path,
+                            height: 24,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding:
+                        const EdgeInsets.symmetric(vertical: AppDimens.small),
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: Row(
+                        children: [
+                          const Expanded(
+                            child: Text(
+                              "09112223344",
+                              textAlign: TextAlign.right,
+                              style: AppTextStyles.selectedTab,
+                            ),
+                          ),
+                          AppDimens.small.width,
+                          SvgPicture.asset(
+                            Assets.svg.phone.path,
+                            height: 24,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding:
+                        const EdgeInsets.symmetric(vertical: AppDimens.small),
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: Row(
+                        children: [
+                          const Expanded(
+                            child: Text(
+                              "سجاد عباسی",
+                              textAlign: TextAlign.right,
+                              style: AppTextStyles.selectedTab,
+                            ),
+                          ),
+                          AppDimens.small.width,
+                          SvgPicture.asset(
+                            Assets.svg.userMenu.path,
+                            height: 24,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  const SurfaceContainer(
+                      child: Text(
+                    "قوانین و مقررات",
+                    textAlign: TextAlign.right,
+                    style: AppTextStyles.selectedTab,
+                  )),
+
                 ],
               ),
             ),
