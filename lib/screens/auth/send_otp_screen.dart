@@ -31,7 +31,7 @@ class SendOtpScreen extends StatelessWidget {
                 align: TextAlign.center),
             MainButton(
               text: AppStrings.sendOtpCode,
-              onPressed: () => Navigator.pushNamed(context, ScreenNames.getOtpScreen),
+              onPressed: () => Navigator.pushNamed(context, ScreenNames.verifyCodeScreen),
             )
           ],
         ),

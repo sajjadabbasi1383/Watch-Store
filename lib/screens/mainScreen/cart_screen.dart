@@ -71,7 +71,7 @@ class CartScreen extends StatelessWidget {
                 child: ListView.builder(
               physics: const BouncingScrollPhysics(),
               padding: const EdgeInsets.only(bottom: AppDimens.large),
-              itemCount: 3,
+              itemCount: 2,
               itemBuilder: (context, index) {
                 return const ShoppingCartItem(
                   productTitle: "ساعت شیائومی mi Watch lite",
