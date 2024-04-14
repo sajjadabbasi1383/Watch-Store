@@ -7,7 +7,9 @@ import 'package:watch_store/data/src/api_constant.dart';
 part 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
-  AuthCubit() : super(AuthInitial());
+  AuthCubit() : super(AuthInitial()){
+    emit(LoggedInState());
+  }
 
   Dio _dio = Dio();
 
