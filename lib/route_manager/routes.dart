@@ -13,8 +13,8 @@ import '../screens/auth/verify_code_screen.dart';
 
 Map<String,Widget Function(BuildContext)> routes={
 
-  //ScreenNames.root:(context) => const SplashScreen(),
-  ScreenNames.root:(context) =>  SendOtpScreen(),
+  ScreenNames.root:(context) => const SplashScreen(),
+  // ScreenNames.root:(context) =>  SendOtpScreen(),
   ScreenNames.verifyCodeScreen:(context) => VerifyCodeScreen(),
   ScreenNames.sendOtpScreen:(context) => SendOtpScreen(),
   ScreenNames.registerScreen:(context) => RegisterScreen(),
