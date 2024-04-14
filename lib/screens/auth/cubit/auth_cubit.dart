@@ -27,4 +27,20 @@ class AuthCubit extends Cubit<AuthState> {
       emit(ErrorState());
     }
   }
+  verifyCode(String mobile,String code) async {
+    emit(LoadingState());
+    try {
+      await _dio
+          .post(ApiConstant.checkSmsCode, data: {"mobile": mobile,"code":code}).then((value) {
+        debugPrint(value.toString());
+        if (value.statusCode == 201) {
+          emit(VerifiedState());
+        } else {
+          emit(ErrorState());
+        }
+      });
+    } catch (e) {
+      emit(ErrorState());
+    }
+  }
 }
