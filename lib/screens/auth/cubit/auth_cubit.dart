@@ -7,7 +7,7 @@ import 'package:watch_store/data/src/api_constant.dart';
 part 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
-  AuthCubit() : super(AuthInitial()){
+  AuthCubit() : super(AuthInitial()) {
     emit(LoggedOutState());
   }
 
@@ -29,17 +29,24 @@ class AuthCubit extends Cubit<AuthState> {
       emit(ErrorState());
     }
   }
-  verifyCode(String mobile,String code) async {
+
+  verifyCode(String mobile, String code) async {
     emit(LoadingState());
     try {
-      await _dio
-          .post(ApiConstant.checkSmsCode, data: {"mobile": mobile,"code":code}).then((value) {
+      await _dio.post(ApiConstant.checkSmsCode,
+          data: {"mobile": mobile, "code": code}).then((value) {
         debugPrint(value.toString());
         if (value.statusCode == 201) {
-          emit(VerifiedState());
+
+          emit(VerifiedNotRegisterState());
+
+        } else if (value.statusCode == 200) {
+
+          emit(VerifiedIsRegisterState());
+
         } else {
-          emit(ErrorState());
-        }
+           emit(ErrorState());
+         }
       });
     } catch (e) {
       emit(ErrorState());
