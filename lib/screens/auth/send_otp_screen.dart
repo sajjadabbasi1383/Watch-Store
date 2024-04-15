@@ -48,7 +48,19 @@ class SendOtpScreen extends StatelessWidget {
                     }
                   },
                   builder: (context, state) {
-
+                    if(state is LoadingState){
+                      return const SpinKitFadingCircle(
+                        color: AppColors.loadingColor,
+                        size: 40,
+                      );
+                    }else{
+                      return MainButton(
+                        text: AppStrings.sendOtpCode,
+                        onPressed: () {
+                          BlocProvider.of<AuthCubit>(context).sendSms(_controller.text);
+                        },
+                      );
+                    }
                   },
                 )
 
