@@ -15,6 +15,7 @@ class VerifyCodeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final mobileRoutArg = ModalRoute.of(context)!.settings.arguments as String;
     return SafeArea(
         child: Scaffold(
       body: SizedBox(
@@ -25,10 +26,16 @@ class VerifyCodeScreen extends StatelessWidget {
           children: [
             Image.asset(Assets.png.mainLogo.path),
             AppDimens.large.height,
-            Text(AppStrings.otpCodeSendFor
-                .replaceAll(AppStrings.replace, "092236576531"),style: AppTextStyles.avatarText,),
+            Text(
+              AppStrings.otpCodeSendFor
+                  .replaceAll(AppStrings.replace, mobileRoutArg),
+              style: AppTextStyles.avatarText,
+            ),
             AppDimens.small.height,
-            const Text(AppStrings.wrongNumberEditNumber,style: AppTextStyles.primaryStyle,),
+            const Text(
+              AppStrings.wrongNumberEditNumber,
+              style: AppTextStyles.primaryStyle,
+            ),
             AppDimens.large.height,
             AppTextField(
               lable: AppStrings.enterVerificationCode,
@@ -39,7 +46,8 @@ class VerifyCodeScreen extends StatelessWidget {
             ),
             MainButton(
               text: AppStrings.next,
-              onPressed: () => Navigator.pushNamed(context, ScreenNames.registerScreen),
+              onPressed: () =>
+                  Navigator.pushNamed(context, ScreenNames.registerScreen),
             )
           ],
         ),
