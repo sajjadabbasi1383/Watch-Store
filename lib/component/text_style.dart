@@ -181,5 +181,12 @@ class AppTextStyles{
       color: Colors.white
   );
 
+  static const TextStyle loadingText=TextStyle(
+      fontFamily: FontFamily.dana,
+      fontSize: 15,
+      fontWeight: FontWeight.w300,
+      color: AppColors.loadingColor
+  );
+
 
 }

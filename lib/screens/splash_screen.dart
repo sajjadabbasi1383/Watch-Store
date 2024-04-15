@@ -4,9 +4,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:watch_store/component/extension.dart';
 import 'package:watch_store/component/text_style.dart';
 import 'package:watch_store/gen/assets.gen.dart';
 import 'package:watch_store/res/colors.dart';
+import 'package:watch_store/res/dimens.dart';
 import 'package:watch_store/route_manager/screen_names.dart';
 import 'package:watch_store/screens/auth/cubit/auth_cubit.dart';
 
@@ -49,13 +51,21 @@ class _SplashScreenState extends State<SplashScreen> {
                         ),
                       ],
                     ),
-                    const Positioned(
+                    Positioned(
                       bottom: 40,
                       right: 0,
                       left: 0,
-                      child: SpinKitThreeBounce(
-                        color: AppColors.loadingColor,
-                        size: 30,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          const SpinKitThreeBounce(
+                            color: AppColors.loadingColor,
+                            size: 30,
+                          ),
+                          AppDimens.small.height,
+                          Text("لطفا منتظر بمانید",style: AppTextStyles.loadingText,)
+                        ],
                       ),
                     ),
                   ],
