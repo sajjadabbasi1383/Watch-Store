@@ -10,7 +10,6 @@ import 'package:watch_store/res/colors.dart';
 import 'package:watch_store/route_manager/screen_names.dart';
 import 'package:watch_store/screens/auth/cubit/auth_cubit.dart';
 
-
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
@@ -32,114 +31,116 @@ class _SplashScreenState extends State<SplashScreen> {
     return SafeArea(
       child: Scaffold(
         body: Center(
-            child: isInternetAvailable
-                ? Stack(
-                    children: [
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset(
-                            Assets.png.mainLogo.path,
-                            width: 250,
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          const SizedBox(
-                            height: 30,
-                          ),
-                        ],
+          child: isInternetAvailable
+              ? Stack(
+                  children: [
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          Assets.png.mainLogo.path,
+                          width: 250,
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        const SizedBox(
+                          height: 30,
+                        ),
+                      ],
+                    ),
+                    const Positioned(
+                      bottom: 40,
+                      right: 0,
+                      left: 0,
+                      child: SpinKitThreeBounce(
+                        color: AppColors.loadingColor,
+                        size: 30,
                       ),
-                      const Positioned(
-                        bottom: 40,
-                        right: 0,
-                        left: 0,
-                        child: SpinKitThreeBounce(
-                          color: AppColors.loadingColor,
+                    ),
+                  ],
+                )
+              : Stack(
+                  children: [
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          Assets.png.mainLogo.path,
+                          width: 250,
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        const SpinKitThreeBounce(
+                          color: Color.fromRGBO(0, 0, 0, 0),
                           size: 30,
                         ),
-                      )
-                    ],
-                  )
-                : Stack(
-                    children: [
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset(
-                            Assets.png.mainLogo.path,
-                            width: 250,
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          const SpinKitThreeBounce(
-                            color: Color.fromRGBO(0, 0, 0, 0),
-                            size: 30,
-                          ),
-                        ],
-                      ),
-                      Positioned(
-                          bottom: 35,
-                          right: 0,
-                          left: 0,
-                          child: GestureDetector(
-                            onTap: () => setState(() {
-                              checkInternet();
-                            }),
-                            child: const Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  CupertinoIcons.refresh_thick,
-                                  color: Colors.red,
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Text("خطا در اتصال به سرور",
-                                    style: AppTextStyles.error)
-                              ],
+                      ],
+                    ),
+                    Positioned(
+                      bottom: 35,
+                      right: 0,
+                      left: 0,
+                      child: GestureDetector(
+                        onTap: () => setState(() {
+                          checkInternet();
+                        }),
+                        child: const Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              CupertinoIcons.refresh_thick,
+                              color: Colors.red,
                             ),
-                          ))
-                    ],
-                  )),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text("خطا در اتصال به سرور",
+                                style: AppTextStyles.error)
+                          ],
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+        ),
       ),
     );
   }
 
   checkInternet() {
     isInternetAvailable = true;
-    Future.delayed(const Duration(seconds: 4)).then((value) {
-      isInternetConnected().then((value) {
+    Future.delayed(const Duration(seconds: 3)).then((value) async {
+      try {
+        final result = await InternetAddress.lookup('google.com');
+        if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+          navigateToDesiredPage();
+          setState(() {
+            isInternetAvailable = true;
+          });
+        } else {
+          setState(() {
+            isInternetAvailable = false;
+          });
+        }
+      } on SocketException catch (_) {
         setState(() {
-          isInternetAvailable = value;
+          isInternetAvailable = false;
         });
-      });
+      }
     });
   }
-  Future<bool> isInternetConnected() async {
-    try {
-      final result = await InternetAddress.lookup('google.com');
-      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-        final state = context.read<AuthCubit>().state;
-        debugPrint(state.toString());
-        if (state is LoggedInState) {
-          await Navigator.pushReplacementNamed(context, ScreenNames.mainScreen);
-        } else if (state is LoggedOutState) {
-          await Navigator.pushReplacementNamed(context, ScreenNames.sendOtpScreen);
-        } else {
-          Navigator.pushReplacementNamed(context, ScreenNames.sendOtpScreen);
-        }
-        // Navigator.pushReplacementNamed(context, ScreenNames.sendOtpScreen);
-        return true;
-      } else {
-        return false;
-      }
-    } on SocketException catch (_) {
-      return false;
+
+  void navigateToDesiredPage() {
+    final state = context.read<AuthCubit>().state;
+    debugPrint(state.toString());
+    if (state is LoggedInState) {
+      Navigator.pushReplacementNamed(context, ScreenNames.mainScreen);
+    } else if (state is LoggedOutState) {
+      Navigator.pushReplacementNamed(context, ScreenNames.sendOtpScreen);
+    } else {
+      Navigator.pushReplacementNamed(context, ScreenNames.sendOtpScreen);
     }
   }
 }
-
-
