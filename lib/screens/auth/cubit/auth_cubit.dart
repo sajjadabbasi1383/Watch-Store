@@ -8,7 +8,7 @@ part 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
   AuthCubit() : super(AuthInitial()){
-    emit(LoggedInState());
+    emit(LoggedOutState());
   }
 
   Dio _dio = Dio();
@@ -20,7 +20,7 @@ class AuthCubit extends Cubit<AuthState> {
           .post(ApiConstant.sendSms, data: {"mobile": mobile}).then((value) {
         debugPrint(value.toString());
         if (value.statusCode == 201) {
-          emit(SentState());
+          emit(SentState(mobile: mobile));
         } else {
           emit(ErrorState());
         }
