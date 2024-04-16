@@ -7,19 +7,35 @@ import 'package:watch_store/res/dimens.dart';
 import 'package:watch_store/res/strings.dart';
 
 class Avatar extends StatelessWidget {
-  const Avatar({super.key});
+  const Avatar({super.key, required this.file, required this.onTap});
+
+  final onTap;
+  final file;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(200),
-          child: SvgPicture.asset(Assets.svg.avatar.path),
-        ),
-        AppDimens.small.height,
-        const Text(AppStrings.chooseProfileImage,style: AppTextStyles.avatarText,)
-      ],
+    Size size = MediaQuery.sizeOf(context);
+    return GestureDetector(
+      onTap: onTap,
+      child: Column(
+        children: [
+          SizedBox(
+            width: size.width * .2,
+            height: size.width * .2,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(200),
+              child: file == null
+                  ? SvgPicture.asset(Assets.svg.avatar.path)
+                  : Image.file(file),
+            ),
+          ),
+          AppDimens.small.height,
+          const Text(
+            AppStrings.chooseProfileImage,
+            style: AppTextStyles.avatarText,
+          )
+        ],
+      ),
     );
   }
 }
