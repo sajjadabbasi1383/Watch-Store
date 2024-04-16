@@ -167,14 +167,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         return MainButton(
                             text: AppStrings.register,
                             onPressed: () async {
-                              if (_formKey.currentState!.validate()) {
+                              if (imageHandler.getImage == null) {
+                                showCustomSnackBar(
+                                    context,
+                                    "لطفا تصویر پروفایل را انتخاب کنید",
+                                    5,
+                                    "error");
+                              } else if (_formKey.currentState!.validate()) {
                                 UserModel user = UserModel(
                                     name: _nameController.text,
                                     phone: _phoneController.text,
                                     postalCode: _postalController.text,
                                     address: _addressController.text,
                                     image: await MultipartFile.fromFile(
-                                        imageHandler.getImage!.path),
+                                        imageHandler.getImage!.path ?? ''),
                                     lat: lat,
                                     lng: lng);
                                 BlocProvider.of<RegisterCubit>(context)

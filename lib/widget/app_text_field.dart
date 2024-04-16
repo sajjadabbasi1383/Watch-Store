@@ -55,6 +55,7 @@ class AppTextField extends StatelessWidget {
               child: TextFormField(
                 style: AppTextStyles.textFieldStyle,
                 textAlign: align,
+                textDirection: TextDirection.ltr,
                 controller: controller,
                 keyboardType: inputType,
                 validator: (value) {
