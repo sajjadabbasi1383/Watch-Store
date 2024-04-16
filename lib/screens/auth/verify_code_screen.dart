@@ -97,11 +97,11 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen> {
             BlocConsumer<AuthCubit, AuthState>(
               listener: (context, state) {
                 _timer.cancel();
-                if (state is VerifiedIsRegisterState) {
-                  Navigator.pushReplacementNamed(
-                      context, ScreenNames.mainScreen);
+                if (state is VerifiedRegisterState) {
+                  Navigator.pushNamed(
+                      context, ScreenNames.registerScreen);
                   ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                } else if (state is VerifiedNotRegisterState) {
+                } else if (state is VerifiedRegisterState) {
                   Navigator.pushNamed(context, ScreenNames.registerScreen);
                   ScaffoldMessenger.of(context).hideCurrentSnackBar();
                 } else if (state is ErrorState) {

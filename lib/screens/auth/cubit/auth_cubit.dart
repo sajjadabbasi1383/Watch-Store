@@ -43,11 +43,11 @@ class AuthCubit extends Cubit<AuthState> {
         if (value.statusCode == 201) {
           SharedPreferencesManager().saveString(
               SharedPreferencesConstant.token, value.data["data"]["token"]);
-          emit(VerifiedNotRegisterState());
+          emit(VerifiedRegisterState());
         } else if (value.statusCode == 200) {
           SharedPreferencesManager().saveString(
               SharedPreferencesConstant.token, value.data["data"]["token"]);
-          emit(VerifiedIsRegisterState());
+          emit(VerifiedRegisterState());
         } else {
           emit(ErrorState());
         }
