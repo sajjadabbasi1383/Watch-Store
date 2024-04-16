@@ -31,5 +31,26 @@ class RegisterCubit extends Cubit<RegisterState> {
         .then((value) => emit(LocationPickedState(location: value)));
   }
 
-
+  register({required UserModel user}) async {
+    emit(LoadingState());
+    try {
+      String? token =
+          SharedPreferencesManager().getString(SharedPreferencesConstant.token);
+      _dio.options.headers['Authorization'] = "Bearer $token";
+      await _dio
+          .post(
+        ApiConstant.register,
+        data: FormData.fromMap(user.toMap()),
+      )
+          .then((value) {
+        if (value.statusCode == 201) {
+          emit(RegisteredState());
+        } else {
+          emit(ErrorState());
+        }
+      });
+    } catch (e) {
+      emit(ErrorState());
+    }
+  }
 }
