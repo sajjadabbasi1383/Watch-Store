@@ -27,7 +27,7 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen> {
   final TextEditingController _controller = TextEditingController();
 
   late Timer _timer;
-  int _start = 10;
+  int _start = 120;
 
   startTimer() {
     const oneSec = Duration(seconds: 1);
@@ -101,8 +101,7 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen> {
                       context, ScreenNames.mainScreen);
                   ScaffoldMessenger.of(context).hideCurrentSnackBar();
                 } else if (state is VerifiedNotRegisterState) {
-                  Navigator.pushReplacementNamed(
-                      context, ScreenNames.registerScreen);
+                  Navigator.pushNamed(context, ScreenNames.registerScreen);
                   ScaffoldMessenger.of(context).hideCurrentSnackBar();
                 } else if (state is ErrorState) {
                   showCustomSnackBar(
