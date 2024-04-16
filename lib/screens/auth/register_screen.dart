@@ -1,18 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:watch_store/component/extension.dart';
 import 'package:watch_store/component/text_style.dart';
 import 'package:watch_store/res/colors.dart';
 import 'package:watch_store/res/dimens.dart';
 import 'package:watch_store/res/strings.dart';
 import 'package:watch_store/route_manager/screen_names.dart';
+import 'package:watch_store/utils/image_handler.dart';
 import 'package:watch_store/widget/app_text_field.dart';
 import 'package:watch_store/widget/avatar.dart';
 import 'package:watch_store/widget/main_button.dart';
 
-class RegisterScreen extends StatelessWidget {
+class RegisterScreen extends StatefulWidget {
   RegisterScreen({super.key});
 
+  @override
+  State<RegisterScreen> createState() => _RegisterScreenState();
+}
+
+class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController _controller = TextEditingController();
+
+  ImageHandler imageHandler = ImageHandler();
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +63,11 @@ class RegisterScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               AppDimens.medium.height,
-              const Avatar(),
+              Avatar(
+                  file: imageHandler.getImage,
+                  onTap: () async => await imageHandler
+                      .pickAndCropImage(source: ImageSource.gallery)
+                      .then((value) => setState(() {}))),
               AppDimens.medium.height,
               AppTextField(
                 lable: AppStrings.nameLastName,
@@ -93,8 +106,8 @@ class RegisterScreen extends StatelessWidget {
               AppDimens.small.height,
               MainButton(
                 text: AppStrings.register,
-                onPressed: () => Navigator.pushNamed(
-                    context, ScreenNames.mainScreen),
+                onPressed: () =>
+                    Navigator.pushNamed(context, ScreenNames.mainScreen),
               ),
               70.height,
             ],

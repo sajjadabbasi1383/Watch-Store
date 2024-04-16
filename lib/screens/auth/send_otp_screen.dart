@@ -42,7 +42,7 @@ class SendOtpScreen extends StatelessWidget {
                   Navigator.pushNamed(context, ScreenNames.verifyCodeScreen,
                       arguments: state.mobile);
                   showCustomSnackBar(context,
-                      "کد فعالسازی: ${state.code.toString()}", 20, "successes");
+                      "کد فعالسازی: ${state.code.toString()}", 30, "successes");
                 } else if (state is ErrorState) {
                   showCustomSnackBar(
                       context, "خطا در اتصال به سرور", 5, "error");
