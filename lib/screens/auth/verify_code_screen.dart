@@ -60,7 +60,8 @@ class VerifyCodeScreen extends StatelessWidget {
                   Navigator.pushReplacementNamed(
                       context, ScreenNames.registerScreen);
                 } else if (state is ErrorState) {
-                  showCustomSnackBar(context, "کد وارد شده اشتباه است", 5,"error");
+                  showCustomSnackBar(
+                      context, "کد وارد شده اشتباه است", 5, "error");
                 }
               },
               builder: (context, state) {
