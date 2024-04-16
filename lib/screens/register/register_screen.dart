@@ -1,15 +1,21 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:watch_store/component/extension.dart';
 import 'package:watch_store/component/text_style.dart';
+import 'package:watch_store/data/model/user_model.dart';
 import 'package:watch_store/res/colors.dart';
 import 'package:watch_store/res/dimens.dart';
 import 'package:watch_store/res/strings.dart';
 import 'package:watch_store/route_manager/screen_names.dart';
+import 'package:watch_store/screens/register/register_cubit.dart';
 import 'package:watch_store/utils/image_handler.dart';
 import 'package:watch_store/widget/app_text_field.dart';
 import 'package:watch_store/widget/avatar.dart';
 import 'package:watch_store/widget/main_button.dart';
+import 'package:watch_store/widget/snack_bar.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -19,7 +25,14 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  final TextEditingController _controller = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _addressController = TextEditingController();
+  final TextEditingController _postalController = TextEditingController();
+  final TextEditingController _locationController = TextEditingController();
+
+  double lat = 0.0;
+  double lng = 0.0;
 
   ImageHandler imageHandler = ImageHandler();
 
@@ -58,59 +71,110 @@ class _RegisterScreenState extends State<RegisterScreen> {
         width: double.infinity,
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              AppDimens.medium.height,
-              Avatar(
-                  file: imageHandler.getImage,
-                  onTap: () async => await imageHandler
-                      .pickAndCropImage(source: ImageSource.gallery)
-                      .then((value) => setState(() {}))),
-              AppDimens.medium.height,
-              AppTextField(
-                lable: AppStrings.nameLastName,
-                hint: AppStrings.hintNameLastName,
-                controller: _controller,
-                align: TextAlign.end,
-              ),
-              AppTextField(
-                lable: AppStrings.homeNumber,
-                hint: AppStrings.hintHomeNumber,
-                controller: _controller,
-                align: TextAlign.end,
-              ),
-              AppTextField(
-                lable: AppStrings.address,
-                hint: AppStrings.hintAddress,
-                controller: _controller,
-                align: TextAlign.end,
-              ),
-              AppTextField(
-                lable: AppStrings.postalCode,
-                hint: AppStrings.hintPostalCode,
-                controller: _controller,
-                align: TextAlign.end,
-              ),
-              AppTextField(
-                lable: AppStrings.location,
-                hint: AppStrings.hintLocation,
-                icon: const Icon(
-                  Icons.add_location_outlined,
-                  size: 27,
+          child: BlocProvider(
+            create: (context) => RegisterCubit(),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                AppDimens.medium.height,
+                Avatar(
+                    file: imageHandler.getImage,
+                    onTap: () async => await imageHandler
+                        .pickAndCropImage(source: ImageSource.gallery)
+                        .then((value) => setState(() {}))),
+                AppDimens.medium.height,
+                AppTextField(
+                  lable: AppStrings.nameLastName,
+                  hint: AppStrings.hintNameLastName,
+                  controller: _nameController,
+                  align: TextAlign.end,
                 ),
-                controller: _controller,
-                align: TextAlign.end,
-              ),
-              AppDimens.small.height,
-              MainButton(
-                text: AppStrings.register,
-                onPressed: () =>
-                    Navigator.pushNamed(context, ScreenNames.mainScreen),
-              ),
-              70.height,
-            ],
+                AppTextField(
+                  lable: AppStrings.homeNumber,
+                  hint: AppStrings.hintHomeNumber,
+                  controller: _phoneController,
+                  align: TextAlign.end,
+                ),
+                AppTextField(
+                  lable: AppStrings.address,
+                  hint: AppStrings.hintAddress,
+                  controller: _addressController,
+                  align: TextAlign.end,
+                ),
+                AppTextField(
+                  lable: AppStrings.postalCode,
+                  hint: AppStrings.hintPostalCode,
+                  controller: _postalController,
+                  align: TextAlign.end,
+                ),
+                BlocConsumer<RegisterCubit, RegisterState>(
+                  listener: (context, state) {
+                    if (state is LocationPickedState) {
+                      if (state.location != null) {
+                        _locationController.text =
+                            '${state.location!.latitude} - ${state.location!.longitude}';
+                        lat = state.location!.latitude;
+                        lng = state.location!.longitude;
+                      }
+                    }
+                  },
+                  builder: (context, state) {
+                    return GestureDetector(
+                      onTap: () {
+                        BlocProvider.of<RegisterCubit>(context)
+                            .pickLocation(context: context);
+                      },
+                      child: AppTextField(
+                        lable: AppStrings.location,
+                        hint: AppStrings.hintLocation,
+                        icon: const Icon(
+                          Icons.add_location_outlined,
+                          size: 27,
+                        ),
+                        controller: _locationController,
+                        align: TextAlign.end,
+                      ),
+                    );
+                  },
+                ),
+                AppDimens.small.height,
+                BlocConsumer<RegisterCubit, RegisterState>(
+                  listener: (context, state) {
+                    if (state is OkRegisteredState) {
+                      Navigator.pushReplacementNamed(
+                          context, ScreenNames.mainScreen);
+                    } else if (state is ErrorState) {
+                      showCustomSnackBar(
+                          context, "ثبت نام با خطا مواجه شد", 4, "error");
+                    }
+                  },
+                  builder: (context, state) {
+                    if (state is LoadingState) {
+                      return const SpinKitFadingCircle(
+                        color: AppColors.loadingColor,
+                        size: 40,
+                      );
+                    } else {
+                      return MainButton(
+                          text: AppStrings.register,
+                          onPressed: () async {
+                            UserModel user = UserModel(
+                                name: _nameController.text,
+                                phone: _phoneController.text,
+                                postalCode: _postalController.text,
+                                address: _addressController.text,
+                                image: await MultipartFile.fromFile(imageHandler.getImage!.path),
+                                lat: lat,
+                                lng: lng);
+                            BlocProvider.of<RegisterCubit>(context).register(user: user);
+                          });
+                    }
+                  },
+                ),
+                70.height,
+              ],
+            ),
           ),
         ),
       ),
