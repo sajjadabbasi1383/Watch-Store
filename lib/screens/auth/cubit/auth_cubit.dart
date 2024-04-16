@@ -14,13 +14,15 @@ class AuthCubit extends Cubit<AuthState> {
   Dio _dio = Dio();
 
   sendSms(String mobile) async {
+    String otpCode;
     emit(LoadingState());
     try {
       await _dio
           .post(ApiConstant.sendSms, data: {"mobile": mobile}).then((value) {
         debugPrint(value.toString());
+        otpCode = value.data["data"]["code"].toString();
         if (value.statusCode == 201) {
-          emit(SentState(mobile: mobile));
+          emit(SentState(mobile: mobile, code: otpCode));
         } else {
           emit(ErrorState());
         }
@@ -37,16 +39,12 @@ class AuthCubit extends Cubit<AuthState> {
           data: {"mobile": mobile, "code": code}).then((value) {
         debugPrint(value.toString());
         if (value.statusCode == 201) {
-
           emit(VerifiedNotRegisterState());
-
         } else if (value.statusCode == 200) {
-
           emit(VerifiedIsRegisterState());
-
         } else {
-           emit(ErrorState());
-         }
+          emit(ErrorState());
+        }
       });
     } catch (e) {
       emit(ErrorState());
