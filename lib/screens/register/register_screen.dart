@@ -43,9 +43,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
     return SafeArea(
         child: Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size(size.width, size.height * .07),
+        preferredSize: Size(size.width, size.height * .06),
         child: Container(
-          height: size.height * .07,
+          height: size.height * .06,
           color: AppColors.appbar,
           child: Padding(
             padding: const EdgeInsets.only(
@@ -80,7 +80,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  AppDimens.medium.height,
+                  AppDimens.small.height,
                   Avatar(
                       file: imageHandler.getImage,
                       onTap: () async => await imageHandler

@@ -3,7 +3,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:watch_store/component/extension.dart';
 import 'package:watch_store/component/text_style.dart';
 import 'package:watch_store/gen/assets.gen.dart';
-import 'package:watch_store/res/dimens.dart';
 import 'package:watch_store/res/strings.dart';
 
 class Avatar extends StatelessWidget {
@@ -29,7 +28,7 @@ class Avatar extends StatelessWidget {
                   : Image.file(file),
             ),
           ),
-          AppDimens.small.height,
+          4.height,
           const Text(
             AppStrings.chooseProfileImage,
             style: AppTextStyles.avatarText,
