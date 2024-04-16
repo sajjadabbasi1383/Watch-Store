@@ -9,7 +9,7 @@ final class LoadingState extends RegisterState {}
 
 final class ErrorState extends RegisterState {}
 
-final class RegisteredState extends RegisterState {}
+final class OkRegisteredState extends RegisterState {}
 
 final class LocationPickedState extends RegisterState {
   final GeoPoint? location;

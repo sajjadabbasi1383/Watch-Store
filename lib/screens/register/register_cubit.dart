@@ -1,5 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_osm_plugin/flutter_osm_plugin.dart';
 import 'package:meta/meta.dart';
 import 'package:watch_store/data/model/user_model.dart';
@@ -19,14 +21,18 @@ class RegisterCubit extends Cubit<RegisterState> {
   pickLocation({required context}) async {
     await showSimplePickerLocation(
             isDismissible: true,
-            title: "انتخاب موقعیت مکانی",
+            contentPadding: const EdgeInsets.only(top: 5),
+            titleWidget: Text(
+              "انتخاب موقعیت مکانی",
+              style: AppTextStyles.mainButton.apply(color: Colors.black),
+              textAlign: TextAlign.right,
+            ),
             textCancelPicker: "لغو",
             textConfirmPicker: "انتخاب",
             zoomOption: const ZoomOption(initZoom: 8.0),
             initCurrentUserPosition:
                 const UserTrackingOption.withoutUserPosition(),
-            radius: 8,
-            titleStyle: AppTextStyles.avatarText,
+            radius: 12,
             context: context)
         .then((value) => emit(LocationPickedState(location: value)));
   }
@@ -43,13 +49,16 @@ class RegisterCubit extends Cubit<RegisterState> {
         data: FormData.fromMap(user.toMap()),
       )
           .then((value) {
+            debugPrint(value.data.toString());
+            debugPrint(value.statusCode.toString());
         if (value.statusCode == 201) {
-          emit(RegisteredState());
-        } else {
+          emit(OkRegisteredState());
+        } else{
           emit(ErrorState());
         }
       });
     } catch (e) {
+      debugPrint(e.toString());
       emit(ErrorState());
     }
   }
