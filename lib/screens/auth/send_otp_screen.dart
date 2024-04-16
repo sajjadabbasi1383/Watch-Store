@@ -31,11 +31,13 @@ class SendOtpScreen extends StatelessWidget {
             Image.asset(Assets.png.mainLogo.path),
             AppDimens.large.height,
             AppTextField(
-                lable: AppStrings.enterYourNumber,
-                hint: AppStrings.hintPhoneNumber,
-                inputType: TextInputType.phone,
-                controller: _controller,
-                align: TextAlign.center),
+              lable: AppStrings.enterYourNumber,
+              hint: AppStrings.hintPhoneNumber,
+              inputType: TextInputType.phone,
+              controller: _controller,
+              align: TextAlign.center,
+              errorText: 'لطفا شماره تلفن را وارد کنید',
+            ),
             BlocConsumer<AuthCubit, AuthState>(
               listener: (context, state) {
                 if (state is SentState) {

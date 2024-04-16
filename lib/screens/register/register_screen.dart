@@ -25,6 +25,7 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
+  final _formKey = GlobalKey<FormState>();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
@@ -73,107 +74,119 @@ class _RegisterScreenState extends State<RegisterScreen> {
           physics: const BouncingScrollPhysics(),
           child: BlocProvider(
             create: (context) => RegisterCubit(),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                AppDimens.medium.height,
-                Avatar(
-                    file: imageHandler.getImage,
-                    onTap: () async => await imageHandler
-                        .pickAndCropImage(source: ImageSource.gallery)
-                        .then((value) => setState(() {}))),
-                AppDimens.medium.height,
-                AppTextField(
-                  lable: AppStrings.nameLastName,
-                  hint: AppStrings.hintNameLastName,
-                  controller: _nameController,
-                  align: TextAlign.end,
-                ),
-                AppTextField(
-                  lable: AppStrings.homeNumber,
-                  hint: AppStrings.hintHomeNumber,
-                  controller: _phoneController,
-                  align: TextAlign.end,
-                ),
-                AppTextField(
-                  lable: AppStrings.address,
-                  hint: AppStrings.hintAddress,
-                  controller: _addressController,
-                  align: TextAlign.end,
-                ),
-                AppTextField(
-                  lable: AppStrings.postalCode,
-                  hint: AppStrings.hintPostalCode,
-                  controller: _postalController,
-                  align: TextAlign.end,
-                ),
-                BlocConsumer<RegisterCubit, RegisterState>(
-                  listener: (context, state) {
-                    if (state is LocationPickedState) {
-                      if (state.location != null) {
-                        _locationController.text =
-                            '${state.location!.latitude} - ${state.location!.longitude}';
-                        lat = state.location!.latitude;
-                        lng = state.location!.longitude;
+            child: Form(
+              key: _formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  AppDimens.medium.height,
+                  Avatar(
+                      file: imageHandler.getImage,
+                      onTap: () async => await imageHandler
+                          .pickAndCropImage(source: ImageSource.gallery)
+                          .then((value) => setState(() {}))),
+                  AppDimens.medium.height,
+                  AppTextField(
+                    lable: AppStrings.nameLastName,
+                    hint: AppStrings.hintNameLastName,
+                    controller: _nameController,
+                    align: TextAlign.end,
+                    errorText: 'لطفا نام و نام خانوادگی را وارد کنید',
+                  ),
+                  AppTextField(
+                    lable: AppStrings.homeNumber,
+                    hint: AppStrings.hintHomeNumber,
+                    controller: _phoneController,
+                    align: TextAlign.end,
+                    errorText: 'لطفا تلفن ثابت را وارد کنید',
+                  ),
+                  AppTextField(
+                    lable: AppStrings.address,
+                    hint: AppStrings.hintAddress,
+                    controller: _addressController,
+                    align: TextAlign.end,
+                    errorText: 'لطفا آدرس را وارد کنید',
+                  ),
+                  AppTextField(
+                    lable: AppStrings.postalCode,
+                    hint: AppStrings.hintPostalCode,
+                    controller: _postalController,
+                    align: TextAlign.end,
+                    errorText: 'لطفا کد پستی را وارد کنید',
+                  ),
+                  BlocConsumer<RegisterCubit, RegisterState>(
+                    listener: (context, state) {
+                      if (state is LocationPickedState) {
+                        if (state.location != null) {
+                          _locationController.text =
+                              '${state.location!.latitude} - ${state.location!.longitude}';
+                          lat = state.location!.latitude;
+                          lng = state.location!.longitude;
+                        }
                       }
-                    }
-                  },
-                  builder: (context, state) {
-                    return GestureDetector(
-                      onTap: () {
-                        BlocProvider.of<RegisterCubit>(context)
-                            .pickLocation(context: context);
-                      },
-                      child: AppTextField(
-                        lable: AppStrings.location,
-                        hint: AppStrings.hintLocation,
-                        icon: const Icon(
-                          Icons.add_location_outlined,
-                          size: 27,
+                    },
+                    builder: (context, state) {
+                      return GestureDetector(
+                        onTap: () {
+                          BlocProvider.of<RegisterCubit>(context)
+                              .pickLocation(context: context);
+                        },
+                        child: AppTextField(
+                          lable: AppStrings.location,
+                          hint: AppStrings.hintLocation,
+                          icon: const Icon(
+                            Icons.add_location_outlined,
+                            size: 27,
+                          ),
+                          controller: _locationController,
+                          align: TextAlign.end,
+                          errorText: 'لطفا موقعیت مکانی را انتخاب کنید',
                         ),
-                        controller: _locationController,
-                        align: TextAlign.end,
-                      ),
-                    );
-                  },
-                ),
-                AppDimens.small.height,
-                BlocConsumer<RegisterCubit, RegisterState>(
-                  listener: (context, state) {
-                    if (state is OkRegisteredState) {
-                      Navigator.pushReplacementNamed(
-                          context, ScreenNames.mainScreen);
-                    } else if (state is ErrorState) {
-                      showCustomSnackBar(
-                          context, "ثبت نام با خطا مواجه شد", 4, "error");
-                    }
-                  },
-                  builder: (context, state) {
-                    if (state is LoadingState) {
-                      return const SpinKitFadingCircle(
-                        color: AppColors.loadingColor,
-                        size: 40,
                       );
-                    } else {
-                      return MainButton(
-                          text: AppStrings.register,
-                          onPressed: () async {
-                            UserModel user = UserModel(
-                                name: _nameController.text,
-                                phone: _phoneController.text,
-                                postalCode: _postalController.text,
-                                address: _addressController.text,
-                                image: await MultipartFile.fromFile(imageHandler.getImage!.path),
-                                lat: lat,
-                                lng: lng);
-                            BlocProvider.of<RegisterCubit>(context).register(user: user);
-                          });
-                    }
-                  },
-                ),
-                70.height,
-              ],
+                    },
+                  ),
+                  AppDimens.small.height,
+                  BlocConsumer<RegisterCubit, RegisterState>(
+                    listener: (context, state) {
+                      if (state is OkRegisteredState) {
+                        Navigator.pushReplacementNamed(
+                            context, ScreenNames.mainScreen);
+                      } else if (state is ErrorState) {
+                        showCustomSnackBar(
+                            context, "ثبت نام با خطا مواجه شد", 4, "error");
+                      }
+                    },
+                    builder: (context, state) {
+                      if (state is LoadingState) {
+                        return const SpinKitFadingCircle(
+                          color: AppColors.loadingColor,
+                          size: 40,
+                        );
+                      } else {
+                        return MainButton(
+                            text: AppStrings.register,
+                            onPressed: () async {
+                              if (_formKey.currentState!.validate()) {
+                                UserModel user = UserModel(
+                                    name: _nameController.text,
+                                    phone: _phoneController.text,
+                                    postalCode: _postalController.text,
+                                    address: _addressController.text,
+                                    image: await MultipartFile.fromFile(
+                                        imageHandler.getImage!.path),
+                                    lat: lat,
+                                    lng: lng);
+                                BlocProvider.of<RegisterCubit>(context)
+                                    .register(user: user);
+                              }
+                            });
+                      }
+                    },
+                  ),
+                  70.height,
+                ],
+              ),
             ),
           ),
         ),

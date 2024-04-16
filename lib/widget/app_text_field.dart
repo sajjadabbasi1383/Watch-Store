@@ -11,6 +11,7 @@ class AppTextField extends StatelessWidget {
   final TextEditingController controller;
   final Widget icon;
   final TextInputType? inputType;
+  final String errorText;
 
   const AppTextField(
       {super.key,
@@ -20,6 +21,7 @@ class AppTextField extends StatelessWidget {
       this.icon = const SizedBox.shrink(),
       this.pefixLable = "",
       this.inputType,
+      required this.errorText,
       required this.align});
 
   @override
@@ -50,11 +52,16 @@ class AppTextField extends StatelessWidget {
             SizedBox(
               height: size.height * .065,
               width: size.width * .75,
-              child: TextField(
+              child: TextFormField(
                 style: AppTextStyles.textFieldStyle,
                 textAlign: align,
                 controller: controller,
                 keyboardType: inputType,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return errorText;
+                  }
+                },
                 decoration: InputDecoration(
                   hintStyle: AppTextStyles.textFieldHint,
                   hintText: hint,

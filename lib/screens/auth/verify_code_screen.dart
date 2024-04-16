@@ -93,13 +93,13 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen> {
               inputType: TextInputType.number,
               controller: _controller,
               align: TextAlign.center,
+              errorText: 'لطفا کد فعالسازی را وارد کنید',
             ),
             BlocConsumer<AuthCubit, AuthState>(
               listener: (context, state) {
                 _timer.cancel();
                 if (state is VerifiedRegisterState) {
-                  Navigator.pushNamed(
-                      context, ScreenNames.registerScreen);
+                  Navigator.pushNamed(context, ScreenNames.registerScreen);
                   ScaffoldMessenger.of(context).hideCurrentSnackBar();
                 } else if (state is VerifiedRegisterState) {
                   Navigator.pushNamed(context, ScreenNames.registerScreen);
