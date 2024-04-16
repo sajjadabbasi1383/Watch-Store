@@ -12,7 +12,7 @@ import 'package:watch_store/widget/avatar.dart';
 import 'package:watch_store/widget/main_button.dart';
 
 class RegisterScreen extends StatefulWidget {
-  RegisterScreen({super.key});
+  const RegisterScreen({super.key});
 
   @override
   State<RegisterScreen> createState() => _RegisterScreenState();
