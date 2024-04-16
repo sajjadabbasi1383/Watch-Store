@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -14,10 +16,48 @@ import 'package:watch_store/widget/main_button.dart';
 import '../../res/colors.dart';
 import '../../widget/snack_bar.dart';
 
-class VerifyCodeScreen extends StatelessWidget {
-  VerifyCodeScreen({super.key});
+class VerifyCodeScreen extends StatefulWidget {
+  const VerifyCodeScreen({super.key});
 
+  @override
+  State<VerifyCodeScreen> createState() => _VerifyCodeScreenState();
+}
+
+class _VerifyCodeScreenState extends State<VerifyCodeScreen> {
   final TextEditingController _controller = TextEditingController();
+
+  late Timer _timer;
+  int _start = 10;
+
+  startTimer() {
+    const oneSec = Duration(seconds: 1);
+    _timer = Timer.periodic(oneSec, (timer) {
+      setState(() {
+        if (_start == 0) {
+          _timer.cancel();
+          Navigator.pop(context);
+        } else {
+          _start--;
+        }
+      });
+    });
+  }
+
+  String formatTime(int sec) {
+    int min = sec ~/ 60;
+    int seconds = sec % 60;
+
+    String minStr = min.toString().padLeft(2, "0");
+    String secondsStr = seconds.toString().padLeft(2, "0");
+
+    return '$minStr:$secondsStr';
+  }
+
+  @override
+  void initState() {
+    startTimer();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,14 +78,17 @@ class VerifyCodeScreen extends StatelessWidget {
               style: AppTextStyles.avatarText,
             ),
             AppDimens.small.height,
-            const Text(
-              AppStrings.wrongNumberEditNumber,
-              style: AppTextStyles.primaryStyle,
+            GestureDetector(
+              onTap: () => Navigator.of(context).pop(),
+              child: const Text(
+                AppStrings.wrongNumberEditNumber,
+                style: AppTextStyles.primaryStyle,
+              ),
             ),
             AppDimens.large.height,
             AppTextField(
               lable: AppStrings.enterVerificationCode,
-              pefixLable: "2:54",
+              pefixLable: formatTime(_start),
               hint: AppStrings.hintVerificationCode,
               inputType: TextInputType.number,
               controller: _controller,
