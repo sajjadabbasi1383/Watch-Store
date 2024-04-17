@@ -49,11 +49,11 @@ class RegisterCubit extends Cubit<RegisterState> {
         data: FormData.fromMap(user.toMap()),
       )
           .then((value) {
-            debugPrint(value.data.toString());
-            debugPrint(value.statusCode.toString());
+        debugPrint(value.data.toString());
+        debugPrint(value.statusCode.toString());
         if (value.statusCode == 201) {
           emit(OkRegisteredState());
-        } else{
+        } else {
           emit(ErrorState());
         }
       });
