@@ -12,8 +12,8 @@ class ApiConstant {
 }
 
 class ProductSortRoute {
-  static const newestProducts = 'newest_products';
-  static const cheapestProducts = 'cheapest_products';
-  static const mostExpensiveProducts = 'most_expensive_products';
-  static const mostViewedProducts = 'most_viewed_products';
+  static const newestProducts = '/newest_products';
+  static const cheapestProducts = '/cheapest_products';
+  static const mostExpensiveProducts = '/most_expensive_products';
+  static const mostViewedProducts = '/most_viewed_products';
 }
