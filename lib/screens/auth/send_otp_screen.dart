@@ -36,7 +36,7 @@ class SendOtpScreen extends StatelessWidget {
               inputType: TextInputType.phone,
               controller: _controller,
               align: TextAlign.center,
-              errorText: 'لطفا شماره تلفن را وارد کنید',
+              errorText: 'لطفا شماره را وارد کنید',
             ),
             BlocConsumer<AuthCubit, AuthState>(
               listener: (context, state) {
