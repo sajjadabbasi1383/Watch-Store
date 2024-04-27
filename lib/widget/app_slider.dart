@@ -4,10 +4,8 @@ import 'package:watch_store/res/dimens.dart';
 
 final List<String> imgList = [
   'https://ticktackgallery.com/media/wysiwyg/ticktackbanner/men.png',
-  'https://ticktackgallery.com/media/wysiwyg/ticktackbanner/women.png',
   'https://ticktackgallery.com/media/wysiwyg/campaign-banner/fetr1401/kennethcole.jpg',
   'https://ticktackgallery.com/media/wysiwyg/campaign-banner/fetr1401/orient-final.jpg',
-  'https://ticktackgallery.com/media/wysiwyg/ticktackbanner/women.png',
 ];
 
 class AppSlider extends StatefulWidget {

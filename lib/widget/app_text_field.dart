@@ -11,6 +11,7 @@ class AppTextField extends StatelessWidget {
   final TextAlign align;
   final TextEditingController controller;
   final Widget icon;
+  final bool? readOnly;
   final List<TextInputFormatter>? inputFormatter;
   final TextInputType? inputType;
   final String errorText;
@@ -23,6 +24,7 @@ class AppTextField extends StatelessWidget {
       this.icon = const SizedBox.shrink(),
       this.pefixLable = "",
       this.inputType,
+      this.readOnly,
       this.inputFormatter,
       required this.errorText,
       required this.align});
@@ -53,7 +55,7 @@ class AppTextField extends StatelessWidget {
             ),
             AppDimens.small.height,
             SizedBox(
-              height: size.height * .087,
+              //height: size.height * .087,
               width: size.width * .75,
               child: TextFormField(
                 style: AppTextStyles.textFieldStyle,
@@ -61,11 +63,13 @@ class AppTextField extends StatelessWidget {
                 inputFormatters: inputFormatter,
                 textDirection: TextDirection.ltr,
                 controller: controller,
+                readOnly: readOnly??false,
                 keyboardType: inputType,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return errorText;
                   }
+                  return null;
                 },
                 decoration: InputDecoration(
                   hintStyle: AppTextStyles.textFieldHint,
