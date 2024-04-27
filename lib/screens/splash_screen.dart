@@ -64,7 +64,10 @@ class _SplashScreenState extends State<SplashScreen> {
                             size: 42,
                           ),
                           AppDimens.small.height,
-                          const Text("لطفا منتظر بمانید",style: AppTextStyles.loadingText,)
+                          const Text(
+                            "لطفا منتظر بمانید",
+                            style: AppTextStyles.loadingText,
+                          )
                         ],
                       ),
                     ),
@@ -121,7 +124,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   checkInternet() {
     isInternetAvailable = true;
-    Future.delayed(const Duration(seconds: 3)).then((value) async {
+    Future.delayed(const Duration(seconds: 4)).then((value) async {
       try {
         final result = await InternetAddress.lookup('google.com');
         if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {

@@ -9,17 +9,13 @@ import 'package:watch_store/screens/splash_screen.dart';
 
 import '../screens/auth/verify_code_screen.dart';
 
-
-
-Map<String,Widget Function(BuildContext)> routes={
-
-  ScreenNames.root:(context) => const SplashScreen(),
+Map<String, Widget Function(BuildContext)> routes = {
+  ScreenNames.root: (context) => const SplashScreen(),
   // ScreenNames.root:(context) =>  SendOtpScreen(),
-  ScreenNames.verifyCodeScreen:(context) => VerifyCodeScreen(),
-  ScreenNames.sendOtpScreen:(context) => SendOtpScreen(),
-  ScreenNames.registerScreen:(context) => RegisterScreen(),
-  ScreenNames.mainScreen:(context) => MainScreen(),
-  ScreenNames.productListScreen:(context) => const ProductListScreen(),
-  ScreenNames.productSingleScreen:(context) => const ProductSingleScreen(),
-
+  ScreenNames.verifyCodeScreen: (context) => const VerifyCodeScreen(),
+  ScreenNames.sendOtpScreen: (context) => SendOtpScreen(),
+  ScreenNames.registerScreen: (context) => const RegisterScreen(),
+  ScreenNames.mainScreen: (context) => const MainScreen(),
+  ScreenNames.productListScreen: (context) => const ProductListScreen(),
+  ScreenNames.productSingleScreen: (context) => const ProductSingleScreen(),
 };

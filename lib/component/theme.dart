@@ -35,7 +35,7 @@ ThemeData lightTheme() {
             borderSide: const BorderSide(color: Colors.red)),
         errorStyle: const TextStyle(
             fontFamily: FontFamily.dana,
-            fontSize: 11,
+            fontSize: 12,
             fontWeight: FontWeight.w300,
             color: Colors.red),
           focusedErrorBorder: OutlineInputBorder(

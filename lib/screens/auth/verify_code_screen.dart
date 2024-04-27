@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,8 +12,6 @@ import 'package:watch_store/route_manager/screen_names.dart';
 import 'package:watch_store/screens/auth/cubit/auth_cubit.dart';
 import 'package:watch_store/widget/app_text_field.dart';
 import 'package:watch_store/widget/main_button.dart';
-
-import '../../res/colors.dart';
 import '../../widget/snack_bar.dart';
 
 class VerifyCodeScreen extends StatefulWidget {
@@ -63,7 +60,9 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final mobileRoutArg = ModalRoute.of(context)!.settings.arguments as String;
+    final routArg = ModalRoute.of(context)!.settings.arguments as List<String>;
+    final mobileRoutArg = routArg[0];
+    final codeRoutArg = routArg[1];
     return SafeArea(
         child: Scaffold(
       body: SizedBox(
@@ -103,15 +102,28 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen> {
                 ],
                 errorText: 'لطفا کد فعالسازی را وارد کنید',
               ),
+              Padding(
+                padding: const EdgeInsets.only(left: 40.0),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: TextButton(
+                    onPressed: () {
+                      showCustomSnackBar(
+                          context, "کد فعالسازی : $codeRoutArg", 80, "success");
+                    },
+                    child: const Text(
+                      "دریافت مجدد کد فعالسازی",
+                      style: AppTextStyles.primaryStyle,
+                    ),
+                  ),
+                ),
+              ),
               BlocConsumer<AuthCubit, AuthState>(
                 listener: (context, state) {
                   if (state is VerifiedRegisterState) {
                     _timer.cancel();
-                    Navigator.pushNamed(context, ScreenNames.registerScreen);
-                    ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                  } else if (state is VerifiedRegisterState) {
-                    _timer.cancel();
-                    Navigator.pushNamed(context, ScreenNames.registerScreen);
+                    Navigator.pushNamed(context, ScreenNames.registerScreen,
+                        arguments: state.token);
                     ScaffoldMessenger.of(context).hideCurrentSnackBar();
                   } else if (state is ErrorState) {
                     showCustomSnackBar(
@@ -129,7 +141,7 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen> {
                                 : null;
                           },
                     child: state is LoadingState
-                        ? LoadingAnimationWidget.staggeredDotsWave(
+                        ? LoadingAnimationWidget.prograssiveDots(
                             color: Colors.white,
                             size: 37,
                           )
@@ -139,7 +151,7 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen> {
                           ),
                   );
                 },
-              )
+              ),
             ],
           ),
         ),

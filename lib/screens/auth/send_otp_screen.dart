@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:watch_store/component/extension.dart';
 import 'package:watch_store/gen/assets.gen.dart';
-import 'package:watch_store/res/colors.dart';
 import 'package:watch_store/res/dimens.dart';
 import 'package:watch_store/res/strings.dart';
 import 'package:watch_store/route_manager/screen_names.dart';
@@ -49,11 +48,12 @@ class SendOtpScreen extends StatelessWidget {
                     LengthLimitingTextInputFormatter(11),
                   ],
                 ),
+                AppDimens.small.height,
                 BlocConsumer<AuthCubit, AuthState>(
                   listener: (context, state) {
                     if (state is SentState) {
                       Navigator.pushNamed(context, ScreenNames.verifyCodeScreen,
-                          arguments: state.mobile);
+                          arguments: [state.mobile, state.code]);
                       showCustomSnackBar(
                           context,
                           "کد فعالسازی: ${state.code.toString()}",
