@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:watch_store/component/extension.dart';
 import 'package:watch_store/component/text_style.dart';
 import 'package:watch_store/res/dimens.dart';
@@ -10,6 +11,7 @@ class AppTextField extends StatelessWidget {
   final TextAlign align;
   final TextEditingController controller;
   final Widget icon;
+  final List<TextInputFormatter>? inputFormatter;
   final TextInputType? inputType;
   final String errorText;
 
@@ -21,6 +23,7 @@ class AppTextField extends StatelessWidget {
       this.icon = const SizedBox.shrink(),
       this.pefixLable = "",
       this.inputType,
+      this.inputFormatter,
       required this.errorText,
       required this.align});
 
@@ -55,6 +58,7 @@ class AppTextField extends StatelessWidget {
               child: TextFormField(
                 style: AppTextStyles.textFieldStyle,
                 textAlign: align,
+                inputFormatters: inputFormatter,
                 textDirection: TextDirection.ltr,
                 controller: controller,
                 keyboardType: inputType,
