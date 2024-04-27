@@ -18,7 +18,7 @@ class CartBadge extends StatelessWidget {
         ),
         SvgPicture.asset(
           Assets.svg.cart.path,
-          color: Colors.black,
+          colorFilter: const ColorFilter.mode(Colors.black, BlendMode.srcIn),
           height: 28,
         ),
         Visibility(

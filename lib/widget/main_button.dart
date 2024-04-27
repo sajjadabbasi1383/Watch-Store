@@ -1,6 +1,7 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:watch_store/component/button_style.dart';
-import 'package:watch_store/component/text_style.dart';
 
 class MainButton extends StatelessWidget {
 

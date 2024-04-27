@@ -17,7 +17,7 @@ class BtmNavScreenIndex {
 }
 
 class MainScreen extends StatefulWidget {
-  MainScreen({super.key});
+  const MainScreen({super.key});
 
   @override
   State<MainScreen> createState() => _MainScreenState();
@@ -25,25 +25,25 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   int selectedIndex = BtmNavScreenIndex.home;
-  final GlobalKey<NavigatorState> _homekey=GlobalKey();
-  final GlobalKey<NavigatorState> _cartkey=GlobalKey();
-  final GlobalKey<NavigatorState> _profilekey=GlobalKey();
+  final GlobalKey<NavigatorState> _homekey = GlobalKey();
+  final GlobalKey<NavigatorState> _cartkey = GlobalKey();
+  final GlobalKey<NavigatorState> _profilekey = GlobalKey();
 
-  final List<int> _routeHistory=[BtmNavScreenIndex.home];
+  final List<int> _routeHistory = [BtmNavScreenIndex.home];
 
-  late final map={
-    BtmNavScreenIndex.home:_homekey,
-    BtmNavScreenIndex.cart:_cartkey,
-    BtmNavScreenIndex.profile:_profilekey,
+  late final map = {
+    BtmNavScreenIndex.home: _homekey,
+    BtmNavScreenIndex.cart: _cartkey,
+    BtmNavScreenIndex.profile: _profilekey,
   };
 
-  Future<bool> _onWillPop()async{
-    if(map[selectedIndex]!.currentState!.canPop()){
+  Future<bool> _onWillPop() async {
+    if (map[selectedIndex]!.currentState!.canPop()) {
       map[selectedIndex]!.currentState!.pop();
-    }else if(_routeHistory.length>1){
+    } else if (_routeHistory.length > 1) {
       setState(() {
         _routeHistory.removeLast();
-        selectedIndex=_routeHistory.last;
+        selectedIndex = _routeHistory.last;
       });
     }
     return false;
@@ -94,14 +94,10 @@ class _MainScreenState extends State<MainScreen> {
                 child: Container(
                   height: btmNavHeight,
                   decoration: const BoxDecoration(
-                    color: Colors.white,
+                      color: Colors.white,
                       boxShadow: [
-                        BoxShadow(
-                            color: AppColors.shadow,
-                            blurRadius: 10
-                        )
-                      ]
-                  ),
+                        BoxShadow(color: AppColors.shadow, blurRadius: 10)
+                      ]),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -135,7 +131,7 @@ class _MainScreenState extends State<MainScreen> {
   btmNavOnPressed(int index) {
     setState(() {
       selectedIndex = index;
-      if(_routeHistory.last!=selectedIndex){
+      if (_routeHistory.last != selectedIndex) {
         _routeHistory.add(selectedIndex);
       }
     });

@@ -4,7 +4,6 @@ import 'package:watch_store/component/extension.dart';
 import 'package:watch_store/res/colors.dart';
 
 import '../component/text_style.dart';
-import '../gen/assets.gen.dart';
 
 class BtmNavCartItem extends StatelessWidget {
   final String iconPath;

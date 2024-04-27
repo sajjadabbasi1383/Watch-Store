@@ -16,9 +16,11 @@ final class SentState extends AuthState {
   SentState({required this.mobile, required this.code});
 }
 
-final class VerifiedRegisterState extends AuthState {}
+final class VerifiedRegisterState extends AuthState {
+  final String token;
 
-// final class VerifiedNotRegisterState extends AuthState {}
+  VerifiedRegisterState({required this.token});
+}
 
 final class LoggedInState extends AuthState {}
 
