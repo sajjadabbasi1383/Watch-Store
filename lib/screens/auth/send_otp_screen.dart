@@ -57,7 +57,7 @@ class SendOtpScreen extends StatelessWidget {
                       showCustomSnackBar(
                           context,
                           "کد فعالسازی: ${state.code.toString()}",
-                          80,
+                          100,
                           "successes");
                     } else if (state is ErrorState) {
                       showCustomSnackBar(
@@ -77,7 +77,7 @@ class SendOtpScreen extends StatelessWidget {
                       child: state is LoadingState
                           ? LoadingAnimationWidget.prograssiveDots(
                               color: Colors.white,
-                              size: 38,
+                              size: 37,
                             )
                           : const Text(
                               AppStrings.sendOtpCode,

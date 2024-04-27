@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:watch_store/component/extension.dart';
@@ -25,6 +26,7 @@ class VerifyCodeScreen extends StatefulWidget {
 
 class _VerifyCodeScreenState extends State<VerifyCodeScreen> {
   final TextEditingController _controller = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey();
 
   late Timer _timer;
   int _start = 120;
@@ -66,67 +68,80 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen> {
         child: Scaffold(
       body: SizedBox(
         width: double.infinity,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Image.asset(Assets.png.mainLogo.path),
-            AppDimens.large.height,
-            Text(
-              AppStrings.otpCodeSendFor
-                  .replaceAll(AppStrings.replace, mobileRoutArg),
-              style: AppTextStyles.avatarText,
-            ),
-            AppDimens.small.height,
-            GestureDetector(
-              onTap: () => Navigator.of(context).pop(),
-              child: const Text(
-                AppStrings.wrongNumberEditNumber,
-                style: AppTextStyles.primaryStyle,
+        child: Form(
+          key: _formKey,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Image.asset(Assets.png.mainLogo.path),
+              AppDimens.large.height,
+              Text(
+                AppStrings.otpCodeSendFor
+                    .replaceAll(AppStrings.replace, mobileRoutArg),
+                style: AppTextStyles.avatarText,
               ),
-            ),
-            AppDimens.large.height,
-            AppTextField(
-              lable: AppStrings.enterVerificationCode,
-              pefixLable: formatTime(_start),
-              hint: AppStrings.hintVerificationCode,
-              inputType: TextInputType.number,
-              controller: _controller,
-              align: TextAlign.center,
-              errorText: 'لطفا کد فعالسازی را وارد کنید',
-            ),
-            BlocConsumer<AuthCubit, AuthState>(
-              listener: (context, state) {
-                _timer.cancel();
-                if (state is VerifiedRegisterState) {
-                  Navigator.pushNamed(context, ScreenNames.registerScreen);
-                  ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                } else if (state is VerifiedRegisterState) {
-                  Navigator.pushNamed(context, ScreenNames.registerScreen);
-                  ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                } else if (state is ErrorState) {
-                  showCustomSnackBar(
-                      context, "کد وارد شده اشتباه است", 5, "error");
-                }
-              },
-              builder: (context, state) {
-                if (state is LoadingState) {
-                  return LoadingAnimationWidget.staggeredDotsWave(
-                    color: AppColors.loadingColor,
-                    size: 42,
-                  );
-                } else {
+              AppDimens.small.height,
+              GestureDetector(
+                onTap: () => Navigator.of(context).pop(),
+                child: const Text(
+                  AppStrings.wrongNumberEditNumber,
+                  style: AppTextStyles.primaryStyle,
+                ),
+              ),
+              AppDimens.large.height,
+              AppTextField(
+                lable: AppStrings.enterVerificationCode,
+                pefixLable: formatTime(_start),
+                hint: AppStrings.hintVerificationCode,
+                inputType: TextInputType.number,
+                controller: _controller,
+                align: TextAlign.center,
+                inputFormatter: [
+                  FilteringTextInputFormatter.digitsOnly,
+                  LengthLimitingTextInputFormatter(4),
+                ],
+                errorText: 'لطفا کد فعالسازی را وارد کنید',
+              ),
+              BlocConsumer<AuthCubit, AuthState>(
+                listener: (context, state) {
+                  if (state is VerifiedRegisterState) {
+                    _timer.cancel();
+                    Navigator.pushNamed(context, ScreenNames.registerScreen);
+                    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                  } else if (state is VerifiedRegisterState) {
+                    _timer.cancel();
+                    Navigator.pushNamed(context, ScreenNames.registerScreen);
+                    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                  } else if (state is ErrorState) {
+                    showCustomSnackBar(
+                        context, "کد وارد شده اشتباه است", 5, "error");
+                  }
+                },
+                builder: (context, state) {
                   return MainButton(
-                    child:const Text( AppStrings.next,style: AppTextStyles.mainButton,),
-                    onPressed: () {
-                      BlocProvider.of<AuthCubit>(context)
-                          .verifyCode(mobileRoutArg, _controller.text);
-                    },
+                    onPressed: state is LoadingState
+                        ? null
+                        : () {
+                            _formKey.currentState!.validate()
+                                ? BlocProvider.of<AuthCubit>(context)
+                                    .verifyCode(mobileRoutArg, _controller.text)
+                                : null;
+                          },
+                    child: state is LoadingState
+                        ? LoadingAnimationWidget.staggeredDotsWave(
+                            color: Colors.white,
+                            size: 37,
+                          )
+                        : const Text(
+                            AppStrings.next,
+                            style: AppTextStyles.mainButton,
+                          ),
                   );
-                }
-              },
-            )
-          ],
+                },
+              )
+            ],
+          ),
         ),
       ),
     ));

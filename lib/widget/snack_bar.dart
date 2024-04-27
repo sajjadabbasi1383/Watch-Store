@@ -45,7 +45,7 @@ class CustomSnackBar extends StatelessWidget {
 void showCustomSnackBar(
     BuildContext context, String message, int duration, String status) {
   ScaffoldMessenger.of(context)
-    ..hideCurrentSnackBar()
+    ..clearSnackBars()
     ..showSnackBar(
       SnackBar(
         content: CustomSnackBar(message: message, status: status),
