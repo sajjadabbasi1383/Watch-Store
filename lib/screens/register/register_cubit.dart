@@ -1,9 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_osm_plugin/flutter_osm_plugin.dart';
-import 'package:meta/meta.dart';
 import 'package:watch_store/data/model/user_model.dart';
 import 'package:watch_store/data/src/api_constant.dart';
 import 'package:watch_store/utils/shared_preferences_manager.dart';
@@ -37,11 +35,16 @@ class RegisterCubit extends Cubit<RegisterState> {
         .then((value) => emit(LocationPickedState(location: value)));
   }
 
-  register({required UserModel user}) async {
+  register({required UserModel user, required String userToken}) async {
     emit(LoadingState());
     try {
+      SharedPreferencesManager()
+          .saveString(SharedPreferencesConstant.token, userToken);
       String? token =
           SharedPreferencesManager().getString(SharedPreferencesConstant.token);
+
+      debugPrint(token.toString());
+
       _dio.options.headers['Authorization'] = "Bearer $token";
       await _dio
           .post(
