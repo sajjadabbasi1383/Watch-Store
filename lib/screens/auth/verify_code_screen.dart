@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:watch_store/component/extension.dart';
 import 'package:watch_store/component/text_style.dart';
 import 'package:watch_store/gen/assets.gen.dart';
@@ -111,13 +111,13 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen> {
               },
               builder: (context, state) {
                 if (state is LoadingState) {
-                  return const SpinKitFadingCircle(
+                  return LoadingAnimationWidget.staggeredDotsWave(
                     color: AppColors.loadingColor,
-                    size: 40,
+                    size: 42,
                   );
                 } else {
                   return MainButton(
-                    text: AppStrings.next,
+                    child:const Text( AppStrings.next,style: AppTextStyles.mainButton,),
                     onPressed: () {
                       BlocProvider.of<AuthCubit>(context)
                           .verifyCode(mobileRoutArg, _controller.text);

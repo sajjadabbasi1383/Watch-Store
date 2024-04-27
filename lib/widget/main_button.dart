@@ -4,10 +4,10 @@ import 'package:watch_store/component/text_style.dart';
 
 class MainButton extends StatelessWidget {
 
-  final String text;
-  void Function() onPressed;
+  final Widget child;
+  void Function()? onPressed;
 
-  MainButton({super.key, required this.text,required this.onPressed});
+  MainButton({super.key, required this.child,required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class MainButton extends StatelessWidget {
       child: ElevatedButton(
         style: AppButtonStyle.mainButtonStyle,
         onPressed: onPressed,
-        child: Text(text,style: AppTextStyles.mainButton,),
+        child: child,
       ),
     );
   }

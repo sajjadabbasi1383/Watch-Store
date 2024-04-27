@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:watch_store/component/extension.dart';
 import 'package:watch_store/component/text_style.dart';
 import 'package:watch_store/data/model/user_model.dart';
@@ -159,13 +159,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     },
                     builder: (context, state) {
                       if (state is LoadingState) {
-                        return const SpinKitFadingCircle(
+                        return LoadingAnimationWidget.staggeredDotsWave(
                           color: AppColors.loadingColor,
-                          size: 40,
+                          size: 42,
                         );
                       } else {
                         return MainButton(
-                            text: AppStrings.register,
+                            child: const Text(AppStrings.register,style: AppTextStyles.mainButton,),
                             onPressed: () async {
                               if (imageHandler.getImage == null) {
                                 showCustomSnackBar(

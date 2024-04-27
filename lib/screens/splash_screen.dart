@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:watch_store/component/extension.dart';
 import 'package:watch_store/component/text_style.dart';
 import 'package:watch_store/gen/assets.gen.dart';
@@ -59,12 +59,12 @@ class _SplashScreenState extends State<SplashScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          const SpinKitThreeBounce(
+                          LoadingAnimationWidget.staggeredDotsWave(
                             color: AppColors.loadingColor,
-                            size: 30,
+                            size: 42,
                           ),
                           AppDimens.small.height,
-                          Text("لطفا منتظر بمانید",style: AppTextStyles.loadingText,)
+                          const Text("لطفا منتظر بمانید",style: AppTextStyles.loadingText,)
                         ],
                       ),
                     ),
@@ -82,9 +82,9 @@ class _SplashScreenState extends State<SplashScreen> {
                         const SizedBox(
                           height: 20,
                         ),
-                        const SpinKitThreeBounce(
-                          color: Color.fromRGBO(0, 0, 0, 0),
-                          size: 30,
+                        LoadingAnimationWidget.staggeredDotsWave(
+                          color: AppColors.loadingColor,
+                          size: 42,
                         ),
                       ],
                     ),
