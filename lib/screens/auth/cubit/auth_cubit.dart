@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
 import 'package:watch_store/data/src/api_constant.dart';
 import 'package:watch_store/utils/shared_preferences_constant.dart';
 import 'package:watch_store/utils/shared_preferences_manager.dart';
@@ -10,10 +9,13 @@ part 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
   AuthCubit() : super(AuthInitial()) {
-    emit(LoggedOutState());
+    SharedPreferencesManager().getString(SharedPreferencesConstant.token) ==
+            null
+        ? emit(LoggedOutState())
+        : emit(LoggedInState());
   }
 
-  Dio _dio = Dio();
+  final Dio _dio = Dio();
 
   sendSms(String mobile) async {
     String otpCode;
@@ -38,16 +40,10 @@ class AuthCubit extends Cubit<AuthState> {
     emit(LoadingState());
     try {
       await _dio.post(ApiConstant.checkSmsCode,
-          data: {"mobile": mobile, "code": code}).then((value) {
+          data: {"mobile": mobile, "code": code}).then((value) async {
         debugPrint(value.toString());
-        if (value.statusCode == 201) {
-          SharedPreferencesManager().saveString(
-              SharedPreferencesConstant.token, value.data["data"]["token"]);
-          emit(VerifiedRegisterState());
-        } else if (value.statusCode == 200) {
-          SharedPreferencesManager().saveString(
-              SharedPreferencesConstant.token, value.data["data"]["token"]);
-          emit(VerifiedRegisterState());
+        if (value.statusCode == 201 || value.statusCode == 200) {
+          emit(VerifiedRegisterState(token: value.data["data"]["token"]));
         } else {
           emit(ErrorState());
         }
