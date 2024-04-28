@@ -63,31 +63,25 @@ class HomeScreen extends StatelessWidget {
                       AppSlider(
                         imgList: state.home.sliders,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          CatWidget(
-                              colors: AppColors.catDesktopColors,
-                              iconPath: Assets.svg.desktop.path,
-                              title: AppStrings.desktop,
-                              onTap: () {}),
-                          CatWidget(
-                              colors: AppColors.catDigitalColors,
-                              iconPath: Assets.svg.digital.path,
-                              title: AppStrings.digital,
-                              onTap: () {}),
-                          CatWidget(
-                              colors: AppColors.catSmartColors,
-                              iconPath: Assets.svg.smart.path,
-                              title: AppStrings.smart,
-                              onTap: () {}),
-                          CatWidget(
-                              colors: AppColors.catClassicColors,
-                              iconPath: Assets.svg.clasic.path,
-                              title: AppStrings.classic,
-                              onTap: () {}),
-                        ],
+
+                      SizedBox(
+                        height: MediaQuery.sizeOf(context).height * .14,
+                        child: ListView.builder(
+                          padding: const EdgeInsets.only(right: AppDimens.medium),
+                          reverse: true,
+                          scrollDirection: Axis.horizontal,
+                          itemCount: state.home.categories.length,
+                          itemBuilder: (context, index) {
+                            return CatWidget(
+                              colors:  AppColors.catColors,
+                              iconPath: state.home.categories[index].image,
+                              title: state.home.categories[index].title,
+                              onTap: () {},
+                            );
+                          },
+                        ),
                       ),
+
                       AppDimens.small.height,
                       SingleChildScrollView(
                         scrollDirection: Axis.horizontal,

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:watch_store/component/extension.dart';
 
 import '../component/text_style.dart';
-import '../gen/assets.gen.dart';
 import '../res/colors.dart';
 import '../res/dimens.dart';
 

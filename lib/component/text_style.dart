@@ -14,7 +14,7 @@ class AppTextStyles{
 
   static const TextStyle catTitle=TextStyle(
       fontFamily: FontFamily.dana,
-      fontSize: 15,
+      fontSize: 14,
       fontWeight: FontWeight.w300,
       color: AppColors.title
   );
