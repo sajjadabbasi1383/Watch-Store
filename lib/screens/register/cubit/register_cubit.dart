@@ -6,10 +6,10 @@ import 'package:watch_store/data/model/user_model.dart';
 import 'package:watch_store/data/src/api_constant.dart';
 import 'package:watch_store/utils/shared_preferences_manager.dart';
 
-import '../../component/text_style.dart';
-import '../../utils/shared_preferences_constant.dart';
+import '../../../component/text_style.dart';
+import '../../../utils/shared_preferences_constant.dart';
 
-part 'register_state.dart';
+part '../cubit/register_state.dart';
 
 class RegisterCubit extends Cubit<RegisterState> {
   RegisterCubit() : super(RegisterInitial());

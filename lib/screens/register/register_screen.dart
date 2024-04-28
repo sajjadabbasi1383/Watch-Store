@@ -11,7 +11,7 @@ import 'package:watch_store/res/colors.dart';
 import 'package:watch_store/res/dimens.dart';
 import 'package:watch_store/res/strings.dart';
 import 'package:watch_store/route_manager/screen_names.dart';
-import 'package:watch_store/screens/register/register_cubit.dart';
+import 'package:watch_store/screens/register/cubit/register_cubit.dart';
 import 'package:watch_store/utils/image_handler.dart';
 import 'package:watch_store/widget/app_text_field.dart';
 import 'package:watch_store/widget/avatar.dart';
