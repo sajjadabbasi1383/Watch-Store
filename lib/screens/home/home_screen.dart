@@ -6,6 +6,7 @@ import 'package:watch_store/data/repo/home_repo.dart';
 import 'package:watch_store/gen/assets.gen.dart';
 import 'package:watch_store/res/colors.dart';
 import 'package:watch_store/res/dimens.dart';
+import 'package:watch_store/screens/product_list/product_list_screen.dart';
 import 'package:watch_store/widget/cat_widget.dart';
 
 import '../../component/text_style.dart';
@@ -76,7 +77,15 @@ class HomeScreen extends StatelessWidget {
                               colors: AppColors.catColors,
                               iconPath: state.home.categories[index].image,
                               title: state.home.categories[index].title,
-                              onTap: () {},
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => ProductListScreen(
+                                        param: state.home.categories[index].id,
+                                      ),
+                                    ));
+                              },
                             );
                           },
                         ),
@@ -107,7 +116,10 @@ class HomeScreen extends StatelessWidget {
                                         .home.amazingProducts[index].discount,
                                     oldPrice: state.home.amazingProducts[index]
                                         .discountPrice.separateWithComma,
-                                    specialExpiration: state.home.amazingProducts[index].specialExpiration),
+                                    specialExpiration: state
+                                        .home
+                                        .amazingProducts[index]
+                                        .specialExpiration),
                               ),
                             ),
                             const VerticalText(
@@ -145,7 +157,10 @@ class HomeScreen extends StatelessWidget {
                                         .mostSellerProducts[index]
                                         .discountPrice
                                         .separateWithComma,
-                                    specialExpiration: state.home.mostSellerProducts[index].specialExpiration),
+                                    specialExpiration: state
+                                        .home
+                                        .mostSellerProducts[index]
+                                        .specialExpiration),
                               ),
                             ),
                             const VerticalText(
@@ -191,7 +206,10 @@ class HomeScreen extends StatelessWidget {
                                         .home.newestProducts[index].discount,
                                     oldPrice: state.home.newestProducts[index]
                                         .discountPrice.separateWithComma,
-                                    specialExpiration: state.home.newestProducts[index].specialExpiration),
+                                    specialExpiration: state
+                                        .home
+                                        .newestProducts[index]
+                                        .specialExpiration),
                               ),
                             ),
                             const VerticalText(
