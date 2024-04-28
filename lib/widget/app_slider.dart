@@ -26,7 +26,7 @@ class _AppSliderState extends State<AppSlider> {
               padding: const EdgeInsets.all(AppDimens.small),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(AppDimens.medium),
-                child: Image.network(height: 200,
+                child: Image.network(height: 190,
                   e,
                   fit: BoxFit.fill,
                 ),
@@ -40,7 +40,7 @@ class _AppSliderState extends State<AppSlider> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 215,
+      height: 210,
       width: double.infinity,
       child: Column(
         children: [
@@ -48,7 +48,7 @@ class _AppSliderState extends State<AppSlider> {
             carouselController: _controller,
             items: items,
             options: CarouselOptions(
-              height: 195,
+              height: 190,
               autoPlay: true,
               onPageChanged: (index, reason) {
                 setState(() {

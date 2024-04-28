@@ -52,27 +52,6 @@ class HomeScreen extends StatelessWidget {
                   onTap: () {}),
             ],
           ),
-          AppDimens.medium.height,
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            physics: const BouncingScrollPhysics(),
-            reverse: true,
-            child: Row(
-              children: [
-                SizedBox(
-                  height: 300,
-                  child: ListView.builder(
-                    physics: const ClampingScrollPhysics(),
-                    scrollDirection: Axis.horizontal,
-                    itemCount: 8,
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) => ProductItem(productName: "ساعت مردانه", price: "${69000.separateWithComma} تومان",discount: 20,oldPrice: 122000.separateWithComma,timer: "09:26:38"),
-                  ),
-                ),
-                const VerticalText(title: "شگفت انگیز",textStyle: AppTextStyles.amazingProducts,)
-              ],
-            ),
-          ),
           AppDimens.small.height,
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
@@ -87,15 +66,52 @@ class HomeScreen extends StatelessWidget {
                     scrollDirection: Axis.horizontal,
                     itemCount: 8,
                     shrinkWrap: true,
-                    itemBuilder: (context, index) => ProductItem(productName: "ساعت مردانه", price: "${69000.separateWithComma} تومان",discount: 20,oldPrice: 122000.separateWithComma,timer: "09:26:38"),
+                    itemBuilder: (context, index) => ProductItem(
+                        productName: "ساعت مردانه",
+                        price: "${69000.separateWithComma} تومان",
+                        discount: 20,
+                        oldPrice: 122000.separateWithComma,
+                        timer: "09:26:38"),
                   ),
                 ),
-                const VerticalText(title: "پرفروش ها",textStyle: AppTextStyles.bestSellersProducts,)
+                const VerticalText(
+                  title: "شگفت انگیز",
+                  textStyle: AppTextStyles.amazingProducts,
+                )
+              ],
+            ),
+          ),
+          //AppDimens.small.height,
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            physics: const BouncingScrollPhysics(),
+            reverse: true,
+            child: Row(
+              children: [
+                SizedBox(
+                  height: 300,
+                  child: ListView.builder(
+                    physics: const ClampingScrollPhysics(),
+                    scrollDirection: Axis.horizontal,
+                    itemCount: 8,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) => ProductItem(
+                        productName: "ساعت مردانه",
+                        price: "${69000.separateWithComma} تومان",
+                        discount: 20,
+                        oldPrice: 122000.separateWithComma,
+                        timer: "09:26:38"),
+                  ),
+                ),
+                const VerticalText(
+                  title: "پرفروش ها",
+                  textStyle: AppTextStyles.bestSellersProducts,
+                )
               ],
             ),
           ),
 
-          AppDimens.small.height,
+          //AppDimens.small.height,
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             physics: const BouncingScrollPhysics(),
@@ -109,10 +125,18 @@ class HomeScreen extends StatelessWidget {
                     scrollDirection: Axis.horizontal,
                     itemCount: 8,
                     shrinkWrap: true,
-                    itemBuilder: (context, index) => ProductItem(productName: "ساعت مردانه", price: "${69000.separateWithComma} تومان",discount: 20,oldPrice: 122000.separateWithComma,timer: "09:26:38"),
+                    itemBuilder: (context, index) => ProductItem(
+                        productName: "ساعت مردانه",
+                        price: "${69000.separateWithComma} تومان",
+                        discount: 20,
+                        oldPrice: 122000.separateWithComma,
+                        timer: "09:26:38"),
                   ),
                 ),
-                const VerticalText(title: "جدیدترین ها",textStyle: AppTextStyles.newestProducts,)
+                const VerticalText(
+                  title: "جدیدترین ها",
+                  textStyle: AppTextStyles.newestProducts,
+                )
               ],
             ),
           ),
@@ -121,4 +145,3 @@ class HomeScreen extends StatelessWidget {
     )));
   }
 }
-

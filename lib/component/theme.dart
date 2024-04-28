@@ -38,9 +38,8 @@ ThemeData lightTheme() {
             fontSize: 12,
             fontWeight: FontWeight.w300,
             color: Colors.red),
-          focusedErrorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(AppDimens.medium),
-              borderSide: const BorderSide(color: AppColors.focusedBorderColor)),
-
+        focusedErrorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(AppDimens.medium),
+            borderSide: const BorderSide(color: AppColors.focusedBorderColor)),
       ));
 }

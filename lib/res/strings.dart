@@ -39,7 +39,7 @@ class AppStrings {
   static const String newestProduct = "جدیدترین محصولات";
   static const String features = "خصوصیات";
   static const String review = "نقد و بررسی";
-  static const String commnets = "نظرات";
+  static const String comments = "نظرات";
   static const String addToBasket = "افزودن به سبد خرید";
   static const String count = "عدد";
   static const String totalPrice = "مجموع  $replace تومان";

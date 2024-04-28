@@ -25,16 +25,16 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   int selectedIndex = BtmNavScreenIndex.home;
-  final GlobalKey<NavigatorState> _homekey = GlobalKey();
-  final GlobalKey<NavigatorState> _cartkey = GlobalKey();
-  final GlobalKey<NavigatorState> _profilekey = GlobalKey();
+  final GlobalKey<NavigatorState> _homeKey = GlobalKey();
+  final GlobalKey<NavigatorState> _cartKey = GlobalKey();
+  final GlobalKey<NavigatorState> _profileKey = GlobalKey();
 
   final List<int> _routeHistory = [BtmNavScreenIndex.home];
 
   late final map = {
-    BtmNavScreenIndex.home: _homekey,
-    BtmNavScreenIndex.cart: _cartkey,
-    BtmNavScreenIndex.profile: _profilekey,
+    BtmNavScreenIndex.home: _homeKey,
+    BtmNavScreenIndex.cart: _cartKey,
+    BtmNavScreenIndex.profile: _profileKey,
   };
 
   Future<bool> _onWillPop() async {
@@ -68,19 +68,19 @@ class _MainScreenState extends State<MainScreen> {
                   index: selectedIndex,
                   children: [
                     Navigator(
-                      key: _homekey,
+                      key: _homeKey,
                       onGenerateRoute: (settings) => MaterialPageRoute(
                         builder: (context) => const HomeScreen(),
                       ),
                     ),
                     Navigator(
-                      key: _cartkey,
+                      key: _cartKey,
                       onGenerateRoute: (settings) => MaterialPageRoute(
                         builder: (context) => const CartScreen(),
                       ),
                     ),
                     Navigator(
-                      key: _profilekey,
+                      key: _profileKey,
                       onGenerateRoute: (settings) => MaterialPageRoute(
                         builder: (context) => const ProfileScreen(),
                       ),
