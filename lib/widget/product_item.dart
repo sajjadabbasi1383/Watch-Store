@@ -38,7 +38,6 @@ class _ProductItemState extends State<ProductItem> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
     now = DateTime.now();
@@ -129,6 +128,12 @@ class _ProductItemState extends State<ProductItem> {
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
   }
 
   void startTimer() {
