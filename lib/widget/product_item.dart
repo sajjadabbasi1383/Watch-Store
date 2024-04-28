@@ -9,6 +9,7 @@ import '../res/dimens.dart';
 class ProductItem extends StatelessWidget {
   const ProductItem({
     super.key,
+    required this.image,
     required this.productName,
     required this.price,
     this.oldPrice=0,
@@ -16,6 +17,7 @@ class ProductItem extends StatelessWidget {
     this.discount=0
   });
 
+  final image;
   final productName;
   final price;
   final oldPrice;
@@ -26,7 +28,7 @@ class ProductItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(AppDimens.medium),
-      margin: const EdgeInsets.all(AppDimens.medium),
+      margin: const EdgeInsets.all(AppDimens.small),
       width: 200,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(AppDimens.medium),
@@ -36,13 +38,16 @@ class ProductItem extends StatelessWidget {
               end: Alignment.bottomCenter)),
       child: Column(
         children: [
-          Image.asset(Assets.png.unnamed.path),
+          Image.network(image,height: 120,),
           AppDimens.small.height,
            Align(
             alignment: Alignment.centerRight,
             child: Text(
               productName,
               style: AppTextStyles.productTitle,
+              overflow: TextOverflow.ellipsis,
+              textDirection: TextDirection.rtl,
+              maxLines: 2,
             ),
           ),
           AppDimens.small.height,

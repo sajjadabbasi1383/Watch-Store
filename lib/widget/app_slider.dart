@@ -1,17 +1,15 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:watch_store/data/model/slide_model.dart';
 import 'package:watch_store/res/dimens.dart';
-
-final List<String> imgList = [
-  'https://ticktackgallery.com/media/wysiwyg/ticktackbanner/men.png',
-  'https://ticktackgallery.com/media/wysiwyg/campaign-banner/fetr1401/kennethcole.jpg',
-  'https://ticktackgallery.com/media/wysiwyg/campaign-banner/fetr1401/orient-final.jpg',
-];
 
 class AppSlider extends StatefulWidget {
   const AppSlider({
     super.key,
+    required this.imgList,
   });
+
+  final List<SlideModel> imgList;
 
   @override
   State<AppSlider> createState() => _AppSliderState();
@@ -19,21 +17,6 @@ class AppSlider extends StatefulWidget {
 
 class _AppSliderState extends State<AppSlider> {
   final CarouselController _controller = CarouselController();
-  final List<Widget> items = imgList
-      .map((e) => SizedBox(
-    width: double.infinity,
-        child: Padding(
-              padding: const EdgeInsets.all(AppDimens.small),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(AppDimens.medium),
-                child: Image.network(height: 190,
-                  e,
-                  fit: BoxFit.fill,
-                ),
-              ),
-            ),
-      ))
-      .toList();
 
   int _current = 0;
 
@@ -46,7 +29,22 @@ class _AppSliderState extends State<AppSlider> {
         children: [
           CarouselSlider(
             carouselController: _controller,
-            items: items,
+            items: widget.imgList
+                .map((e) => SizedBox(
+                      width: double.infinity,
+                      child: Padding(
+                        padding: const EdgeInsets.all(AppDimens.small),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(AppDimens.medium),
+                          child: Image.network(
+                            height: 190,
+                            e.image,
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+                      ),
+                    ))
+                .toList(),
             options: CarouselOptions(
               height: 190,
               autoPlay: true,
@@ -59,7 +57,7 @@ class _AppSliderState extends State<AppSlider> {
           ),
           Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: imgList
+              children: widget.imgList
                   .asMap()
                   .entries
                   .map((e) => Padding(
