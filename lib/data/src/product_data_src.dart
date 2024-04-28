@@ -24,7 +24,7 @@ class ProductRemoteDataSrc implements IProductDataSrc {
 
     final response =
         await httpClient.get(ApiConstant.productsByBrand + id.toString());
-    HttpResponseValidator.isValidStatusCode(response.statusCode!);
+    HttpResponseValidator.isValidStatusCode(response.statusCode??0);
     for (var element in (response.data['data'] as List)) {
       products.add(ProductModel.fromJson(element));
     }
@@ -37,7 +37,7 @@ class ProductRemoteDataSrc implements IProductDataSrc {
 
     final response =
         await httpClient.get(ApiConstant.productsByCategory + id.toString());
-    HttpResponseValidator.isValidStatusCode(response.statusCode!);
+    HttpResponseValidator.isValidStatusCode(response.statusCode??0);
     for (var element in response.data['data'] as List) {
       products.add(ProductModel.fromJson(element));
     }
@@ -50,7 +50,7 @@ class ProductRemoteDataSrc implements IProductDataSrc {
 
     final response =
         await httpClient.get(ApiConstant.baseUrl + routeParam.toString());
-    HttpResponseValidator.isValidStatusCode(response.statusCode!);
+    HttpResponseValidator.isValidStatusCode(response.statusCode??0);
     for (var element in response.data['data'] as List) {
       products.add(ProductModel.fromJson(element));
     }
@@ -63,7 +63,7 @@ class ProductRemoteDataSrc implements IProductDataSrc {
 
     final response =
         await httpClient.get(ApiConstant.search + searchKey.toString());
-    HttpResponseValidator.isValidStatusCode(response.statusCode!);
+    HttpResponseValidator.isValidStatusCode(response.statusCode??0);
     for (var element in response.data['data'] as List) {
       products.add(ProductModel.fromJson(element));
     }
