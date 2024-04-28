@@ -1,27 +1,52 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:watch_store/component/extension.dart';
 
 import '../component/text_style.dart';
 import '../res/colors.dart';
 import '../res/dimens.dart';
+import '../utils/format_time.dart';
 
-class ProductItem extends StatelessWidget {
-  const ProductItem({
-    super.key,
-    required this.image,
-    required this.productName,
-    required this.price,
-    this.oldPrice=0,
-    this.timer=0,
-    this.discount=0
-  });
+class ProductItem extends StatefulWidget {
+  const ProductItem(
+      {super.key,
+      required this.image,
+      required this.productName,
+      required this.price,
+      this.oldPrice = 0,
+      this.specialExpiration = "",
+      this.discount = 0});
 
   final image;
   final productName;
   final price;
   final oldPrice;
   final discount;
-  final timer;
+  final specialExpiration;
+
+  @override
+  State<ProductItem> createState() => _ProductItemState();
+}
+
+class _ProductItemState extends State<ProductItem> {
+  Duration _duration = Duration(seconds: 0);
+  late Timer _timer;
+  late int inSeconds;
+  late DateTime now;
+  late DateTime expiration;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    now = DateTime.now();
+    expiration = DateTime.parse(widget.specialExpiration);
+    _duration = now.difference(expiration).abs();
+    inSeconds = _duration.inSeconds;
+    startTimer();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,12 +62,15 @@ class ProductItem extends StatelessWidget {
               end: Alignment.bottomCenter)),
       child: Column(
         children: [
-          Image.network(image,height: 120,),
+          Image.network(
+            widget.image,
+            height: 120,
+          ),
           AppDimens.small.height,
-           Align(
+          Align(
             alignment: Alignment.centerRight,
             child: Text(
-              productName,
+              widget.productName,
               style: AppTextStyles.productTitle,
               overflow: TextOverflow.ellipsis,
               textDirection: TextDirection.rtl,
@@ -56,35 +84,62 @@ class ProductItem extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(price,style: AppTextStyles.productPrice,),
+                  Text(
+                    widget.price,
+                    style: AppTextStyles.productPrice,
+                  ),
                   Visibility(
-                      visible: discount>0,
-                      child: Text(oldPrice,style: AppTextStyles.oldPrice,)),
+                      visible: widget.discount > 0,
+                      child: Text(
+                        widget.oldPrice,
+                        style: AppTextStyles.oldPrice,
+                      )),
                 ],
               ),
               Visibility(
-                visible: discount>0,
+                visible: widget.discount > 0,
                 child: Container(
                   padding: const EdgeInsets.all(AppDimens.small * .6),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(13),
                       color: Colors.red),
-                  child: Text("$discount%",style: AppTextStyles.discount,),
+                  child: Text(
+                    "${widget.discount}%",
+                    style: AppTextStyles.discount,
+                  ),
                 ),
               ),
             ],
           ),
           AppDimens.medium.height,
           Visibility(
-            visible: timer!=null,
-              child: Container(width: double.infinity,height: 2,color: Colors.blue,)),
+              visible: now.isBefore(expiration),
+              child: Container(
+                width: double.infinity,
+                height: 2,
+                color: Colors.blue,
+              )),
           AppDimens.small.height,
           Visibility(
-            visible: timer!=null,
-              child: Text(timer,style: AppTextStyles.productTimer,))
+              visible: now.isBefore(expiration),
+              child: Text(
+                formatTime(inSeconds),
+                style: AppTextStyles.productTimer,
+              ))
         ],
       ),
     );
   }
-}
 
+  void startTimer() {
+    const onSec = Duration(seconds: 1);
+    _timer = Timer.periodic(onSec, (timer) {
+      setState(() {
+        if (inSeconds == 0) {
+        } else {
+          inSeconds--;
+        }
+      });
+    });
+  }
+}
