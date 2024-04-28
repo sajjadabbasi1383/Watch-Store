@@ -81,7 +81,7 @@ class HomeScreen extends StatelessWidget {
               ],
             ),
           ),
-          //AppDimens.small.height,
+
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             physics: const BouncingScrollPhysics(),
@@ -110,7 +110,17 @@ class HomeScreen extends StatelessWidget {
               ],
             ),
           ),
+          AppDimens.small.height,
+          Container(
+            width: double.infinity,
+            height: 180,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+            ),
+            child: Image.asset(Assets.png.banner.path),
+          ),
 
+          AppDimens.small.height,
           //AppDimens.small.height,
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
