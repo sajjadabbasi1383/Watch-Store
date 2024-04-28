@@ -9,6 +9,6 @@ final class ProductListError extends ProductListState {}
 
 final class ProductListLoaded extends ProductListState {
   final List<ProductModel> productList;
-
-  ProductListLoaded(this.productList);
+  final List<BrandModel> brandList;
+  ProductListLoaded(this.productList,this.brandList);
 }

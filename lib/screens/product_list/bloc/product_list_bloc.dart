@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 
+import '../../../data/model/brand_model.dart';
 import '../../../data/model/product_model.dart';
 import '../../../data/repo/product_repo.dart';
 
@@ -17,7 +18,8 @@ class ProductListBloc extends Bloc<ProductListEvent, ProductListState> {
         try {
           emit(ProductListLoading());
           final productList = await _iProductRepo.getAllByCategory(event.param);
-          emit(ProductListLoaded(productList));
+          final brandList = await _iProductRepo.getAllBrands();
+          emit(ProductListLoaded(productList,brandList));
         } catch (e) {
           emit(ProductListError());
         }
