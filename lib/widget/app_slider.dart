@@ -23,7 +23,7 @@ class _AppSliderState extends State<AppSlider> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 210,
+      height: 190,
       width: double.infinity,
       child: Column(
         children: [
@@ -33,11 +33,15 @@ class _AppSliderState extends State<AppSlider> {
                 .map((e) => SizedBox(
                       width: double.infinity,
                       child: Padding(
-                        padding: const EdgeInsets.all(AppDimens.small),
+                        padding: const EdgeInsets.fromLTRB(
+                            AppDimens.small,
+                            AppDimens.small - 4,
+                            AppDimens.small,
+                            AppDimens.small),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(AppDimens.medium),
                           child: Image.network(
-                            height: 190,
+                            height: 170,
                             e.image,
                             fit: BoxFit.fill,
                           ),
@@ -46,7 +50,7 @@ class _AppSliderState extends State<AppSlider> {
                     ))
                 .toList(),
             options: CarouselOptions(
-              height: 190,
+              height: 170,
               autoPlay: true,
               onPageChanged: (index, reason) {
                 setState(() {
@@ -65,8 +69,8 @@ class _AppSliderState extends State<AppSlider> {
                         child: GestureDetector(
                           onTap: () => _controller.animateToPage(e.key),
                           child: Container(
-                            width: AppDimens.medium,
-                            height: AppDimens.medium,
+                            width: AppDimens.medium - 2,
+                            height: AppDimens.medium - 2,
                             decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 border: Border.all(color: Colors.grey),

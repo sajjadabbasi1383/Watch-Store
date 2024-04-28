@@ -52,79 +52,83 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.sizeOf(context);
-    double btmNavHeight = size.height * .1;
+    double btmNavHeight = size.height * .09;
     return WillPopScope(
       onWillPop: _onWillPop,
       child: SafeArea(
-          child: Scaffold(
-        body: Stack(
-          children: [
-            Positioned(
-                top: 0,
-                right: 0,
-                left: 0,
-                bottom: btmNavHeight,
-                child: IndexedStack(
-                  index: selectedIndex,
-                  children: [
-                    Navigator(
-                      key: _homeKey,
-                      onGenerateRoute: (settings) => MaterialPageRoute(
-                        builder: (context) => const HomeScreen(),
-                      ),
-                    ),
-                    Navigator(
-                      key: _cartKey,
-                      onGenerateRoute: (settings) => MaterialPageRoute(
-                        builder: (context) => const CartScreen(),
-                      ),
-                    ),
-                    Navigator(
-                      key: _profileKey,
-                      onGenerateRoute: (settings) => MaterialPageRoute(
-                        builder: (context) => const ProfileScreen(),
-                      ),
-                    ),
-                  ],
-                )),
-            Positioned(
-                bottom: 0,
-                right: 0,
-                left: 0,
-                child: Container(
-                  height: btmNavHeight,
-                  decoration: const BoxDecoration(
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(color: AppColors.shadow, blurRadius: 10)
-                      ]),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    crossAxisAlignment: CrossAxisAlignment.center,
+        child: Scaffold(
+          body: Stack(
+            children: [
+              Positioned(
+                  top: 0,
+                  right: 0,
+                  left: 0,
+                  bottom: btmNavHeight,
+                  child: IndexedStack(
+                    index: selectedIndex,
                     children: [
-                      BtmNavItem(
-                          iconPath: Assets.svg.user.path,
-                          text: "پروفایل",
-                          isActive: selectedIndex == BtmNavScreenIndex.profile,
-                          onTap: () =>
-                              btmNavOnPressed(BtmNavScreenIndex.profile)),
-                      BtmNavCartItem(
-                          iconPath: Assets.svg.cart.path,
-                          text: "سبد خرید",
-                          isActive: selectedIndex == BtmNavScreenIndex.cart,
-                          count: 2,
-                          onTap: () => btmNavOnPressed(BtmNavScreenIndex.cart)),
-                      BtmNavItem(
-                          iconPath: Assets.svg.home.path,
-                          text: "خانه",
-                          isActive: selectedIndex == BtmNavScreenIndex.home,
-                          onTap: () => btmNavOnPressed(BtmNavScreenIndex.home)),
+                      Navigator(
+                        key: _homeKey,
+                        onGenerateRoute: (settings) => MaterialPageRoute(
+                          builder: (context) => const HomeScreen(),
+                        ),
+                      ),
+                      Navigator(
+                        key: _cartKey,
+                        onGenerateRoute: (settings) => MaterialPageRoute(
+                          builder: (context) => const CartScreen(),
+                        ),
+                      ),
+                      Navigator(
+                        key: _profileKey,
+                        onGenerateRoute: (settings) => MaterialPageRoute(
+                          builder: (context) => const ProfileScreen(),
+                        ),
+                      ),
                     ],
-                  ),
-                ))
-          ],
+                  )),
+              Positioned(
+                  bottom: 0,
+                  right: 0,
+                  left: 0,
+                  child: Container(
+                    height: btmNavHeight,
+                    decoration: const BoxDecoration(
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(color: AppColors.shadow, blurRadius: 10)
+                        ]),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        BtmNavItem(
+                            iconPath: Assets.svg.user.path,
+                            text: "پروفایل",
+                            isActive:
+                                selectedIndex == BtmNavScreenIndex.profile,
+                            onTap: () =>
+                                btmNavOnPressed(BtmNavScreenIndex.profile)),
+                        BtmNavCartItem(
+                            iconPath: Assets.svg.cart.path,
+                            text: "سبد خرید",
+                            isActive: selectedIndex == BtmNavScreenIndex.cart,
+                            count: 2,
+                            onTap: () =>
+                                btmNavOnPressed(BtmNavScreenIndex.cart)),
+                        BtmNavItem(
+                            iconPath: Assets.svg.home.path,
+                            text: "خانه",
+                            isActive: selectedIndex == BtmNavScreenIndex.home,
+                            onTap: () =>
+                                btmNavOnPressed(BtmNavScreenIndex.home)),
+                      ],
+                    ),
+                  ))
+            ],
+          ),
         ),
-      )),
+      ),
     );
   }
 

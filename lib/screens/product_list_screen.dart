@@ -103,6 +103,6 @@ class ProductGridView extends StatelessWidget {
                 mainAxisSpacing: 2,
                 crossAxisSpacing: 2,
                 childAspectRatio: 0.66),
-            itemBuilder: (context, index) => ProductItem(image: "",productName: "ساعت مردانه", price: "${69000.separateWithComma} تومان",discount: 20,oldPrice: 122000.separateWithComma,timer: "09:26:38"),));
+            itemBuilder: (context, index) => ProductItem(image: "",productName: "ساعت مردانه", price: "${69000.separateWithComma} تومان",discount: 20,oldPrice: 122000.separateWithComma,specialExpiration: "09:26:38"),));
   }
 }

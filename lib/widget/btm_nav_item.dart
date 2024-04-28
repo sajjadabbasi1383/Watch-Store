@@ -36,7 +36,7 @@ class BtmNavItem extends StatelessWidget {
                       : AppColors.btmNavInActiveItem,
                   BlendMode.srcIn),
             ),
-            8.height,
+            6.height,
             Text(
               text,
               style: isActive?AppTextStyles.btmNavActiveItem:AppTextStyles.btmNavInActiveItem,

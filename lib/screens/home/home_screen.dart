@@ -6,7 +6,6 @@ import 'package:watch_store/data/repo/home_repo.dart';
 import 'package:watch_store/gen/assets.gen.dart';
 import 'package:watch_store/res/colors.dart';
 import 'package:watch_store/res/dimens.dart';
-import 'package:watch_store/res/strings.dart';
 import 'package:watch_store/widget/cat_widget.dart';
 
 import '../../component/text_style.dart';
@@ -67,13 +66,14 @@ class HomeScreen extends StatelessWidget {
                       SizedBox(
                         height: MediaQuery.sizeOf(context).height * .14,
                         child: ListView.builder(
-                          padding: const EdgeInsets.only(right: AppDimens.medium),
+                          padding:
+                              const EdgeInsets.only(right: AppDimens.large),
                           reverse: true,
                           scrollDirection: Axis.horizontal,
                           itemCount: state.home.categories.length,
                           itemBuilder: (context, index) {
                             return CatWidget(
-                              colors:  AppColors.catColors,
+                              colors: AppColors.catColors,
                               iconPath: state.home.categories[index].image,
                               title: state.home.categories[index].title,
                               onTap: () {},
@@ -90,7 +90,7 @@ class HomeScreen extends StatelessWidget {
                         child: Row(
                           children: [
                             SizedBox(
-                              height: 320,
+                              height: 310,
                               child: ListView.builder(
                                 physics: const ClampingScrollPhysics(),
                                 scrollDirection: Axis.horizontal,
@@ -107,7 +107,7 @@ class HomeScreen extends StatelessWidget {
                                         .home.amazingProducts[index].discount,
                                     oldPrice: state.home.amazingProducts[index]
                                         .discountPrice.separateWithComma,
-                                    timer: "09:26:38"),
+                                    specialExpiration: state.home.amazingProducts[index].specialExpiration),
                               ),
                             ),
                             const VerticalText(
@@ -145,7 +145,7 @@ class HomeScreen extends StatelessWidget {
                                         .mostSellerProducts[index]
                                         .discountPrice
                                         .separateWithComma,
-                                    timer: "09:26:38"),
+                                    specialExpiration: state.home.mostSellerProducts[index].specialExpiration),
                               ),
                             ),
                             const VerticalText(
@@ -191,7 +191,7 @@ class HomeScreen extends StatelessWidget {
                                         .home.newestProducts[index].discount,
                                     oldPrice: state.home.newestProducts[index]
                                         .discountPrice.separateWithComma,
-                                    timer: "09:26:38"),
+                                    specialExpiration: state.home.newestProducts[index].specialExpiration),
                               ),
                             ),
                             const VerticalText(
