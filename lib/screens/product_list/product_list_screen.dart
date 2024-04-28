@@ -3,12 +3,12 @@ import 'package:flutter_svg/svg.dart';
 import 'package:watch_store/component/extension.dart';
 import 'package:watch_store/gen/assets.gen.dart';
 
-import '../component/text_style.dart';
-import '../res/colors.dart';
-import '../res/dimens.dart';
-import '../widget/app_bar.dart';
-import '../widget/cart_badge.dart';
-import '../widget/product_item.dart';
+import '../../component/text_style.dart';
+import '../../res/colors.dart';
+import '../../res/dimens.dart';
+import '../../widget/app_bar.dart';
+import '../../widget/cart_badge.dart';
+import '../../widget/product_item.dart';
 
 class ProductListScreen extends StatelessWidget {
   const ProductListScreen({super.key});
