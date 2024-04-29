@@ -74,146 +74,143 @@ class _RegisterScreenState extends State<RegisterScreen> {
           width: double.infinity,
           child: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
-            child: BlocProvider(
-              create: (context) => RegisterCubit(),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    AppDimens.medium.height,
-                    Avatar(
-                        file: imageHandler.getImage,
-                        onTap: () async => await imageHandler
-                            .pickAndCropImage(source: ImageSource.gallery)
-                            .then((value) => setState(() {}))),
-                    AppDimens.large.height,
-                    AppTextField(
-                      lable: AppStrings.nameLastName,
-                      hint: AppStrings.hintNameLastName,
-                      controller: _nameController,
-                      align: TextAlign.end,
-                      inputType: TextInputType.name,
-                      errorText: 'لطفا نام و نام خانوادگی را وارد کنید',
-                    ),
-                    AppDimens.medium.height,
-                    AppTextField(
-                      lable: AppStrings.homeNumber,
-                      hint: AppStrings.hintHomeNumber,
-                      controller: _phoneController,
-                      align: TextAlign.end,
-                      inputType: TextInputType.phone,
-                      inputFormatter: [
-                        FilteringTextInputFormatter.digitsOnly,
-                        LengthLimitingTextInputFormatter(11)
-                      ],
-                      errorText: 'لطفا تلفن ثابت را وارد کنید',
-                    ),
-                    AppDimens.medium.height,
-                    AppTextField(
-                      lable: AppStrings.address,
-                      hint: AppStrings.hintAddress,
-                      controller: _addressController,
-                      align: TextAlign.end,
-                      inputFormatter: [LengthLimitingTextInputFormatter(70)],
-                      errorText: 'لطفا آدرس را وارد کنید',
-                    ),
-                    AppDimens.medium.height,
-                    AppTextField(
-                      lable: AppStrings.postalCode,
-                      hint: AppStrings.hintPostalCode,
-                      controller: _postalController,
-                      align: TextAlign.end,
-                      inputType: TextInputType.number,
-                      inputFormatter: [
-                        FilteringTextInputFormatter.digitsOnly,
-                        LengthLimitingTextInputFormatter(10)
-                      ],
-                      errorText: 'لطفا کد پستی را وارد کنید',
-                    ),
-                    AppDimens.medium.height,
-                    BlocConsumer<RegisterCubit, RegisterState>(
-                      listener: (context, state) {
-                        if (state is LocationPickedState) {
-                          if (state.location != null) {
-                            _locationController.text =
-                                '${state.location!.latitude} - ${state.location!.longitude}';
-                            lat = state.location!.latitude;
-                            lng = state.location!.longitude;
-                          }
+            child: Form(
+              key: _formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  AppDimens.medium.height,
+                  Avatar(
+                      file: imageHandler.getImage,
+                      onTap: () async => await imageHandler
+                          .pickAndCropImage(source: ImageSource.gallery)
+                          .then((value) => setState(() {}))),
+                  AppDimens.large.height,
+                  AppTextField(
+                    lable: AppStrings.nameLastName,
+                    hint: AppStrings.hintNameLastName,
+                    controller: _nameController,
+                    align: TextAlign.end,
+                    inputType: TextInputType.name,
+                    errorText: 'لطفا نام و نام خانوادگی را وارد کنید',
+                  ),
+                  AppDimens.medium.height,
+                  AppTextField(
+                    lable: AppStrings.homeNumber,
+                    hint: AppStrings.hintHomeNumber,
+                    controller: _phoneController,
+                    align: TextAlign.end,
+                    inputType: TextInputType.phone,
+                    inputFormatter: [
+                      FilteringTextInputFormatter.digitsOnly,
+                      LengthLimitingTextInputFormatter(11)
+                    ],
+                    errorText: 'لطفا تلفن ثابت را وارد کنید',
+                  ),
+                  AppDimens.medium.height,
+                  AppTextField(
+                    lable: AppStrings.address,
+                    hint: AppStrings.hintAddress,
+                    controller: _addressController,
+                    align: TextAlign.end,
+                    inputFormatter: [LengthLimitingTextInputFormatter(70)],
+                    errorText: 'لطفا آدرس را وارد کنید',
+                  ),
+                  AppDimens.medium.height,
+                  AppTextField(
+                    lable: AppStrings.postalCode,
+                    hint: AppStrings.hintPostalCode,
+                    controller: _postalController,
+                    align: TextAlign.end,
+                    inputType: TextInputType.number,
+                    inputFormatter: [
+                      FilteringTextInputFormatter.digitsOnly,
+                      LengthLimitingTextInputFormatter(10)
+                    ],
+                    errorText: 'لطفا کد پستی را وارد کنید',
+                  ),
+                  AppDimens.medium.height,
+                  BlocConsumer<RegisterCubit, RegisterState>(
+                    listener: (context, state) {
+                      if (state is LocationPickedState) {
+                        if (state.location != null) {
+                          _locationController.text =
+                              '${state.location!.latitude} - ${state.location!.longitude}';
+                          lat = state.location!.latitude;
+                          lng = state.location!.longitude;
                         }
-                      },
-                      builder: (context, state) {
-                        return AppTextField(
-                          lable: AppStrings.location,
-                          hint: AppStrings.hintLocation,
-                          icon: GestureDetector(
-                            onTap: () {
-                              BlocProvider.of<RegisterCubit>(context)
-                                  .pickLocation(context: context);
-                            },
-                            child: const Icon(
-                              Icons.add_location_outlined,
-                              size: 27,
-                            ),
-                          ),
-                          readOnly: true,
-                          controller: _locationController,
-                          align: TextAlign.end,
-                          errorText: 'لطفا موقعیت مکانی را انتخاب کنید',
-                        );
-                      },
-                    ),
-                    AppDimens.large.height,
-                    BlocConsumer<RegisterCubit, RegisterState>(
-                      listener: (context, state) {
-                        if (state is OkRegisteredState) {
-                          Navigator.pushReplacementNamed(
-                              context, ScreenNames.mainScreen);
-                        } else if (state is ErrorState) {
-                          showCustomSnackBar(
-                              context, "ثبت نام با خطا مواجه شد", 4, "error");
-                        }
-                      },
-                      builder: (context, state) {
-                        return MainButton(
-                          child: state is LoadingState
-                              ? LoadingAnimationWidget.prograssiveDots(
-                                  color: Colors.white,
-                                  size: 37,
-                                )
-                              : const Text(
-                                  AppStrings.register,
-                                  style: AppTextStyles.mainButton,
-                                ),
-                          onPressed: () async {
-                            if (imageHandler.getImage == null) {
-                              showCustomSnackBar(
-                                  context,
-                                  "لطفا تصویر پروفایل را انتخاب کنید",
-                                  5,
-                                  "error");
-                            } else if (_formKey.currentState!.validate()) {
-                              UserModel user = UserModel(
-                                  name: _nameController.text,
-                                  phone: _phoneController.text,
-                                  postalCode: _postalController.text,
-                                  address: _addressController.text,
-                                  image: await MultipartFile.fromFile(
-                                      imageHandler.getImage!.path),
-                                  lat: lat,
-                                  lng: lng);
-                              BlocProvider.of<RegisterCubit>(context).register(
-                                  user: user, userToken: tokenRoutArg);
-                            }
+                      }
+                    },
+                    builder: (context, state) {
+                      return AppTextField(
+                        lable: AppStrings.location,
+                        hint: AppStrings.hintLocation,
+                        icon: GestureDetector(
+                          onTap: () {
+                            BlocProvider.of<RegisterCubit>(context)
+                                .pickLocation(context: context);
                           },
-                        );
-                      },
-                    ),
-                    70.height,
-                  ],
-                ),
+                          child: const Icon(
+                            Icons.add_location_outlined,
+                            size: 27,
+                          ),
+                        ),
+                        readOnly: true,
+                        controller: _locationController,
+                        align: TextAlign.end,
+                        errorText: 'لطفا موقعیت مکانی را انتخاب کنید',
+                      );
+                    },
+                  ),
+                  AppDimens.large.height,
+                  BlocConsumer<RegisterCubit, RegisterState>(
+                    listener: (context, state) {
+                      if (state is OkRegisteredState) {
+                        Navigator.pushReplacementNamed(
+                            context, ScreenNames.mainScreen);
+                      } else if (state is ErrorState) {
+                        showCustomSnackBar(
+                            context, "ثبت نام با خطا مواجه شد", 4, "error");
+                      }
+                    },
+                    builder: (context, state) {
+                      return MainButton(
+                        child: state is LoadingState
+                            ? LoadingAnimationWidget.prograssiveDots(
+                                color: Colors.white,
+                                size: 37,
+                              )
+                            : const Text(
+                                AppStrings.register,
+                                style: AppTextStyles.mainButton,
+                              ),
+                        onPressed: () async {
+                          if (imageHandler.getImage == null) {
+                            showCustomSnackBar(
+                                context,
+                                "لطفا تصویر پروفایل را انتخاب کنید",
+                                5,
+                                "error");
+                          } else if (_formKey.currentState!.validate()) {
+                            UserModel user = UserModel(
+                                name: _nameController.text,
+                                phone: _phoneController.text,
+                                postalCode: _postalController.text,
+                                address: _addressController.text,
+                                image: await MultipartFile.fromFile(
+                                    imageHandler.getImage!.path),
+                                lat: lat,
+                                lng: lng);
+                            BlocProvider.of<RegisterCubit>(context).register(
+                                user: user, userToken: tokenRoutArg);
+                          }
+                        },
+                      );
+                    },
+                  ),
+                  70.height,
+                ],
               ),
             ),
           ),
