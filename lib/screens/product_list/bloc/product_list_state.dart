@@ -7,8 +7,9 @@ final class ProductListLoading extends ProductListState {}
 
 final class ProductListError extends ProductListState {}
 
-final class ProductListLoaded extends ProductListState {
+final class ProductListSuccess extends ProductListState {
   final List<ProductModel> productList;
   final List<BrandModel> brandList;
-  ProductListLoaded(this.productList,this.brandList);
+
+  ProductListSuccess(this.productList, this.brandList);
 }

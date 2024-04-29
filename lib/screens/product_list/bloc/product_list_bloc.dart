@@ -14,12 +14,22 @@ class ProductListBloc extends Bloc<ProductListEvent, ProductListState> {
 
   ProductListBloc(this._iProductRepo) : super(ProductListLoading()) {
     on<ProductListEvent>((event, emit) async {
-      if (event is ProductListInit) {
+      final brandList = await _iProductRepo.getAllBrands();
+      if (event is ProductListByCat) {
         try {
           emit(ProductListLoading());
-          final productList = await _iProductRepo.getAllByCategory(event.param);
-          final brandList = await _iProductRepo.getAllBrands();
-          emit(ProductListLoaded(productList,brandList));
+          final productList = await _iProductRepo.getAllByCategory(event.catId);
+          emit(ProductListSuccess(productList, brandList));
+        } catch (e) {
+          emit(ProductListError());
+        }
+      }
+
+      if (event is ProductListByBrand) {
+        try {
+          emit(ProductListLoading());
+          final productList = await _iProductRepo.getAllByBrand(event.brandId);
+          emit(ProductListSuccess(productList, brandList));
         } catch (e) {
           emit(ProductListError());
         }

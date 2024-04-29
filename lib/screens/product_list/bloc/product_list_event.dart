@@ -3,8 +3,13 @@ part of 'product_list_bloc.dart';
 @immutable
 sealed class ProductListEvent {}
 
-class ProductListInit extends ProductListEvent {
-  final param;
+class ProductListByCat extends ProductListEvent {
+  final int catId;
 
-  ProductListInit(this.param);
+  ProductListByCat(this.catId);
+}
+
+class ProductListByBrand extends ProductListEvent{
+  final int brandId;
+  ProductListByBrand(this.brandId);
 }
