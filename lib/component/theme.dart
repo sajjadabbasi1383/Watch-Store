@@ -11,6 +11,9 @@ ThemeData lightTheme() {
       iconTheme: const IconThemeData(color: Colors.black),
       primaryColor: AppColors.primaryColor,
       scaffoldBackgroundColor: AppColors.scaffoldBackgroundColor,
+      radioTheme:RadioThemeData(
+        fillColor: MaterialStateProperty.all(AppColors.loadingColor),
+      ) ,
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         fillColor: MaterialStateColor.resolveWith((states) {
@@ -42,4 +45,5 @@ ThemeData lightTheme() {
             borderRadius: BorderRadius.circular(AppDimens.medium),
             borderSide: const BorderSide(color: AppColors.focusedBorderColor)),
       ));
+
 }
