@@ -9,7 +9,13 @@ class ProductListByCat extends ProductListEvent {
   ProductListByCat(this.catId);
 }
 
-class ProductListByBrand extends ProductListEvent{
+class ProductListByBrand extends ProductListEvent {
   final int brandId;
+
   ProductListByBrand(this.brandId);
+}
+
+class ProductListSorted extends ProductListEvent {
+  final String sortParam;
+  ProductListSorted(this.sortParam);
 }

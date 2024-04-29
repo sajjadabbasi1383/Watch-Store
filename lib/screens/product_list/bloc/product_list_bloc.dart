@@ -34,6 +34,29 @@ class ProductListBloc extends Bloc<ProductListEvent, ProductListState> {
           emit(ProductListError());
         }
       }
+
+      if(event is ProductListSorted){
+        try{
+          emit(ProductListLoading());
+          final productList=await _iProductRepo.getSorted(event.sortParam);
+          emit(ProductListSuccess(productList, brandList));
+        }catch(e){
+          emit(ProductListError());
+        }
+      }
     });
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

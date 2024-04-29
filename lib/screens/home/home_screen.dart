@@ -85,7 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => ProductListScreen(
-                                    param: state.home.categories[index].id,
+                                    catId: state.home.categories[index].id,
                                   ),
                                 ));
                           },
