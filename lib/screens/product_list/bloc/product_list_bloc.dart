@@ -21,7 +21,7 @@ class ProductListBloc extends Bloc<ProductListEvent, ProductListState> {
           final productList = await _iProductRepo.getAllByCategory(event.catId);
           emit(ProductListSuccess(productList, brandList));
         } catch (e) {
-          emit(ProductListError());
+          emit(ProductListError('خطا در دریافت اطلاعات!!'));
         }
       }
 
@@ -31,32 +31,34 @@ class ProductListBloc extends Bloc<ProductListEvent, ProductListState> {
           final productList = await _iProductRepo.getAllByBrand(event.brandId);
           emit(ProductListSuccess(productList, brandList));
         } catch (e) {
-          emit(ProductListError());
+          emit(ProductListError('خطا در دریافت اطلاعات!!'));
         }
       }
 
-      if(event is ProductListSorted){
-        try{
+      if (event is ProductListBySearch) {
+        try {
           emit(ProductListLoading());
-          final productList=await _iProductRepo.getSorted(event.sortParam);
+          final productList =
+              await _iProductRepo.searchProducts(event.searchKey);
+          if (productList.isEmpty) {
+            emit(ProductListError('هیچ محصولی یافت نشد'));
+          } else {
+            emit(ProductListSuccess(productList, brandList));
+          }
+        } catch (e) {
+          emit(ProductListError('خطا در دریافت اطلاعات!!'));
+        }
+      }
+
+      if (event is ProductListSorted) {
+        try {
+          emit(ProductListLoading());
+          final productList = await _iProductRepo.getSorted(event.sortParam);
           emit(ProductListSuccess(productList, brandList));
-        }catch(e){
-          emit(ProductListError());
+        } catch (e) {
+          emit(ProductListError('خطا در دریافت اطلاعات!!'));
         }
       }
     });
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
