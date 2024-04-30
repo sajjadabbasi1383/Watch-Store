@@ -1,7 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:watch_store/data/model/slide_model.dart';
 import 'package:watch_store/res/dimens.dart';
+
+import '../res/colors.dart';
 
 class AppSlider extends StatefulWidget {
   const AppSlider({
@@ -22,67 +26,72 @@ class _AppSliderState extends State<AppSlider> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 190,
-      width: double.infinity,
-      child: Column(
-        children: [
-          CarouselSlider(
-            carouselController: _controller,
-            items: widget.imgList
-                .map((e) => SizedBox(
-                      width: double.infinity,
-                      child: Padding(
-                        padding: const EdgeInsets.fromLTRB(
-                            AppDimens.small,
-                            AppDimens.small - 4,
-                            AppDimens.small,
-                            AppDimens.small),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(AppDimens.medium),
-                          child: Image.network(
-                            height: 170,
-                            e.image,
-                            fit: BoxFit.fill,
-                          ),
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        CarouselSlider(
+          carouselController: _controller,
+          options: CarouselOptions(
+            height: 170,
+            enlargeCenterPage: false,
+            viewportFraction: 1,
+            autoPlay: true,
+            onPageChanged: (index, reason) {
+              setState(() {
+                _current = index;
+              });
+            },
+          ),
+          items: widget.imgList
+              .map((e) => Container(
+                    margin: const EdgeInsets.only(
+                        left: AppDimens.small, right: AppDimens.small),
+                    width: double.infinity,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(12.0),
+                      child: CachedNetworkImage(
+                        imageUrl: e.image,
+                        fit: BoxFit.cover,
+                        placeholder: (context, url) => const Center(
+                          child: CupertinoActivityIndicator(),
+                        ),
+                        errorWidget: (context, url, error) => const Center(
+                          child: Icon(Icons.error),
                         ),
                       ),
-                    ))
-                .toList(),
-            options: CarouselOptions(
-              height: 170,
-              autoPlay: true,
-              onPageChanged: (index, reason) {
-                setState(() {
-                  _current = index;
-                });
-              },
-            ),
-          ),
-          Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: widget.imgList
-                  .asMap()
-                  .entries
-                  .map((e) => Padding(
-                        padding: const EdgeInsets.fromLTRB(4, 0, 4, 3),
-                        child: GestureDetector(
-                          onTap: () => _controller.animateToPage(e.key),
-                          child: Container(
-                            width: AppDimens.medium - 2,
-                            height: AppDimens.medium - 2,
-                            decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                border: Border.all(color: Colors.grey),
-                                color: _current == e.key
-                                    ? Colors.grey
-                                    : Colors.white),
+                    ),
+                  ))
+              .toList(),
+        ),
+        Positioned(
+            bottom: 7,
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: widget.imgList
+                    .asMap()
+                    .entries
+                    .map((e) => Padding(
+                          padding: const EdgeInsets.fromLTRB(4, 0, 4, 3),
+                          child: GestureDetector(
+                            onTap: () => _controller.animateToPage(e.key),
+                            child: AnimatedContainer(
+                              duration: const Duration(milliseconds: 400),
+                              width: _current == e.key
+                                  ? AppDimens.large - 4
+                                  : AppDimens.medium,
+                              height: AppDimens.small,
+                              decoration: BoxDecoration(
+                                  //shape: BoxShape.circle,
+                                  //border: Border.all(color: Colors.white),
+                                  borderRadius: BorderRadius.circular(30),
+                                  color: _current == e.key
+                                      ? AppColors.continueShopping
+                                      : Colors.white),
+                            ),
                           ),
-                        ),
-                      ))
-                  .toList())
-        ],
-      ),
+                        ))
+                    .toList())),
+      ],
     );
   }
 }
