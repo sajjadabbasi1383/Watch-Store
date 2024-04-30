@@ -17,5 +17,12 @@ class ProductListByBrand extends ProductListEvent {
 
 class ProductListSorted extends ProductListEvent {
   final String sortParam;
+
   ProductListSorted(this.sortParam);
+}
+
+class ProductListBySearch extends ProductListEvent {
+  final String searchKey;
+
+  ProductListBySearch(this.searchKey);
 }

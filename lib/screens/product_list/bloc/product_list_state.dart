@@ -5,7 +5,11 @@ sealed class ProductListState {}
 
 final class ProductListLoading extends ProductListState {}
 
-final class ProductListError extends ProductListState {}
+final class ProductListError extends ProductListState {
+  final String error;
+
+  ProductListError(this.error);
+}
 
 final class ProductListSuccess extends ProductListState {
   final List<ProductModel> productList;
