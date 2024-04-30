@@ -8,43 +8,41 @@ import '../res/dimens.dart';
 import '../res/strings.dart';
 
 class SearchBtn extends StatelessWidget {
-  const SearchBtn({
-    super.key,
-    required this.onTap
-  });
+  SearchBtn({super.key,});
 
-  final VoidCallback onTap;
+  TextEditingController searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(AppDimens.medium),
-      child: GestureDetector(
-        onTap: onTap,
-        child: Container(
-          height: 50,
-          width:double.infinity,
-          decoration: BoxDecoration(
-              color: AppColors.searchBar,
-              borderRadius: BorderRadius.circular(60),
-              boxShadow: const [
-                BoxShadow(
-                    color: AppColors.shadow,
-                    offset: Offset(0,2),
-                    blurRadius: 3
-                )
-              ]
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              SvgPicture.asset(Assets.svg.search.path),
-              const Text(AppStrings.searchProduct,style: AppTextStyles.searchHint,),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Image.asset(Assets.png.mainLogo.path),
-              )
-            ],
+      child: SizedBox(
+        height: 55,
+        width: double.infinity,
+        child: TextField(
+          controller: searchController,
+          textAlign: TextAlign.center,
+          decoration: InputDecoration(
+            enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(AppDimens.large),
+                borderSide: const BorderSide(color: Colors.grey)),
+            focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(AppDimens.large),
+                borderSide: const BorderSide(color: AppColors.primaryColor)),
+            prefixIcon: IconButton(
+              highlightColor: Colors.transparent,
+              splashColor: Colors.transparent,
+              onPressed: () {},
+              icon: SvgPicture.asset(
+                Assets.svg.search.path,
+              ),
+            ),
+            suffixIcon: Padding(
+              padding: const EdgeInsets.all(10),
+              child: Image.asset(Assets.png.mainLogo.path),
+            ),
+            hintText: AppStrings.searchProduct,
+            hintStyle: AppTextStyles.searchHint,
           ),
         ),
       ),
