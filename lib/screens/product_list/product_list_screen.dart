@@ -178,6 +178,17 @@ class _ProductListScreenState extends State<ProductListScreen> {
               return Column(
                 children: [
                   Padding(
+                    padding: const EdgeInsets.fromLTRB(AppDimens.medium, AppDimens.medium, AppDimens.large, 0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        const Icon(Icons.arrow_back_ios_new,size: 16,color: AppColors.primaryColor,),
+
+                        Text("جستجو بر اساس برند",style: AppTextStyles.primaryStyle.copyWith(fontSize: 14),),
+                      ],
+                    ),
+                  ),
+                  Padding(
                     padding: const EdgeInsets.symmetric(
                         vertical: AppDimens.medium,
                         horizontal: AppDimens.small),
@@ -218,6 +229,10 @@ class _ProductListScreenState extends State<ProductListScreen> {
                         },
                       ),
                     ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(AppDimens.medium, AppDimens.small, AppDimens.large, AppDimens.medium),
+                    child: Text("نتایج بر اساس: زنانه",style: AppTextStyles.searchHint.copyWith(fontSize: 14),),
                   ),
                   Expanded(
                     child: GridView.builder(
