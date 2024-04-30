@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:watch_store/screens/product_list/product_list_screen.dart';
 
 import '../component/text_style.dart';
 import '../gen/assets.gen.dart';
@@ -8,7 +9,9 @@ import '../res/dimens.dart';
 import '../res/strings.dart';
 
 class SearchBtn extends StatelessWidget {
-  SearchBtn({super.key,});
+  SearchBtn({
+    super.key,
+  });
 
   TextEditingController searchController = TextEditingController();
 
@@ -32,7 +35,16 @@ class SearchBtn extends StatelessWidget {
             prefixIcon: IconButton(
               highlightColor: Colors.transparent,
               splashColor: Colors.transparent,
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ProductListScreen(
+                        screenKey: 'search',
+                        searchKey: searchController.text.toUpperCase(),
+                      ),
+                    ));
+              },
               icon: SvgPicture.asset(
                 Assets.svg.search.path,
               ),

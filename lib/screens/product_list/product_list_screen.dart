@@ -16,8 +16,11 @@ import '../../widget/cart_badge.dart';
 import '../../widget/product_item.dart';
 
 class ProductListScreen extends StatefulWidget {
-  const ProductListScreen({super.key, this.catId});
+  const ProductListScreen(
+      {super.key, this.screenKey, this.searchKey, this.catId});
 
+  final screenKey;
+  final searchKey;
   final catId;
 
   @override
@@ -28,13 +31,19 @@ class _ProductListScreenState extends State<ProductListScreen> {
   @override
   void initState() {
     BlocProvider.of<ProductListBloc>(context).emit(ProductListLoading());
-    BlocProvider.of<ProductListBloc>(context)
-        .add(ProductListByCat(widget.catId));
+    if (widget.screenKey == 'search') {
+      BlocProvider.of<ProductListBloc>(context)
+          .add(ProductListBySearch(widget.searchKey));
+    } else if (widget.screenKey == 'category') {
+      BlocProvider.of<ProductListBloc>(context)
+          .add(ProductListByCat(widget.catId));
+    }
+
     super.initState();
   }
 
   int current = 0;
-  ValueNotifier<String> sortTitle=ValueNotifier("مرتب سازی بر اساس");
+  ValueNotifier<String> sortTitle = ValueNotifier("مرتب سازی بر اساس");
 
   @override
   Widget build(BuildContext context) {
@@ -73,48 +82,48 @@ class _ProductListScreenState extends State<ProductListScreen> {
                               behavior: HitTestBehavior.opaque,
                               onTap: () {
                                 current = index + 1;
-                                sortTitle.value=sortList[index].title;
-                                BlocProvider.of<ProductListBloc>(
-                                    context)
-                                    .add(ProductListSorted(
-                                    sortList[index].sortRout));
+                                sortTitle.value = sortList[index].title;
+                                BlocProvider.of<ProductListBloc>(context).add(
+                                    ProductListSorted(
+                                        sortList[index].sortRout));
                                 Navigator.pop(context);
                               },
                               child: Container(
-                                  padding: const EdgeInsets.all(AppDimens.medium),
-                                  decoration: const BoxDecoration(
-                                    border: Border(bottom: BorderSide(width: 0.3,color: Colors.grey))
-                                  ),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Transform.scale(
-                                        scale: 1.3,
-                                        child: CupertinoRadio(
-                                          activeColor: AppColors.loadingColor,
-                                          useCheckmarkStyle: true,
-                                          value: sortList[index].id,
-                                          groupValue: current,
-                                          onChanged: (value) {
-                                            current = index + 1;
-                                            sortTitle.value=sortList[index].title;
-                                            BlocProvider.of<ProductListBloc>(
-                                                context)
-                                                .add(ProductListSorted(
-                                                sortList[index].sortRout));
-                                            Navigator.pop(context);
-                                          },
-                                        ),
+                                padding: const EdgeInsets.all(AppDimens.medium),
+                                decoration: const BoxDecoration(
+                                    border: Border(
+                                        bottom: BorderSide(
+                                            width: 0.3, color: Colors.grey))),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Transform.scale(
+                                      scale: 1.3,
+                                      child: CupertinoRadio(
+                                        activeColor: AppColors.loadingColor,
+                                        useCheckmarkStyle: true,
+                                        value: sortList[index].id,
+                                        groupValue: current,
+                                        onChanged: (value) {
+                                          current = index + 1;
+                                          sortTitle.value =
+                                              sortList[index].title;
+                                          BlocProvider.of<ProductListBloc>(
+                                                  context)
+                                              .add(ProductListSorted(
+                                                  sortList[index].sortRout));
+                                          Navigator.pop(context);
+                                        },
                                       ),
-                                      Text(
-                                        sortList[index].title,
-                                        style: AppTextStyles.appBarText,
-                                      ),
-                                    ],
-                                  ),
+                                    ),
+                                    Text(
+                                      sortList[index].title,
+                                      style: AppTextStyles.appBarText,
+                                    ),
+                                  ],
                                 ),
-
+                              ),
                             );
                           },
                         ),
@@ -126,7 +135,8 @@ class _ProductListScreenState extends State<ProductListScreen> {
                   children: [
                     ValueListenableBuilder(
                       valueListenable: sortTitle,
-                      builder: (BuildContext context, String value, Widget? child) {
+                      builder:
+                          (BuildContext context, String value, Widget? child) {
                         return Text(
                           sortTitle.value,
                           style: AppTextStyles.avatarText,
@@ -178,13 +188,21 @@ class _ProductListScreenState extends State<ProductListScreen> {
               return Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(AppDimens.medium, AppDimens.medium, AppDimens.large, 0),
+                    padding: const EdgeInsets.fromLTRB(
+                        AppDimens.medium, AppDimens.medium, AppDimens.large, 0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        const Icon(Icons.arrow_back_ios_new,size: 16,color: AppColors.primaryColor,),
-
-                        Text("جستجو بر اساس برند",style: AppTextStyles.primaryStyle.copyWith(fontSize: 14),),
+                        const Icon(
+                          Icons.arrow_back_ios_new,
+                          size: 16,
+                          color: AppColors.primaryColor,
+                        ),
+                        Text(
+                          "جستجو بر اساس برند",
+                          style:
+                              AppTextStyles.primaryStyle.copyWith(fontSize: 14),
+                        ),
                       ],
                     ),
                   ),
@@ -231,8 +249,12 @@ class _ProductListScreenState extends State<ProductListScreen> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(AppDimens.medium, AppDimens.small, AppDimens.large, AppDimens.medium),
-                    child: Text("نتایج بر اساس: زنانه",style: AppTextStyles.searchHint.copyWith(fontSize: 14),),
+                    padding: const EdgeInsets.fromLTRB(AppDimens.medium,
+                        AppDimens.small, AppDimens.large, AppDimens.medium),
+                    child: Text(
+                      "نتایج بر اساس: زنانه",
+                      style: AppTextStyles.searchHint.copyWith(fontSize: 14),
+                    ),
                   ),
                   Expanded(
                     child: GridView.builder(
@@ -259,7 +281,11 @@ class _ProductListScreenState extends State<ProductListScreen> {
                 ],
               );
             } else if (state is ProductListError) {
-              return const Text("error");
+              return Center(
+                  child: Text(
+                state.error,
+                style: AppTextStyles.error,
+              ));
             } else {
               throw Exception("Invalid Home State");
             }
