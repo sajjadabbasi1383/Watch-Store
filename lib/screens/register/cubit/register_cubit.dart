@@ -28,8 +28,8 @@ class RegisterCubit extends Cubit<RegisterState> {
             textCancelPicker: "لغو",
             textConfirmPicker: "انتخاب",
             zoomOption: const ZoomOption(initZoom: 8.0),
-            initCurrentUserPosition:
-                const UserTrackingOption.withoutUserPosition(),
+            initPosition: GeoPoint(latitude: 36.341194, longitude: 59.586361),
+            //initCurrentUserPosition: UserTrackingOption.,
             radius: 12,
             context: context)
         .then((value) => emit(LocationPickedState(location: value)));
