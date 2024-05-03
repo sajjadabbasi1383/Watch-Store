@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:watch_store/screens/product_list/product_list_screen.dart';
 
@@ -7,6 +8,7 @@ import '../gen/assets.gen.dart';
 import '../res/colors.dart';
 import '../res/dimens.dart';
 import '../res/strings.dart';
+import '../screens/product_list/bloc/product_list_bloc.dart';
 
 class SearchBtn extends StatelessWidget {
   SearchBtn({
@@ -36,12 +38,17 @@ class SearchBtn extends StatelessWidget {
               highlightColor: Colors.transparent,
               splashColor: Colors.transparent,
               onPressed: () {
+
+                BlocProvider.of<ProductListBloc>(context)
+                  .add(ProductListBySearch(searchController.text.toUpperCase()));
+
                 Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => ProductListScreen(
-                        screenKey: 'search',
-                        searchKey: searchController.text.toUpperCase(),
+                        catTitle: searchController.text ==""?"همه محصولات":searchController.text,
+                        //screenKey: 'search',
+                        //searchKey: searchController.text.toUpperCase(),
                       ),
                     ));
               },

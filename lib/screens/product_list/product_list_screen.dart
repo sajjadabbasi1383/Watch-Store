@@ -16,12 +16,13 @@ import '../../widget/cart_badge.dart';
 import '../../widget/product_item.dart';
 
 class ProductListScreen extends StatefulWidget {
-  const ProductListScreen(
-      {super.key, this.screenKey, this.searchKey, this.catId});
+   ProductListScreen({
+    super.key, required this.catTitle,
+  });
 
-  final screenKey;
-  final searchKey;
-  final catId;
+  //final screenKey;
+  // final searchKey;
+   String catTitle;
 
   @override
   State<ProductListScreen> createState() => _ProductListScreenState();
@@ -31,13 +32,13 @@ class _ProductListScreenState extends State<ProductListScreen> {
   @override
   void initState() {
     BlocProvider.of<ProductListBloc>(context).emit(ProductListLoading());
-    if (widget.screenKey == 'search') {
-      BlocProvider.of<ProductListBloc>(context)
-          .add(ProductListBySearch(widget.searchKey));
-    } else if (widget.screenKey == 'category') {
-      BlocProvider.of<ProductListBloc>(context)
-          .add(ProductListByCat(widget.catId));
-    }
+    // if (widget.screenKey == 'search') {
+    //   BlocProvider.of<ProductListBloc>(context)
+    //       .add(ProductListBySearch(widget.searchKey));
+    // } else if (widget.screenKey == 'category') {
+    //   BlocProvider.of<ProductListBloc>(context)
+    //       .add(ProductListByCat(widget.catId));
+    // }
 
     super.initState();
   }
@@ -220,10 +221,12 @@ class _ProductListScreenState extends State<ProductListScreen> {
                         itemBuilder: (context, index) {
                           return GestureDetector(
                             behavior: HitTestBehavior.opaque,
-                            onTap: () =>
-                                BlocProvider.of<ProductListBloc>(context).add(
+                            onTap: () {
+                              widget.catTitle=state.brandList[index].title;
+                              BlocProvider.of<ProductListBloc>(context).add(
                                     ProductListByBrand(
-                                        state.brandList[index].id)),
+                                        state.brandList[index].id));
+                            },
                             child: Container(
                               width: 100,
                               margin: const EdgeInsets.symmetric(
@@ -252,7 +255,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
                     padding: const EdgeInsets.fromLTRB(AppDimens.medium,
                         AppDimens.small, AppDimens.large, AppDimens.medium),
                     child: Text(
-                      "نتایج بر اساس: زنانه",
+                      "نتایج بر اساس: ${widget.catTitle}",
                       style: AppTextStyles.searchHint.copyWith(fontSize: 14),
                     ),
                   ),

@@ -13,6 +13,7 @@ import '../../widget/app_slider.dart';
 import '../../widget/product_item.dart';
 import '../../widget/search_btn.dart';
 import '../../widget/vertical_text.dart';
+import '../product_list/bloc/product_list_bloc.dart';
 import 'bloc/home_bloc.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -96,12 +97,16 @@ class _HomeScreenState extends State<HomeScreen> {
                             iconPath: state.home.categories[index].image,
                             title: state.home.categories[index].title,
                             onTap: () {
+
+                              BlocProvider.of<ProductListBloc>(context)
+                                  .add(ProductListByCat(state.home.categories[index].id));
+
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => ProductListScreen(
-                                      screenKey: 'category',
-                                      catId: state.home.categories[index].id,
+                                      //screenKey: 'category',
+                                      catTitle: state.home.categories[index].title,
                                     ),
                                   ));
                             },
@@ -147,7 +152,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => const ProductListScreen(
+                                    builder: (context) => ProductListScreen(
+                                      catTitle: 'همه محصولات',
                                         //catId: state.home.categories[index].id,
                                         ),
                                   ));
