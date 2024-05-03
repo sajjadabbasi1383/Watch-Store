@@ -38,15 +38,18 @@ class SearchBtn extends StatelessWidget {
               highlightColor: Colors.transparent,
               splashColor: Colors.transparent,
               onPressed: () {
-
-                BlocProvider.of<ProductListBloc>(context)
-                  .add(ProductListBySearch(searchController.text.toUpperCase()));
+                BlocProvider.of<ProductListBloc>(context).add(
+                    ProductListBySearch(searchController.text.toUpperCase()));
 
                 Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => ProductListScreen(
-                        catTitle: searchController.text ==""?"همه محصولات":searchController.text,
+                        catTitle: ValueNotifier(searchController.text == ""
+                            ? "همه محصولات"
+                            : searchController.text,),
+                        isActiveSort:
+                            ValueNotifier(searchController.text == "" ? true : false,)
                         //screenKey: 'search',
                         //searchKey: searchController.text.toUpperCase(),
                       ),

@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -16,13 +18,13 @@ import '../../widget/cart_badge.dart';
 import '../../widget/product_item.dart';
 
 class ProductListScreen extends StatefulWidget {
-   ProductListScreen({
-    super.key, required this.catTitle,
-  });
+  ProductListScreen(
+      {super.key, required this.catTitle, required this.isActiveSort});
 
   //final screenKey;
   // final searchKey;
-   String catTitle;
+  ValueNotifier<String> catTitle;
+  ValueNotifier<bool> isActiveSort;
 
   @override
   State<ProductListScreen> createState() => _ProductListScreenState();
@@ -56,102 +58,116 @@ class _ProductListScreenState extends State<ProductListScreen> {
             children: [
               const CartBadge(count: 2),
               GestureDetector(
-                behavior: HitTestBehavior.opaque,
-                onTap: () {
-                  showModalBottomSheet(
-                    context: context,
-                    shape: const RoundedRectangleBorder(
-                      borderRadius:
-                          BorderRadius.vertical(top: Radius.circular(20.0)),
-                    ),
-                    showDragHandle: true,
-                    builder: (context) {
-                      return Container(
-                        width: double.infinity,
-                        height: 230,
-                        decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.9),
-                          borderRadius: const BorderRadius.vertical(
-                              top: Radius.circular(20.0)),
-                        ),
-                        child: ListView.builder(
-                          physics: const BouncingScrollPhysics(),
-                          itemCount: 4,
-                          padding: const EdgeInsets.all(12),
-                          itemBuilder: (context, index) {
-                            return GestureDetector(
-                              behavior: HitTestBehavior.opaque,
-                              onTap: () {
-                                current = index + 1;
-                                sortTitle.value = sortList[index].title;
-                                BlocProvider.of<ProductListBloc>(context).add(
-                                    ProductListSorted(
-                                        sortList[index].sortRout));
-                                Navigator.pop(context);
-                              },
-                              child: Container(
-                                padding: const EdgeInsets.all(AppDimens.medium),
-                                decoration: const BoxDecoration(
-                                    border: Border(
-                                        bottom: BorderSide(
-                                            width: 0.3, color: Colors.grey))),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Transform.scale(
-                                      scale: 1.3,
-                                      child: CupertinoRadio(
-                                        activeColor: AppColors.loadingColor,
-                                        useCheckmarkStyle: true,
-                                        value: sortList[index].id,
-                                        groupValue: current,
-                                        onChanged: (value) {
-                                          current = index + 1;
-                                          sortTitle.value =
-                                              sortList[index].title;
-                                          BlocProvider.of<ProductListBloc>(
-                                                  context)
-                                              .add(ProductListSorted(
-                                                  sortList[index].sortRout));
-                                          Navigator.pop(context);
-                                        },
+                  behavior: HitTestBehavior.opaque,
+                  onTap: () {
+                    showModalBottomSheet(
+                      context: context,
+                      shape: const RoundedRectangleBorder(
+                        borderRadius:
+                            BorderRadius.vertical(top: Radius.circular(20.0)),
+                      ),
+                      showDragHandle: true,
+                      builder: (context) {
+                        return Container(
+                          width: double.infinity,
+                          height: 230,
+                          decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(0.9),
+                            borderRadius: const BorderRadius.vertical(
+                                top: Radius.circular(20.0)),
+                          ),
+                          child: ListView.builder(
+                            physics: const BouncingScrollPhysics(),
+                            itemCount: 4,
+                            padding: const EdgeInsets.all(12),
+                            itemBuilder: (context, index) {
+                              return GestureDetector(
+                                behavior: HitTestBehavior.opaque,
+                                onTap: () {
+                                  current = index + 1;
+                                  sortTitle.value = sortList[index].title;
+                                  BlocProvider.of<ProductListBloc>(context).add(
+                                      ProductListSorted(
+                                          sortList[index].sortRout));
+                                  Navigator.pop(context);
+                                },
+                                child: Container(
+                                  padding:
+                                      const EdgeInsets.all(AppDimens.medium),
+                                  decoration: const BoxDecoration(
+                                      border: Border(
+                                          bottom: BorderSide(
+                                              width: 0.3, color: Colors.grey))),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Transform.scale(
+                                        scale: 1.3,
+                                        child: CupertinoRadio(
+                                          activeColor: AppColors.loadingColor,
+                                          useCheckmarkStyle: true,
+                                          value: sortList[index].id,
+                                          groupValue: current,
+                                          onChanged: (value) {
+                                            current = index + 1;
+                                            sortTitle.value =
+                                                sortList[index].title;
+                                            BlocProvider.of<ProductListBloc>(
+                                                    context)
+                                                .add(ProductListSorted(
+                                                    sortList[index].sortRout));
+                                            Navigator.pop(context);
+                                          },
+                                        ),
                                       ),
-                                    ),
-                                    Text(
-                                      sortList[index].title,
-                                      style: AppTextStyles.appBarText,
-                                    ),
-                                  ],
+                                      Text(
+                                        sortList[index].title,
+                                        style: AppTextStyles.appBarText,
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            );
-                          },
-                        ),
-                      );
-                    },
-                  );
-                },
-                child: Row(
-                  children: [
-                    ValueListenableBuilder(
-                      valueListenable: sortTitle,
-                      builder:
-                          (BuildContext context, String value, Widget? child) {
-                        return Text(
-                          sortTitle.value,
-                          style: AppTextStyles.avatarText,
+                              );
+                            },
+                          ),
                         );
                       },
-                    ),
-                    AppDimens.small.width,
-                    SvgPicture.asset(
-                      Assets.svg.sort.path,
-                      height: 25,
-                    ),
-                  ],
-                ),
-              ),
+                    );
+                  },
+                  child: ValueListenableBuilder(
+                    valueListenable: widget.isActiveSort,
+                    builder: (context, value, child) {
+                      return widget.isActiveSort.value
+                          ? Row(
+                              children: [
+                                ValueListenableBuilder(
+                                  valueListenable: sortTitle,
+                                  builder: (BuildContext context, String value,
+                                      Widget? child) {
+                                    return Text(
+                                      sortTitle.value,
+                                      style: AppTextStyles.avatarText,
+                                    );
+                                  },
+                                ),
+                                AppDimens.small.width,
+                                SvgPicture.asset(
+                                  Assets.svg.sort.path,
+                                  height: 25,
+                                ),
+                              ],
+                            )
+                          : ValueListenableBuilder(
+                              valueListenable: widget.catTitle,
+                              builder: (context, value, child) => Text(
+                                "نتایج بر اساس: ${widget.catTitle.value}",
+                                style: AppTextStyles.searchHint
+                                    .copyWith(fontSize: 14),
+                              ),
+                            );
+                    },
+                  )),
               IconButton(
                 onPressed: () {
                   Navigator.pop(context);
@@ -222,10 +238,13 @@ class _ProductListScreenState extends State<ProductListScreen> {
                           return GestureDetector(
                             behavior: HitTestBehavior.opaque,
                             onTap: () {
-                              widget.catTitle=state.brandList[index].title;
+                              widget.catTitle.value =
+                                  state.brandList[index].title;
+                              widget.isActiveSort.value = false;
+                              widget.isActiveSort.value = false;
                               BlocProvider.of<ProductListBloc>(context).add(
-                                    ProductListByBrand(
-                                        state.brandList[index].id));
+                                  ProductListByBrand(
+                                      state.brandList[index].id));
                             },
                             child: Container(
                               width: 100,
@@ -251,13 +270,9 @@ class _ProductListScreenState extends State<ProductListScreen> {
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(AppDimens.medium,
-                        AppDimens.small, AppDimens.large, AppDimens.medium),
-                    child: Text(
-                      "نتایج بر اساس: ${widget.catTitle}",
-                      style: AppTextStyles.searchHint.copyWith(fontSize: 14),
-                    ),
+                  Divider(
+                    indent: MediaQuery.sizeOf(context).width * .09,
+                    endIndent: MediaQuery.sizeOf(context).width * .09,
                   ),
                   Expanded(
                     child: GridView.builder(

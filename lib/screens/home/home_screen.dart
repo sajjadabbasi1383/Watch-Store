@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:watch_store/component/extension.dart';
@@ -97,16 +99,18 @@ class _HomeScreenState extends State<HomeScreen> {
                             iconPath: state.home.categories[index].image,
                             title: state.home.categories[index].title,
                             onTap: () {
-
-                              BlocProvider.of<ProductListBloc>(context)
-                                  .add(ProductListByCat(state.home.categories[index].id));
+                              BlocProvider.of<ProductListBloc>(context).add(
+                                  ProductListByCat(
+                                      state.home.categories[index].id));
 
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => ProductListScreen(
                                       //screenKey: 'category',
-                                      catTitle: state.home.categories[index].title,
+                                      isActiveSort: ValueNotifier(false),
+                                      catTitle:
+                                          ValueNotifier(state.home.categories[index].title),
                                     ),
                                   ));
                             },
@@ -149,13 +153,16 @@ class _HomeScreenState extends State<HomeScreen> {
                           GestureDetector(
                             behavior: HitTestBehavior.opaque,
                             onTap: () {
+                              BlocProvider.of<ProductListBloc>(context)
+                                  .add(ProductListBySearch(""));
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => ProductListScreen(
-                                      catTitle: 'همه محصولات',
-                                        //catId: state.home.categories[index].id,
-                                        ),
+                                      catTitle: ValueNotifier('همه محصولات'),
+                                      isActiveSort: ValueNotifier(true),
+                                      //catId: state.home.categories[index].id,
+                                    ),
                                   ));
                             },
                             child: const VerticalText(
@@ -197,9 +204,25 @@ class _HomeScreenState extends State<HomeScreen> {
                                       .specialExpiration),
                             ),
                           ),
-                          const VerticalText(
-                            title: "پرفروش ها",
-                            textStyle: AppTextStyles.bestSellersProducts,
+                          GestureDetector(
+                            behavior: HitTestBehavior.opaque,
+                            onTap: () {
+                              BlocProvider.of<ProductListBloc>(context)
+                                  .add(ProductListBySearch(""));
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => ProductListScreen(
+                                      catTitle: ValueNotifier('همه محصولات'),
+                                      isActiveSort:ValueNotifier(true),
+                                      //catId: state.home.categories[index].id,
+                                    ),
+                                  ));
+                            },
+                            child: const VerticalText(
+                              title: "پرفروش ها",
+                              textStyle: AppTextStyles.bestSellersProducts,
+                            ),
                           )
                         ],
                       ),
@@ -243,9 +266,25 @@ class _HomeScreenState extends State<HomeScreen> {
                                       .newestProducts[index].specialExpiration),
                             ),
                           ),
-                          const VerticalText(
-                            title: "جدیدترین ها",
-                            textStyle: AppTextStyles.newestProducts,
+                          GestureDetector(
+                            behavior: HitTestBehavior.opaque,
+                            onTap: () {
+                              BlocProvider.of<ProductListBloc>(context)
+                                  .add(ProductListBySearch(""));
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => ProductListScreen(
+                                      catTitle: ValueNotifier('همه محصولات'),
+                                      isActiveSort: ValueNotifier(true),
+                                      //catId: state.home.categories[index].id,
+                                    ),
+                                  ));
+                            },
+                            child: const VerticalText(
+                              title: "جدیدترین ها",
+                              textStyle: AppTextStyles.newestProducts,
+                            ),
                           )
                         ],
                       ),
