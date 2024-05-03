@@ -92,8 +92,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     hint: AppStrings.hintNameLastName,
                     controller: _nameController,
                     align: TextAlign.end,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'لطفا نام و نام خانوادگی را وارد کنید';
+                      }
+                      return null;
+                    },
                     inputType: TextInputType.name,
-                    errorText: 'لطفا نام و نام خانوادگی را وارد کنید',
                   ),
                   AppDimens.medium.height,
                   AppTextField(
@@ -102,20 +107,30 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     controller: _phoneController,
                     align: TextAlign.end,
                     inputType: TextInputType.phone,
+                    validator: (value) {
+                      if (value!.length < 11) {
+                        return 'لطفا تلفن ثابت را وارد کنید';
+                      }
+                      return null;
+                    },
                     inputFormatter: [
                       FilteringTextInputFormatter.digitsOnly,
                       LengthLimitingTextInputFormatter(11)
                     ],
-                    errorText: 'لطفا تلفن ثابت را وارد کنید',
                   ),
                   AppDimens.medium.height,
                   AppTextField(
                     lable: AppStrings.address,
                     hint: AppStrings.hintAddress,
                     controller: _addressController,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'لطفا آدرس را وارد کنید';
+                      }
+                      return null;
+                    },
                     align: TextAlign.end,
                     inputFormatter: [LengthLimitingTextInputFormatter(70)],
-                    errorText: 'لطفا آدرس را وارد کنید',
                   ),
                   AppDimens.medium.height,
                   AppTextField(
@@ -124,11 +139,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     controller: _postalController,
                     align: TextAlign.end,
                     inputType: TextInputType.number,
+                    validator: (value) {
+                      if (value!.length < 10) {
+                        return 'لطفا کد پستی را وارد کنید';
+                      }
+                      return null;
+                    },
                     inputFormatter: [
                       FilteringTextInputFormatter.digitsOnly,
                       LengthLimitingTextInputFormatter(10)
                     ],
-                    errorText: 'لطفا کد پستی را وارد کنید',
                   ),
                   AppDimens.medium.height,
                   BlocConsumer<RegisterCubit, RegisterState>(
@@ -146,6 +166,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       return AppTextField(
                         lable: AppStrings.location,
                         hint: AppStrings.hintLocation,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'لطفا موقعیت مکانی را انتخاب کنید';
+                          }
+                          return null;
+                        },
                         icon: GestureDetector(
                           onTap: () {
                             BlocProvider.of<RegisterCubit>(context)
@@ -159,7 +185,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         readOnly: true,
                         controller: _locationController,
                         align: TextAlign.end,
-                        errorText: 'لطفا موقعیت مکانی را انتخاب کنید',
                       );
                     },
                   ),
@@ -202,8 +227,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     imageHandler.getImage!.path),
                                 lat: lat,
                                 lng: lng);
-                            BlocProvider.of<RegisterCubit>(context).register(
-                                user: user, userToken: tokenRoutArg);
+                            BlocProvider.of<RegisterCubit>(context)
+                                .register(user: user, userToken: tokenRoutArg);
                           }
                         },
                       );

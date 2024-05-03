@@ -64,7 +64,8 @@ class _ProductItemState extends State<ProductItem> {
       child: Column(
         children: [
           CachedNetworkImage(
-            imageUrl: widget.image,height: 120,
+            imageUrl: widget.image,
+            height: 120,
             placeholder: (context, url) => Center(
               child: LoadingAnimationWidget.discreteCircle(
                 color: AppColors.loadingColor,

@@ -12,9 +12,9 @@ class AppTextField extends StatelessWidget {
   final TextEditingController controller;
   final Widget icon;
   final bool? readOnly;
+  final String? Function(String?) validator;
   final List<TextInputFormatter>? inputFormatter;
   final TextInputType? inputType;
-  final String errorText;
 
   const AppTextField(
       {super.key,
@@ -26,7 +26,7 @@ class AppTextField extends StatelessWidget {
       this.inputType,
       this.readOnly,
       this.inputFormatter,
-      required this.errorText,
+      required this.validator,
       required this.align});
 
   @override
@@ -63,14 +63,9 @@ class AppTextField extends StatelessWidget {
                 inputFormatters: inputFormatter,
                 textDirection: TextDirection.ltr,
                 controller: controller,
-                readOnly: readOnly??false,
+                readOnly: readOnly ?? false,
                 keyboardType: inputType,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return errorText;
-                  }
-                  return null;
-                },
+                validator: validator,
                 decoration: InputDecoration(
                   hintStyle: AppTextStyles.textFieldHint,
                   hintText: hint,

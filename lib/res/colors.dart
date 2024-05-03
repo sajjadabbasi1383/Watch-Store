@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class AppColors {
   AppColors._();
+
   static const List<Color> productBgGradiant = [
     Color.fromARGB(255, 230, 230, 230),
     Color.fromARGB(255, 255, 255, 255)
@@ -12,7 +13,6 @@ class AppColors {
     Color.fromARGB(100, 223, 238, 245)
   ];
 
-
   static const Color mainBg = Colors.white;
   static const Color title = Colors.black;
   static const Color oldPrice = Color.fromARGB(255, 191, 191, 191);
@@ -21,7 +21,7 @@ class AppColors {
   static const Color appbar = Colors.white;
   static const Color searchBar = Colors.white;
   static const Color scaffoldBackgroundColor =
-  Color.fromARGB(255, 250, 250, 250);
+      Color.fromARGB(255, 250, 250, 250);
   static const Color borderColor = Colors.grey;
   static const Color focusedBorderColor = Color.fromARGB(255, 0, 117, 251);
   static const Color primaryColor = Color.fromARGB(255, 0, 117, 251);

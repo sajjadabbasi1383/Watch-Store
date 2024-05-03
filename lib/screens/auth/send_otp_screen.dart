@@ -34,7 +34,10 @@ class SendOtpScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Image.asset(Assets.png.mainLogo.path),
+                Image.asset(
+                  Assets.png.mainLogo.path,
+                  height: 100,
+                ),
                 AppDimens.large.height,
                 AppTextField(
                   lable: AppStrings.enterYourNumber,
@@ -42,7 +45,12 @@ class SendOtpScreen extends StatelessWidget {
                   inputType: TextInputType.phone,
                   controller: _controller,
                   align: TextAlign.center,
-                  errorText: 'لطفا شماره تلفن را وارد کنید',
+                  validator: (value) {
+                    if (value!.length < 11) {
+                      return 'لطفا شماره تلفن را وارد کنید';
+                    }
+                    return null;
+                  },
                   inputFormatter: [
                     FilteringTextInputFormatter.digitsOnly,
                     LengthLimitingTextInputFormatter(11),

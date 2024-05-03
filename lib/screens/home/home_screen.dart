@@ -109,8 +109,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                     builder: (context) => ProductListScreen(
                                       //screenKey: 'category',
                                       isActiveSort: ValueNotifier(false),
-                                      catTitle:
-                                          ValueNotifier(state.home.categories[index].title),
+                                      catTitle: ValueNotifier(
+                                          state.home.categories[index].title),
                                     ),
                                   ));
                             },
@@ -214,7 +214,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   MaterialPageRoute(
                                     builder: (context) => ProductListScreen(
                                       catTitle: ValueNotifier('همه محصولات'),
-                                      isActiveSort:ValueNotifier(true),
+                                      isActiveSort: ValueNotifier(true),
                                       //catId: state.home.categories[index].id,
                                     ),
                                   ));

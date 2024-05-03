@@ -64,7 +64,10 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Image.asset(Assets.png.mainLogo.path),
+                Image.asset(
+                  Assets.png.mainLogo.path,
+                  height: 100,
+                ),
                 AppDimens.large.height,
                 Text(
                   AppStrings.otpCodeSendFor
@@ -86,12 +89,17 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen> {
                   hint: AppStrings.hintVerificationCode,
                   inputType: TextInputType.number,
                   controller: _controller,
+                  validator: (value) {
+                    if (value!.length < 4) {
+                      return 'لطفا کد فعالسازی را وارد کنید';
+                    }
+                    return null;
+                  },
                   align: TextAlign.center,
                   inputFormatter: [
                     FilteringTextInputFormatter.digitsOnly,
                     LengthLimitingTextInputFormatter(4),
                   ],
-                  errorText: 'لطفا کد فعالسازی را وارد کنید',
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 40.0),
