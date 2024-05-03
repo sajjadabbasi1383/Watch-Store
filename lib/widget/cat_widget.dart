@@ -1,6 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../component/text_style.dart';
+import '../res/colors.dart';
 import '../res/dimens.dart';
 
 class CatWidget extends StatelessWidget {
@@ -34,7 +37,22 @@ class CatWidget extends StatelessWidget {
                     end: Alignment.bottomCenter,
                     colors: colors),
                 borderRadius: BorderRadius.circular(AppDimens.large)),
-            child: Image.network(iconPath),
+            child: CachedNetworkImage(
+              imageUrl: iconPath,
+              placeholder: (context, url) => Center(
+                child: LoadingAnimationWidget.discreteCircle(
+                  color: AppColors.loadingColor,
+                  secondRingColor: AppColors.amazingColor,
+                  thirdRingColor: Colors.grey,
+                  size: 20,
+                ),
+              ),
+              errorWidget: (context, url, error) => const Center(
+                child: Icon(Icons.error),
+              ),
+            ),
+
+            //Image.network(iconPath),
           ),
           Text(
             title,

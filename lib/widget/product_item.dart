@@ -1,6 +1,8 @@
 import 'dart:async';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:watch_store/component/extension.dart';
 
 import '../component/text_style.dart';
@@ -61,10 +63,24 @@ class _ProductItemState extends State<ProductItem> {
               end: Alignment.bottomCenter)),
       child: Column(
         children: [
-          Image.network(
-            widget.image,
-            height: 120,
+          CachedNetworkImage(
+            imageUrl: widget.image,height: 120,
+            placeholder: (context, url) => Center(
+              child: LoadingAnimationWidget.discreteCircle(
+                color: AppColors.loadingColor,
+                secondRingColor: AppColors.amazingColor,
+                thirdRingColor: Colors.grey,
+                size: 20,
+              ),
+            ),
+            errorWidget: (context, url, error) => const Center(
+              child: Icon(Icons.error),
+            ),
           ),
+          // Image.network(
+          //   widget.image,
+          //   height: 120,
+          // ),
           AppDimens.small.height,
           Align(
             alignment: Alignment.centerRight,
