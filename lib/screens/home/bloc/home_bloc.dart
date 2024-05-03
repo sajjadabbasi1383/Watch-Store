@@ -15,7 +15,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         try{
           emit(HomeLoading());
           final home=await homeRepo.getHome();
-          emit(HomeLoaded(home));
+          emit(HomeSuccess(home));
         }catch(e){
           emit(HomeError());
         }

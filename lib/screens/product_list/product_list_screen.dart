@@ -21,8 +21,6 @@ class ProductListScreen extends StatefulWidget {
   ProductListScreen(
       {super.key, required this.catTitle, required this.isActiveSort});
 
-  //final screenKey;
-  // final searchKey;
   ValueNotifier<String> catTitle;
   ValueNotifier<bool> isActiveSort;
 
@@ -34,14 +32,6 @@ class _ProductListScreenState extends State<ProductListScreen> {
   @override
   void initState() {
     BlocProvider.of<ProductListBloc>(context).emit(ProductListLoading());
-    // if (widget.screenKey == 'search') {
-    //   BlocProvider.of<ProductListBloc>(context)
-    //       .add(ProductListBySearch(widget.searchKey));
-    // } else if (widget.screenKey == 'category') {
-    //   BlocProvider.of<ProductListBloc>(context)
-    //       .add(ProductListByCat(widget.catId));
-    // }
-
     super.initState();
   }
 
@@ -240,7 +230,6 @@ class _ProductListScreenState extends State<ProductListScreen> {
                             onTap: () {
                               widget.catTitle.value =
                                   state.brandList[index].title;
-                              widget.isActiveSort.value = false;
                               widget.isActiveSort.value = false;
                               BlocProvider.of<ProductListBloc>(context).add(
                                   ProductListByBrand(

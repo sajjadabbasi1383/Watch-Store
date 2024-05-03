@@ -79,7 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   ),
                 );
-              } else if (state is HomeLoaded) {
+              } else if (state is HomeSuccess) {
                 return Column(
                   children: [
                     AppSlider(
@@ -104,15 +104,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                       state.home.categories[index].id));
 
                               Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => ProductListScreen(
-                                      //screenKey: 'category',
-                                      isActiveSort: ValueNotifier(false),
-                                      catTitle: ValueNotifier(
-                                          state.home.categories[index].title),
-                                    ),
-                                  ));
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ProductListScreen(
+                                    //screenKey: 'category',
+                                    isActiveSort: ValueNotifier(false),
+                                    catTitle: ValueNotifier(
+                                        state.home.categories[index].title),
+                                  ),
+                                ),
+                              );
                             },
                           );
                         },

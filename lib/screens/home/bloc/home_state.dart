@@ -7,8 +7,8 @@ final class HomeLoading extends HomeState {}
 
 final class HomeError extends HomeState {}
 
-final class HomeLoaded extends HomeState {
+final class HomeSuccess extends HomeState {
   final HomeModel home;
 
-  HomeLoaded(this.home);
+  HomeSuccess(this.home);
 }

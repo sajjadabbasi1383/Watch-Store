@@ -85,7 +85,6 @@ class _SplashScreenState extends State<SplashScreen> {
                         const SizedBox(
                           height: 50,
                         ),
-
                       ],
                     ),
                     Positioned(
@@ -106,7 +105,7 @@ class _SplashScreenState extends State<SplashScreen> {
                             SizedBox(
                               width: 10,
                             ),
-                            Text("خطا در اتصال به سرور",
+                            Text("لطفا اتصال اینترنت خود را بررسی کنید",
                                 style: AppTextStyles.error)
                           ],
                         ),
