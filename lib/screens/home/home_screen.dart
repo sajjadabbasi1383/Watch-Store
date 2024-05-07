@@ -135,6 +135,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               itemCount: state.home.amazingProducts.length,
                               shrinkWrap: true,
                               itemBuilder: (context, index) => ProductItem(
+                                  id: state.home.amazingProducts[index].id,
                                   image:
                                       state.home.amazingProducts[index].image,
                                   productName:
@@ -189,6 +190,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               itemCount: state.home.mostSellerProducts.length,
                               shrinkWrap: true,
                               itemBuilder: (context, index) => ProductItem(
+                                  id: state.home.mostSellerProducts[index].id,
                                   image: state
                                       .home.mostSellerProducts[index].image,
                                   productName: state
@@ -254,6 +256,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               itemCount: state.home.newestProducts.length,
                               shrinkWrap: true,
                               itemBuilder: (context, index) => ProductItem(
+                                  id: state.home.newestProducts[index].id,
                                   image: state.home.newestProducts[index].image,
                                   productName:
                                       state.home.newestProducts[index].title,
@@ -296,9 +299,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 return Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(state.error,style: AppTextStyles.error,),
+                    Text(
+                      state.error,
+                      style: AppTextStyles.error,
+                    ),
                     AppDimens.medium.width,
-                    Icon(CupertinoIcons.wifi_slash,color: Colors.red.shade400,),
+                    Icon(
+                      CupertinoIcons.wifi_slash,
+                      color: Colors.red.shade400,
+                    ),
                   ],
                 );
               } else {

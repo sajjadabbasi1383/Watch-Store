@@ -3,7 +3,7 @@ import 'package:watch_store/route_manager/screen_names.dart';
 import 'package:watch_store/screens/auth/send_otp_screen.dart';
 import 'package:watch_store/screens/mainScreen/main_screen.dart';
 import 'package:watch_store/screens/product_list/product_list_screen.dart';
-import 'package:watch_store/screens/product_single_screen.dart';
+import 'package:watch_store/screens/product_single/product_single_screen.dart';
 import 'package:watch_store/screens/register/register_screen.dart';
 import 'package:watch_store/screens/splash_screen.dart';
 
@@ -20,5 +20,5 @@ Map<String, Widget Function(BuildContext)> routes = {
         catTitle: ValueNotifier(""),
         isActiveSort: ValueNotifier(false),
       ),
-  ScreenNames.productSingleScreen: (context) => const ProductSingleScreen(),
+  ScreenNames.productSingleScreen: (context) => const ProductSingleScreen(id: 0,),
 };

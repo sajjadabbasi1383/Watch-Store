@@ -8,10 +8,12 @@ import 'package:watch_store/res/dimens.dart';
 import 'package:watch_store/res/strings.dart';
 import 'package:watch_store/widget/app_bar.dart';
 import 'package:watch_store/widget/cart_badge.dart';
-import '../component/button_style.dart';
+import '../../component/button_style.dart';
 
 class ProductSingleScreen extends StatelessWidget {
-  const ProductSingleScreen({super.key});
+  const ProductSingleScreen({super.key,required this.id});
+
+  final int id;
 
   @override
   Widget build(BuildContext context) {

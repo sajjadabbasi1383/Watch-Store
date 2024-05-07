@@ -272,6 +272,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
                               crossAxisSpacing: 2,
                               childAspectRatio: 0.63),
                       itemBuilder: (context, index) => ProductItem(
+                          id: state.productList[index].id,
                           image: state.productList[index].image,
                           productName: state.productList[index].title,
                           price:

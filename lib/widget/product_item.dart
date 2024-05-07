@@ -4,6 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:watch_store/component/extension.dart';
+import 'package:watch_store/screens/product_single/product_single_screen.dart';
 
 import '../component/text_style.dart';
 import '../gen/assets.gen.dart';
@@ -14,6 +15,7 @@ import '../utils/format_time.dart';
 class ProductItem extends StatefulWidget {
   const ProductItem(
       {super.key,
+        required this.id,
       required this.image,
       required this.productName,
       required this.price,
@@ -21,6 +23,7 @@ class ProductItem extends StatefulWidget {
       this.specialExpiration = "",
       this.discount = 0});
 
+  final int id;
   final image;
   final productName;
   final price;
@@ -52,98 +55,104 @@ class _ProductItemState extends State<ProductItem> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(AppDimens.medium),
-      margin: const EdgeInsets.all(AppDimens.small),
-      width: 200,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(AppDimens.medium),
-          gradient: const LinearGradient(
-              colors: AppColors.productBgGradiant,
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter)),
-      child: Column(
-        children: [
-          CachedNetworkImage(
-            imageUrl: widget.image,
-            height: 120,
-            placeholder: (context, url) => Center(
-              child: LoadingAnimationWidget.discreteCircle(
-                color: AppColors.loadingColor,
-                secondRingColor: AppColors.amazingColor,
-                thirdRingColor: Colors.grey,
-                size: 20,
-              ),
-            ),
-            errorWidget: (context, url, error) => Center(
-              child: Image.asset(Assets.png.mainLogo.path),
-            ),
-          ),
-          // Image.network(
-          //   widget.image,
-          //   height: 120,
-          // ),
-          AppDimens.small.height,
-          Align(
-            alignment: Alignment.centerRight,
-            child: Text(
-              widget.productName,
-              style: AppTextStyles.productTitle,
-              overflow: TextOverflow.ellipsis,
-              textDirection: TextDirection.rtl,
-              maxLines: 2,
-            ),
-          ),
-          AppDimens.small.height,
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    widget.price,
-                    style: AppTextStyles.productPrice,
-                  ),
-                  Visibility(
-                      visible: widget.discount > 0,
-                      child: Text(
-                        widget.oldPrice,
-                        style: AppTextStyles.oldPrice,
-                      )),
-                ],
-              ),
-              Visibility(
-                visible: widget.discount > 0,
-                child: Container(
-                  padding: const EdgeInsets.all(AppDimens.small * .6),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(13),
-                      color: Colors.red),
-                  child: Text(
-                    "${widget.discount}%",
-                    style: AppTextStyles.discount,
-                  ),
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTap: () {
+        Navigator.push(context, MaterialPageRoute(builder: (context) => ProductSingleScreen(id: widget.id),));
+      },
+      child: Container(
+        padding: const EdgeInsets.all(AppDimens.medium),
+        margin: const EdgeInsets.all(AppDimens.small),
+        width: 200,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(AppDimens.medium),
+            gradient: const LinearGradient(
+                colors: AppColors.productBgGradiant,
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter)),
+        child: Column(
+          children: [
+            CachedNetworkImage(
+              imageUrl: widget.image,
+              height: 120,
+              placeholder: (context, url) => Center(
+                child: LoadingAnimationWidget.discreteCircle(
+                  color: AppColors.loadingColor,
+                  secondRingColor: AppColors.amazingColor,
+                  thirdRingColor: Colors.grey,
+                  size: 20,
                 ),
               ),
-            ],
-          ),
-          AppDimens.medium.height,
-          Visibility(
-              visible: now.isBefore(expiration),
-              child: Container(
-                width: double.infinity,
-                height: 2,
-                color: Colors.blue,
-              )),
-          AppDimens.small.height,
-          Visibility(
-              visible: now.isBefore(expiration),
+              errorWidget: (context, url, error) => Center(
+                child: Image.asset(Assets.png.mainLogo.path),
+              ),
+            ),
+            // Image.network(
+            //   widget.image,
+            //   height: 120,
+            // ),
+            AppDimens.small.height,
+            Align(
+              alignment: Alignment.centerRight,
               child: Text(
-                formatTime(inSeconds),
-                style: AppTextStyles.productTimer,
-              ))
-        ],
+                widget.productName,
+                style: AppTextStyles.productTitle,
+                overflow: TextOverflow.ellipsis,
+                textDirection: TextDirection.rtl,
+                maxLines: 2,
+              ),
+            ),
+            AppDimens.small.height,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      widget.price,
+                      style: AppTextStyles.productPrice,
+                    ),
+                    Visibility(
+                        visible: widget.discount > 0,
+                        child: Text(
+                          widget.oldPrice,
+                          style: AppTextStyles.oldPrice,
+                        )),
+                  ],
+                ),
+                Visibility(
+                  visible: widget.discount > 0,
+                  child: Container(
+                    padding: const EdgeInsets.all(AppDimens.small * .6),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(13),
+                        color: Colors.red),
+                    child: Text(
+                      "${widget.discount}%",
+                      style: AppTextStyles.discount,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            AppDimens.medium.height,
+            Visibility(
+                visible: now.isBefore(expiration),
+                child: Container(
+                  width: double.infinity,
+                  height: 2,
+                  color: Colors.blue,
+                )),
+            AppDimens.small.height,
+            Visibility(
+                visible: now.isBefore(expiration),
+                child: Text(
+                  formatTime(inSeconds),
+                  style: AppTextStyles.productTimer,
+                ))
+          ],
+        ),
       ),
     );
   }
