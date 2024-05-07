@@ -9,7 +9,7 @@ class ProductDetailsModel {
   int? productCount;
   String? category;
   int? categoryId;
-  List<Colors>? colors;
+  List<ColorModel>? colors;
   String? brand;
   int? brandId;
   int? review;
@@ -17,7 +17,7 @@ class ProductDetailsModel {
   List<Properties>? properties;
   String? description;
   String? discussion;
-  List<Comments>? comments;
+  List<Comment>? comments;
 
   ProductDetailsModel(
       {this.id,
@@ -52,9 +52,9 @@ class ProductDetailsModel {
     category = json['category'];
     categoryId = json['category_id'];
     if (json['colors'] != null) {
-      colors = <Colors>[];
+      colors = <ColorModel>[];
       json['colors'].forEach((v) {
-        colors!.add(Colors.fromJson(v));
+        colors!.add(ColorModel.fromJson(v));
       });
     }
     brand = json['brand'];
@@ -70,9 +70,9 @@ class ProductDetailsModel {
     description = json['description'];
     discussion = json['discussion'];
     if (json['comments'] != null) {
-      comments = <Comments>[];
+      comments = <Comment>[];
       json['comments'].forEach((v) {
-        comments!.add(Comments.fromJson(v));
+        comments!.add(Comment.fromJson(v));
       });
     }
   }
@@ -108,13 +108,13 @@ class ProductDetailsModel {
   }
 }
 
-class Colors {
+class ColorModel {
   String? title;
   String? code;
 
-  Colors({this.title, this.code});
+  ColorModel({this.title, this.code});
 
-  Colors.fromJson(Map<String, dynamic> json) {
+  ColorModel.fromJson(Map<String, dynamic> json) {
     title = json['title'];
     code = json['code'];
   }
@@ -146,13 +146,13 @@ class Properties {
   }
 }
 
-class Comments {
+class Comment {
   String? user;
   String? body;
 
-  Comments({this.user, this.body});
+  Comment({this.user, this.body});
 
-  Comments.fromJson(Map<String, dynamic> json) {
+  Comment.fromJson(Map<String, dynamic> json) {
     user = json['user'];
     body = json['body'];
   }

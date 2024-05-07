@@ -14,6 +14,7 @@ import 'package:watch_store/screens/product_single/bloc/product_single_bloc.dart
 import 'package:watch_store/widget/app_bar.dart';
 import 'package:watch_store/widget/cart_badge.dart';
 import '../../component/button_style.dart';
+import '../../data/model/product_details_model.dart';
 
 class ProductSingleScreen extends StatefulWidget {
   const ProductSingleScreen({super.key, required this.id});
@@ -232,29 +233,15 @@ class _ProductSingleScreenState extends State<ProductSingleScreen> {
                                 ),
                               ),
                               AppDimens.large.height,
-                              Row(
-                                children: [
-                                  Expanded(
-                                    child: Text(
-                                      state.productDetailsModel.guaranty!,
-                                      style: AppTextStyles.textFieldLabel,
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    width: AppDimens.medium,
-                                  ),
-                                  Expanded(
-                                    child: Text(
-                                      state.productDetailsModel.guaranty!,
-                                      style: AppTextStyles.textFieldLabel,
-                                      maxLines: 2,
-                                    ),
-                                  ),
-                                ],
+                              Text(
+                                state.productDetailsModel.guaranty!,
+                                style: AppTextStyles.mainButton
+                                    .apply(color: Colors.green.shade900),
                               ),
-                              AppDimens.medium.height,
+                              AppDimens.small.height,
                               const Divider(),
-                              const ProductTabView(),
+                              ProductTabView(
+                                  productDetails: state.productDetailsModel),
                             ],
                           ),
                         ),
@@ -364,7 +351,9 @@ class _ProductSingleScreenState extends State<ProductSingleScreen> {
 }
 
 class ProductTabView extends StatefulWidget {
-  const ProductTabView({super.key});
+  const ProductTabView({super.key, required this.productDetails});
+
+  final ProductDetailsModel productDetails;
 
   @override
   State<ProductTabView> createState() => _ProductTabViewState();
@@ -403,7 +392,17 @@ class _ProductTabViewState extends State<ProductTabView> {
         ),
         IndexedStack(
           index: selectedTab,
-          children: const [Comments(), Review(), Features()],
+          children: [
+            Comments(
+              comments: widget.productDetails.comments!,
+            ),
+            Review(
+              content: widget.productDetails.discussion!,
+            ),
+            Description(
+              content: widget.productDetails.description!,
+            )
+          ],
         )
       ],
     );
@@ -412,17 +411,19 @@ class _ProductTabViewState extends State<ProductTabView> {
   List<String> tabs = [
     "نظرات",
     "نقد وبررسی",
-    "خصوصیات",
+    "توضیحات",
   ];
 }
 
-class Features extends StatelessWidget {
-  const Features({super.key});
+class Description extends StatelessWidget {
+  const Description({super.key, required this.content});
+
+  final String content;
 
   @override
   Widget build(BuildContext context) {
     return Text(
-      AppStrings.lurem,
+      content,
       textDirection: TextDirection.rtl,
       textAlign: TextAlign.justify,
       style: AppTextStyles.productDetail,
@@ -431,13 +432,15 @@ class Features extends StatelessWidget {
 }
 
 class Review extends StatelessWidget {
-  const Review({super.key});
+  const Review({super.key, required this.content});
+
+  final String content;
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
+    return Center(
         child: Text(
-      "برای این محصول هیچ نقد و بررسی ثبت نشده است!",
+      content,
       textDirection: TextDirection.rtl,
       style: AppTextStyles.appBarText,
     ));
@@ -445,15 +448,35 @@ class Review extends StatelessWidget {
 }
 
 class Comments extends StatelessWidget {
-  const Comments({super.key});
+  const Comments({super.key, required this.comments});
+
+  final List<Comment> comments;
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-        child: Text(
-      "برای این محصول هیچ نظری ثبت شده است!",
-      textDirection: TextDirection.rtl,
-      style: AppTextStyles.appBarText,
+    return Center(
+        child: Expanded(
+      child: ListView.builder(
+        physics: const ClampingScrollPhysics(),
+        itemCount: comments.length,
+        shrinkWrap: true,
+        itemBuilder: (context, index) {
+          return Container(
+            padding: const EdgeInsets.symmetric(
+                vertical: AppDimens.medium, horizontal: AppDimens.medium),
+            margin: const EdgeInsets.only(bottom: AppDimens.small),
+            decoration: BoxDecoration(
+                color: AppColors.surfaceColor,
+                borderRadius: BorderRadius.circular(12)),
+            child: Text(
+              "${comments[index].user}: ${comments[index].body}",
+              textDirection: TextDirection.rtl,
+              textAlign: TextAlign.left,
+              style: AppTextStyles.appBarText,
+            ),
+          );
+        },
+      ),
     ));
   }
 }
