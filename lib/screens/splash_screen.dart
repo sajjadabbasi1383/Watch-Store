@@ -75,17 +75,20 @@ class _SplashScreenState extends State<SplashScreen> {
                 )
               : Stack(
                   children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image.asset(
-                          Assets.png.mainLogo.path,
-                          width: 250,
-                        ),
-                        const SizedBox(
-                          height: 50,
-                        ),
-                      ],
+                    SizedBox(
+                      width: double.infinity,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            Assets.png.mainLogo.path,
+                            width: 250,
+                          ),
+                          const SizedBox(
+                            height: 50,
+                          ),
+                        ],
+                      ),
                     ),
                     Positioned(
                       bottom: 35,

@@ -6,6 +6,7 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:watch_store/component/extension.dart';
 
 import '../component/text_style.dart';
+import '../gen/assets.gen.dart';
 import '../res/colors.dart';
 import '../res/dimens.dart';
 import '../utils/format_time.dart';
@@ -74,8 +75,8 @@ class _ProductItemState extends State<ProductItem> {
                 size: 20,
               ),
             ),
-            errorWidget: (context, url, error) => const Center(
-              child: Icon(Icons.error),
+            errorWidget: (context, url, error) => Center(
+              child: Image.asset(Assets.png.mainLogo.path),
             ),
           ),
           // Image.network(

@@ -1,9 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:watch_store/data/model/slide_model.dart';
+import 'package:watch_store/gen/assets.gen.dart';
 import 'package:watch_store/res/dimens.dart';
 
 import '../res/colors.dart';
@@ -59,8 +59,8 @@ class _AppSliderState extends State<AppSlider> {
                             size: 30,
                           ),
                         ),
-                        errorWidget: (context, url, error) => const Center(
-                          child: Icon(Icons.error),
+                        errorWidget: (context, url, error) => Center(
+                          child: Image.asset(Assets.png.mainLogo.path),
                         ),
                       ),
                     ),

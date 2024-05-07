@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../component/text_style.dart';
+import '../gen/assets.gen.dart';
 import '../res/colors.dart';
 import '../res/dimens.dart';
 
@@ -47,8 +48,8 @@ class CatWidget extends StatelessWidget {
                   size: 20,
                 ),
               ),
-              errorWidget: (context, url, error) => const Center(
-                child: Icon(Icons.error),
+              errorWidget: (context, url, error) => Center(
+                child: Image.asset(Assets.png.mainLogo.path),
               ),
             ),
 
