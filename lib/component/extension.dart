@@ -14,3 +14,15 @@ extension IntExtension on int{
     return numberFormat.format(this);
   }
 }
+
+extension ColorExtension on String {
+  toColor() {
+    var hexColor = replaceAll("#", "");
+    if (hexColor.length == 6) {
+      hexColor = "FF$hexColor";
+    }
+    if (hexColor.length == 8) {
+      return int.parse("0x$hexColor");
+    }
+  }
+}
