@@ -9,7 +9,7 @@ import 'package:watch_store/component/text_style.dart';
 import 'package:watch_store/gen/assets.gen.dart';
 import 'package:watch_store/res/colors.dart';
 import 'package:watch_store/res/dimens.dart';
-import 'package:watch_store/res/strings.dart';
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:watch_store/screens/product_single/bloc/product_single_bloc.dart';
 import 'package:watch_store/widget/app_bar.dart';
 import 'package:watch_store/widget/cart_badge.dart';
@@ -422,11 +422,13 @@ class Description extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      content,
+    return Directionality(
       textDirection: TextDirection.rtl,
-      textAlign: TextAlign.justify,
-      style: AppTextStyles.productDetail,
+      child: HtmlWidget(
+        content,
+        enableCaching: true,
+        textStyle: AppTextStyles.productDetail,
+      ),
     );
   }
 }
@@ -438,12 +440,14 @@ class Review extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-        child: Text(
-      content,
+    return Directionality(
       textDirection: TextDirection.rtl,
-      style: AppTextStyles.appBarText,
-    ));
+      child: HtmlWidget(
+        content,
+        enableCaching: true,
+        textStyle: AppTextStyles.productDetail,
+      ),
+    );
   }
 }
 
