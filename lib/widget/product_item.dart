@@ -87,10 +87,6 @@ class _ProductItemState extends State<ProductItem> {
                 child: Image.asset(Assets.png.mainLogo.path),
               ),
             ),
-            // Image.network(
-            //   widget.image,
-            //   height: 120,
-            // ),
             AppDimens.small.height,
             Align(
               alignment: Alignment.centerRight,
