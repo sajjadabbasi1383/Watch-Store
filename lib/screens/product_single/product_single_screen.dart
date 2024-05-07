@@ -74,6 +74,8 @@ class _ProductSingleScreenState extends State<ProductSingleScreen> {
                         child: Text(
                       state.productDetailsModel.title ?? "بدون نام",
                       style: AppTextStyles.catTitle,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
                       textDirection: TextDirection.rtl,
                     )),
                     IconButton(
@@ -93,7 +95,7 @@ class _ProductSingleScreenState extends State<ProductSingleScreen> {
                     child: Column(
                       children: [
                         CachedNetworkImage(
-                          imageUrl: state.productDetailsModel.image??'',
+                          imageUrl: state.productDetailsModel.image ?? '',
                           fit: BoxFit.cover,
                           height: size.height * .28,
                           placeholder: (context, url) => Center(
@@ -119,18 +121,140 @@ class _ProductSingleScreenState extends State<ProductSingleScreen> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
-                              const Text(
-                                "بنسر",
+                              Text(
+                                state.productDetailsModel.brand!,
                                 style: AppTextStyles.productTitle,
                                 textDirection: TextDirection.rtl,
                               ),
                               Text(
-                                "مسواک بنسر مدل اکسترا با برس متوسط",
-                                style: AppTextStyles.productCaption,
+                                state.productDetailsModel.title!,
+                                style: AppTextStyles.appBarText,
                                 textDirection: TextDirection.rtl,
                               ),
+                              AppDimens.medium.height,
+                              SizedBox(
+                                height: 60,
+                                child: ListView.builder(
+                                  itemCount: state
+                                      .productDetailsModel.properties!.length,
+                                  physics: const BouncingScrollPhysics(),
+                                  scrollDirection: Axis.horizontal,
+                                  shrinkWrap: true,
+                                  reverse: true,
+                                  itemBuilder: (context, index) {
+                                    return Container(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 0,
+                                          horizontal: AppDimens.small + 2),
+                                      margin: const EdgeInsets.only(
+                                          left: AppDimens.small),
+                                      decoration: BoxDecoration(
+                                          color: AppColors.surfaceColor,
+                                          borderRadius:
+                                              BorderRadius.circular(12)),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.end,
+                                        children: [
+                                          Text(
+                                            state.productDetailsModel
+                                                .properties![index].property!,
+                                            style: AppTextStyles.productCaption,
+                                          ),
+                                          2.height,
+                                          Text(
+                                            state.productDetailsModel
+                                                .properties![index].value!,
+                                            style: AppTextStyles.appBarText,
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
                               const Divider(),
-                              const ProductTabView()
+                              AppDimens.small.height,
+                              SizedBox(
+                                height: 50,
+                                child: ListView.builder(
+                                  itemCount:
+                                      state.productDetailsModel.colors!.length,
+                                  physics: const BouncingScrollPhysics(),
+                                  scrollDirection: Axis.horizontal,
+                                  shrinkWrap: true,
+                                  reverse: true,
+                                  itemBuilder: (context, index) {
+                                    return Container(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: AppDimens.medium),
+                                      margin: const EdgeInsets.only(
+                                          left: AppDimens.small),
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          boxShadow: const [
+                                            BoxShadow(
+                                                color: AppColors.shadow,
+                                                blurRadius: 2)
+                                          ],
+                                          borderRadius:
+                                              BorderRadius.circular(70)),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            state.productDetailsModel
+                                                .colors![index].title!,
+                                            style: AppTextStyles.productCaption,
+                                          ),
+                                          AppDimens.small.width,
+                                          Container(
+                                            width: 25,
+                                            height: 25,
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(100),
+                                                border: Border.all(
+                                                    color: AppColors.shadow),
+                                                color: Color(state
+                                                    .productDetailsModel
+                                                    .colors![index]
+                                                    .code!
+                                                    .toColor())),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                              AppDimens.large.height,
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      state.productDetailsModel.guaranty!,
+                                      style: AppTextStyles.textFieldLabel,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: AppDimens.medium,
+                                  ),
+                                  Expanded(
+                                    child: Text(
+                                      state.productDetailsModel.guaranty!,
+                                      style: AppTextStyles.textFieldLabel,
+                                      maxLines: 2,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              AppDimens.medium.height,
+                              const Divider(),
+                              const ProductTabView(),
                             ],
                           ),
                         ),
@@ -163,13 +287,14 @@ class _ProductSingleScreenState extends State<ProductSingleScreen> {
                               Row(
                                 children: [
                                   Text(
-                                    "${69000.separateWithComma} تومان",
+                                    "${state.productDetailsModel.price!.separateWithComma} تومان",
                                     textDirection: TextDirection.rtl,
                                     style: AppTextStyles.productPrice,
                                   ),
                                   AppDimens.small.width,
                                   Visibility(
-                                    visible: 20 > 0,
+                                    visible:
+                                        state.productDetailsModel.discount! > 0,
                                     child: Container(
                                       padding: const EdgeInsets.all(
                                           AppDimens.small * .31),
@@ -177,8 +302,8 @@ class _ProductSingleScreenState extends State<ProductSingleScreen> {
                                           borderRadius:
                                               BorderRadius.circular(13),
                                           color: Colors.red),
-                                      child: const Text(
-                                        " 20 % ",
+                                      child: Text(
+                                        " ${state.productDetailsModel.discount!} % ",
                                         style: AppTextStyles.discount,
                                       ),
                                     ),
@@ -186,9 +311,11 @@ class _ProductSingleScreenState extends State<ProductSingleScreen> {
                                 ],
                               ),
                               Visibility(
-                                  visible: 20 > 0,
+                                  visible:
+                                      state.productDetailsModel.discount! > 0,
                                   child: Text(
-                                    122000.separateWithComma,
+                                    state.productDetailsModel.discountPrice!
+                                        .separateWithComma,
                                     style: AppTextStyles.oldPrice,
                                   )),
                             ],
