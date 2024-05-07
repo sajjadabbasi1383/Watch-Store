@@ -17,7 +17,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           final home=await homeRepo.getHome();
           emit(HomeSuccess(home));
         }catch(e){
-          emit(HomeError());
+          emit(HomeError("خطا در برقراری ارتباط با سرور"));
         }
       }
     });

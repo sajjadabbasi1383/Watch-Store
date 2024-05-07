@@ -293,7 +293,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 );
               } else if (state is HomeError) {
-                return const Text("error");
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(state.error,style: AppTextStyles.error,),
+                    AppDimens.medium.width,
+                    Icon(CupertinoIcons.wifi_slash,color: Colors.red.shade400,),
+                  ],
+                );
               } else {
                 throw Exception("Invalid Home State");
               }
