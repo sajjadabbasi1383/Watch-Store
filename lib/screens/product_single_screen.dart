@@ -45,7 +45,7 @@ class ProductSingleScreen extends StatelessWidget {
                   child: Column(
                     children: [
                       Image.asset(
-                        Assets.png.unnamed.path,
+                        Assets.png.mainLogo.path,
                         fit: BoxFit.cover,
                         height: size.height * .3,
                       ),

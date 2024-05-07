@@ -65,7 +65,7 @@ class ShoppingCartItem extends StatelessWidget {
                 ],
               )),
           Image.asset(
-            Assets.png.unnamed.path,
+            Assets.png.mainLogo.path,
             height: 105,
           )
         ],
