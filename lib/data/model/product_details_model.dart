@@ -1,4 +1,4 @@
-class ProductDetails {
+class ProductDetailsModel {
   int? id;
   String? title;
   String? titleEn;
@@ -19,7 +19,7 @@ class ProductDetails {
   String? discussion;
   List<Comments>? comments;
 
-  ProductDetails(
+  ProductDetailsModel(
       {this.id,
       this.title,
       this.titleEn,
@@ -40,7 +40,7 @@ class ProductDetails {
       this.discussion,
       this.comments});
 
-  ProductDetails.fromJson(Map<String, dynamic> json) {
+  ProductDetailsModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     title = json['title'];
     titleEn = json['title_en'];

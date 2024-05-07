@@ -11,6 +11,7 @@ class ApiConstant {
   static const search = "$baseUrl/all_products/";
   static const home = "$baseUrl/home";
   static const brands = "$baseUrl/brands";
+  static const productDetails = "$baseUrl/product_details/";
 }
 
 class ProductSortRoute {

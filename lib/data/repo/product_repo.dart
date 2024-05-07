@@ -1,10 +1,13 @@
 import 'package:dio/dio.dart';
+import 'package:watch_store/data/model/product_details_model.dart';
 import 'package:watch_store/data/src/product_data_src.dart';
 
 import '../model/brand_model.dart';
 import '../model/product_model.dart';
 
 abstract class IProductRepo {
+  Future<ProductDetailsModel> getProductDetails(int id);
+
   Future<List<ProductModel>> getAllByCategory(int id);
 
   Future<List<ProductModel>> getAllByBrand(int id);
@@ -40,6 +43,9 @@ class ProductRepository implements IProductRepo {
 
   @override
   Future<List<BrandModel>> getAllBrands() => _iProductDataSrc.getAllBrands();
+
+  @override
+  Future<ProductDetailsModel> getProductDetails(int id) =>_iProductDataSrc.getProductDetails(id);
 }
 
 
