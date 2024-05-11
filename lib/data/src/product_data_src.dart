@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:watch_store/data/model/brand_model.dart';
 import 'package:watch_store/data/model/product_model.dart';
-import 'package:watch_store/data/src/api_constant.dart';
+import 'package:watch_store/data/config/api_constant.dart';
 import 'package:watch_store/utils/response_validator.dart';
 
 import '../model/product_details_model.dart';

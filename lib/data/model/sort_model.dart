@@ -1,4 +1,4 @@
-import 'package:watch_store/data/src/api_constant.dart';
+import 'package:watch_store/data/config/api_constant.dart';
 
 class SortModel {
   int id;

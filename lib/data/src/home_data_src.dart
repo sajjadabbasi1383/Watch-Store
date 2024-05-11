@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:watch_store/data/src/api_constant.dart';
+import 'package:watch_store/data/config/api_constant.dart';
 import 'package:watch_store/utils/response_validator.dart';
 
 import '../model/home_model.dart';

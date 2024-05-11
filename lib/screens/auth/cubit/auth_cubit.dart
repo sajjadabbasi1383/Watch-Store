@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:watch_store/data/src/api_constant.dart';
+import 'package:watch_store/data/config/api_constant.dart';
 import 'package:watch_store/utils/shared_preferences_constant.dart';
 import 'package:watch_store/utils/shared_preferences_manager.dart';
 
