@@ -458,29 +458,26 @@ class Comments extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-        child: Expanded(
-      child: ListView.builder(
+    return ListView.builder(
         physics: const ClampingScrollPhysics(),
         itemCount: comments.length,
         shrinkWrap: true,
         itemBuilder: (context, index) {
           return Container(
             padding: const EdgeInsets.symmetric(
-                vertical: AppDimens.medium, horizontal: AppDimens.medium),
+      vertical: AppDimens.medium, horizontal: AppDimens.medium),
             margin: const EdgeInsets.only(bottom: AppDimens.small),
             decoration: BoxDecoration(
-                color: AppColors.surfaceColor,
-                borderRadius: BorderRadius.circular(12)),
+      color: AppColors.surfaceColor,
+      borderRadius: BorderRadius.circular(12)),
             child: Text(
-              "${comments[index].user}: ${comments[index].body}",
-              textDirection: TextDirection.rtl,
-              textAlign: TextAlign.left,
-              style: AppTextStyles.appBarText,
+    "${comments[index].user}: ${comments[index].body}",
+    textDirection: TextDirection.rtl,
+    textAlign: TextAlign.left,
+    style: AppTextStyles.appBarText,
             ),
           );
         },
-      ),
-    ));
+    );
   }
 }
