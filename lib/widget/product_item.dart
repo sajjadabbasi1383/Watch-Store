@@ -15,7 +15,7 @@ import '../utils/format_time.dart';
 class ProductItem extends StatefulWidget {
   const ProductItem(
       {super.key,
-        required this.id,
+      required this.id,
       required this.image,
       required this.productName,
       required this.price,
@@ -24,19 +24,19 @@ class ProductItem extends StatefulWidget {
       this.discount = 0});
 
   final int id;
-  final image;
-  final productName;
-  final price;
+  final String image;
+  final String productName;
+  final String price;
   final oldPrice;
-  final discount;
-  final specialExpiration;
+  final int discount;
+  final String specialExpiration;
 
   @override
   State<ProductItem> createState() => _ProductItemState();
 }
 
 class _ProductItemState extends State<ProductItem> {
-  Duration _duration = Duration(seconds: 0);
+  Duration _duration = const Duration(seconds: 0);
   late Timer _timer;
   late int inSeconds;
   late DateTime now;
@@ -58,7 +58,11 @@ class _ProductItemState extends State<ProductItem> {
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => ProductSingleScreen(id: widget.id),));
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ProductSingleScreen(id: widget.id),
+            ));
       },
       child: Container(
         padding: const EdgeInsets.all(AppDimens.medium),

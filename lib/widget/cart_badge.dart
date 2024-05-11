@@ -6,7 +6,7 @@ import '../gen/assets.gen.dart';
 class CartBadge extends StatelessWidget {
   const CartBadge({super.key, this.count = 0});
 
-  final count;
+  final int count;
 
   @override
   Widget build(BuildContext context) {

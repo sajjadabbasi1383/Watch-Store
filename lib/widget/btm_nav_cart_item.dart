@@ -10,7 +10,7 @@ class BtmNavCartItem extends StatelessWidget {
   final String text;
   final bool isActive;
   final void Function() onTap;
-  final count;
+  final int count;
 
   const BtmNavCartItem(
       {super.key,

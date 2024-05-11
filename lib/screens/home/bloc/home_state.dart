@@ -6,7 +6,7 @@ sealed class HomeState {}
 final class HomeLoading extends HomeState {}
 
 final class HomeError extends HomeState {
-  String error;
+  final String error;
   HomeError(this.error);
 }
 
