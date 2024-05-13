@@ -1,5 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:watch_store/component/extension.dart';
 import 'package:watch_store/widget/surface_container.dart';
 
@@ -13,12 +15,21 @@ class ShoppingCartItem extends StatelessWidget {
     required this.productTitle,
     required this.price,
     required this.oldPrice,
+    required this.count,
+    required this.image,
+    required this.add,
+    required this.remove,
+    required this.delete,
   });
 
   final String productTitle;
   final int price;
   final int oldPrice;
-  final int count = 1;
+  final int count;
+  final String image;
+  final void Function() add;
+  final void Function() remove;
+  final void Function() delete;
 
   @override
   Widget build(BuildContext context) {
@@ -46,11 +57,11 @@ class ShoppingCartItem extends StatelessWidget {
                   Row(
                     children: [
                       IconButton(
-                          onPressed: () {},
+                          onPressed: delete,
                           icon: SvgPicture.asset(Assets.svg.delete.path)),
                       const Expanded(child: SizedBox.shrink()),
                       IconButton(
-                          onPressed: () {},
+                          onPressed: remove,
                           icon: SvgPicture.asset(Assets.svg.minus.path)),
                       Text(
                         "$count عدد",
@@ -58,16 +69,27 @@ class ShoppingCartItem extends StatelessWidget {
                         textDirection: TextDirection.rtl,
                       ),
                       IconButton(
-                          onPressed: () {},
+                          onPressed: add,
                           icon: SvgPicture.asset(Assets.svg.plus.path)),
                     ],
                   ),
                 ],
               )),
-          Image.asset(
-            Assets.png.mainLogo.path,
-            height: 105,
-          )
+          CachedNetworkImage(
+            imageUrl: image,
+            height: 120,
+            placeholder: (context, url) => Center(
+              child: LoadingAnimationWidget.discreteCircle(
+                color: AppColors.loadingColor,
+                secondRingColor: AppColors.amazingColor,
+                thirdRingColor: Colors.grey,
+                size: 20,
+              ),
+            ),
+            errorWidget: (context, url, error) => Center(
+              child: Image.asset(Assets.png.mainLogo.path),
+            ),
+          ),
         ],
       ),
     );
