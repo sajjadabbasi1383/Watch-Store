@@ -14,6 +14,8 @@ import 'package:watch_store/widget/app_bar.dart';
 import '../../component/button_style.dart';
 import '../../data/model/cart_model.dart';
 import '../../widget/shopping_cart_item.dart';
+import '../product_list/bloc/product_list_bloc.dart';
+import '../product_list/product_list_screen.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
@@ -99,9 +101,7 @@ class CartScreen extends StatelessWidget {
                     ),
                   );
                 } else if (state is CartLoadingState) {
-                  return SizedBox(
-                    width: double.infinity,
-                    height: MediaQuery.sizeOf(context).height,
+                  return Expanded(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -120,13 +120,25 @@ class CartScreen extends StatelessWidget {
                     ),
                   );
                 } else {
-                  return ElevatedButton(
-                    style: AppButtonStyle.mainButtonStyle,
-                    onPressed: () {},
-                    child: const Text(
-                      'تلاش مجدد',
-                      style: AppTextStyles.mainButton,
-                    ),
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text(
+                        'خطا در بارگذاری اطلاعات...',
+                        style: AppTextStyles.error,
+                      ),
+                      const SizedBox(height: 8,),
+                      ElevatedButton(
+                        style: AppButtonStyle.mainButtonStyle,
+                        onPressed: () {
+                          BlocProvider.of<CartBloc>(context).add(CartInitEvent());
+                        },
+                        child: const Text(
+                          'تلاش مجدد',
+                          style: AppTextStyles.mainButton,
+                        ),
+                      ),
+                    ],
                   );
                 }
               },
@@ -174,22 +186,32 @@ class CartList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-        child: ListView.builder(
-      physics: const BouncingScrollPhysics(),
-      padding: const EdgeInsets.only(bottom: AppDimens.large),
-      itemCount: cartList.length,
-      itemBuilder: (context, index) {
-        return ShoppingCartItem(
-          productTitle: cartList[index].product!,
-          price: cartList[index].price!,
-          oldPrice: cartList[index].discountPrice!,
-          count: cartList[index].count!,
-          image: cartList[index].image!,
-          add: () =>BlocProvider.of<CartBloc>(context).add(AddToCartEvent(cartList[index].productId!)),
-          remove: () =>BlocProvider.of<CartBloc>(context).add(RemoveFromCartEvent(cartList[index].productId!)),
-          delete: () =>BlocProvider.of<CartBloc>(context).add(DeleteFromCartEvent(cartList[index].productId!)),
-        );
-      },
-    ));
+      child: cartList.isEmpty
+          ? const Center(
+              child: Text(
+              'سبد خرید شما خالی می باشد',
+              style: AppTextStyles.loadingText,
+            ))
+          : ListView.builder(
+              physics: const BouncingScrollPhysics(),
+              padding: const EdgeInsets.only(bottom: AppDimens.large),
+              itemCount: cartList.length,
+              itemBuilder: (context, index) {
+                return ShoppingCartItem(
+                  productTitle: cartList[index].product!,
+                  price: cartList[index].price!,
+                  oldPrice: cartList[index].discountPrice!,
+                  count: cartList[index].count!,
+                  image: cartList[index].image!,
+                  add: () => BlocProvider.of<CartBloc>(context)
+                      .add(AddToCartEvent(cartList[index].productId!)),
+                  remove: () => BlocProvider.of<CartBloc>(context)
+                      .add(RemoveFromCartEvent(cartList[index].productId!)),
+                  delete: () => BlocProvider.of<CartBloc>(context)
+                      .add(DeleteFromCartEvent(cartList[index].productId!)),
+                );
+              },
+            ),
+    );
   }
 }

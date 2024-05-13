@@ -43,6 +43,7 @@ class ShoppingCartItem extends StatelessWidget {
                   Text(
                     productTitle,
                     style: AppTextStyles.productTitle,
+                    textAlign: TextAlign.right,
                   ),
                   Text(
                     "قیمت  : ${price.separateWithComma} تومان",
@@ -75,19 +76,23 @@ class ShoppingCartItem extends StatelessWidget {
                   ),
                 ],
               )),
-          CachedNetworkImage(
-            imageUrl: image,
+          SizedBox(
+            width: 120,
             height: 120,
-            placeholder: (context, url) => Center(
-              child: LoadingAnimationWidget.discreteCircle(
-                color: AppColors.loadingColor,
-                secondRingColor: AppColors.amazingColor,
-                thirdRingColor: Colors.grey,
-                size: 20,
+            child: CachedNetworkImage(
+              imageUrl: image,
+              height: 120,
+              placeholder: (context, url) => Center(
+                child: LoadingAnimationWidget.discreteCircle(
+                  color: AppColors.loadingColor,
+                  secondRingColor: AppColors.amazingColor,
+                  thirdRingColor: Colors.grey,
+                  size: 20,
+                ),
               ),
-            ),
-            errorWidget: (context, url, error) => Center(
-              child: Image.asset(Assets.png.mainLogo.path),
+              errorWidget: (context, url, error) => Center(
+                child: Image.asset(Assets.png.mainLogo.path,),
+              ),
             ),
           ),
         ],
