@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:watch_store/component/theme.dart';
+import 'package:watch_store/data/repo/cart_repo.dart';
 import 'package:watch_store/data/repo/home_repo.dart';
 import 'package:watch_store/data/repo/product_repo.dart';
 import 'package:watch_store/route_manager/routes.dart';
 import 'package:watch_store/route_manager/screen_names.dart';
 import 'package:watch_store/screens/auth/cubit/auth_cubit.dart';
+import 'package:watch_store/screens/cart_screen/bloc/cart_bloc.dart';
 import 'package:watch_store/screens/home/bloc/home_bloc.dart';
 import 'package:watch_store/screens/product_list/bloc/product_list_bloc.dart';
 import 'package:watch_store/screens/product_single/bloc/product_single_bloc.dart';
@@ -24,7 +26,12 @@ void main() {
     ),
     BlocProvider(create: (context) => RegisterCubit()),
     BlocProvider(create: (context) => ProductListBloc(productRepository)),
-    BlocProvider(create: (context) => ProductSingleBloc(productRepository),)
+    BlocProvider(
+      create: (context) => ProductSingleBloc(productRepository),
+    ),
+    BlocProvider(
+      create: (context) => CartBloc(cartRepository),
+    ),
   ], child: const MyApp()));
 }
 
