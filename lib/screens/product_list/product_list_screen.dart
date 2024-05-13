@@ -44,7 +44,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const CartBadge(count: 2),
+              const CartBadge(),
               GestureDetector(
                   behavior: HitTestBehavior.opaque,
                   onTap: () {

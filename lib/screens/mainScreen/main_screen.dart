@@ -113,7 +113,6 @@ class _MainScreenState extends State<MainScreen> {
                             iconPath: Assets.svg.cart.path,
                             text: "سبد خرید",
                             isActive: selectedIndex == BtmNavScreenIndex.cart,
-                            count: 2,
                             onTap: () =>
                                 btmNavOnPressed(BtmNavScreenIndex.cart)),
                         BtmNavItem(
@@ -124,7 +123,7 @@ class _MainScreenState extends State<MainScreen> {
                                 btmNavOnPressed(BtmNavScreenIndex.home)),
                       ],
                     ),
-                  ))
+                  ),),
             ],
           ),
         ),

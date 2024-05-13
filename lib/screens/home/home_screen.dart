@@ -6,6 +6,7 @@ import 'package:watch_store/component/extension.dart';
 import 'package:watch_store/gen/assets.gen.dart';
 import 'package:watch_store/res/colors.dart';
 import 'package:watch_store/res/dimens.dart';
+import 'package:watch_store/screens/cart_screen/bloc/cart_bloc.dart';
 import 'package:watch_store/screens/product_list/product_list_screen.dart';
 import 'package:watch_store/widget/cat_widget.dart';
 
@@ -28,6 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     BlocProvider.of<HomeBloc>(context).add(HomeInit());
+    BlocProvider.of<CartBloc>(context).add(CartCountItemEvent());
     super.initState();
   }
 

@@ -70,9 +70,7 @@ class _ProductSingleScreenState extends State<ProductSingleScreen> {
               appBar: CustomAppBar(
                 child: Row(
                   children: [
-                    const CartBadge(
-                      count: 2,
-                    ),
+                    const CartBadge(),
                     Expanded(
                         child: Text(
                       productState.productDetailsModel.title ?? "بدون نام",
@@ -334,7 +332,7 @@ class _ProductSingleScreenState extends State<ProductSingleScreen> {
                                   style: AppButtonStyle.mainButtonStyle,
                                   onPressed: () {
                                     BlocProvider.of<CartBloc>(context).add(
-                                        AddToCart(productState
+                                        AddToCartEvent(productState
                                             .productDetailsModel.id!));
                                   },
                                   child: cartState is CartLoadingState
