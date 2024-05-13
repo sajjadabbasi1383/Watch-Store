@@ -13,8 +13,10 @@ import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:watch_store/screens/product_single/bloc/product_single_bloc.dart';
 import 'package:watch_store/widget/app_bar.dart';
 import 'package:watch_store/widget/cart_badge.dart';
+import 'package:watch_store/widget/snack_bar.dart';
 import '../../component/button_style.dart';
 import '../../data/model/product_details_model.dart';
+import '../cart_screen/bloc/cart_bloc.dart';
 
 class ProductSingleScreen extends StatefulWidget {
   const ProductSingleScreen({super.key, required this.id});
@@ -38,11 +40,11 @@ class _ProductSingleScreenState extends State<ProductSingleScreen> {
     Size size = MediaQuery.sizeOf(context);
     return SafeArea(
       child: BlocConsumer<ProductSingleBloc, ProductSingleState>(
-        listener: (context, state) {
+        listener: (productContext, productState) {
           // TODO: implement listener
         },
-        builder: (context, state) {
-          if (state is ProductSingleLoading) {
+        builder: (productContext, productState) {
+          if (productState is ProductSingleLoading) {
             return SizedBox(
               width: double.infinity,
               height: MediaQuery.sizeOf(context).height,
@@ -63,7 +65,7 @@ class _ProductSingleScreenState extends State<ProductSingleScreen> {
                 ],
               ),
             );
-          } else if (state is ProductSingleSuccess) {
+          } else if (productState is ProductSingleSuccess) {
             return Scaffold(
               appBar: CustomAppBar(
                 child: Row(
@@ -73,7 +75,7 @@ class _ProductSingleScreenState extends State<ProductSingleScreen> {
                     ),
                     Expanded(
                         child: Text(
-                      state.productDetailsModel.title ?? "بدون نام",
+                      productState.productDetailsModel.title ?? "بدون نام",
                       style: AppTextStyles.catTitle,
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
@@ -96,7 +98,8 @@ class _ProductSingleScreenState extends State<ProductSingleScreen> {
                     child: Column(
                       children: [
                         CachedNetworkImage(
-                          imageUrl: state.productDetailsModel.image ?? '',
+                          imageUrl:
+                              productState.productDetailsModel.image ?? '',
                           fit: BoxFit.cover,
                           height: size.height * .28,
                           placeholder: (context, url) => Center(
@@ -123,12 +126,12 @@ class _ProductSingleScreenState extends State<ProductSingleScreen> {
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               Text(
-                                state.productDetailsModel.brand!,
+                                productState.productDetailsModel.brand!,
                                 style: AppTextStyles.productTitle,
                                 textDirection: TextDirection.rtl,
                               ),
                               Text(
-                                state.productDetailsModel.title!,
+                                productState.productDetailsModel.title!,
                                 style: AppTextStyles.appBarText,
                                 textDirection: TextDirection.rtl,
                               ),
@@ -136,7 +139,7 @@ class _ProductSingleScreenState extends State<ProductSingleScreen> {
                               SizedBox(
                                 height: 60,
                                 child: ListView.builder(
-                                  itemCount: state
+                                  itemCount: productState
                                       .productDetailsModel.properties!.length,
                                   physics: const BouncingScrollPhysics(),
                                   scrollDirection: Axis.horizontal,
@@ -160,13 +163,13 @@ class _ProductSingleScreenState extends State<ProductSingleScreen> {
                                             CrossAxisAlignment.end,
                                         children: [
                                           Text(
-                                            state.productDetailsModel
+                                            productState.productDetailsModel
                                                 .properties![index].property!,
                                             style: AppTextStyles.productCaption,
                                           ),
                                           2.height,
                                           Text(
-                                            state.productDetailsModel
+                                            productState.productDetailsModel
                                                 .properties![index].value!,
                                             style: AppTextStyles.appBarText,
                                           ),
@@ -181,8 +184,8 @@ class _ProductSingleScreenState extends State<ProductSingleScreen> {
                               SizedBox(
                                 height: 50,
                                 child: ListView.builder(
-                                  itemCount:
-                                      state.productDetailsModel.colors!.length,
+                                  itemCount: productState
+                                      .productDetailsModel.colors!.length,
                                   physics: const BouncingScrollPhysics(),
                                   scrollDirection: Axis.horizontal,
                                   shrinkWrap: true,
@@ -207,7 +210,7 @@ class _ProductSingleScreenState extends State<ProductSingleScreen> {
                                             MainAxisAlignment.center,
                                         children: [
                                           Text(
-                                            state.productDetailsModel
+                                            productState.productDetailsModel
                                                 .colors![index].title!,
                                             style: AppTextStyles.productCaption,
                                           ),
@@ -220,7 +223,7 @@ class _ProductSingleScreenState extends State<ProductSingleScreen> {
                                                     BorderRadius.circular(100),
                                                 border: Border.all(
                                                     color: AppColors.shadow),
-                                                color: Color(state
+                                                color: Color(productState
                                                     .productDetailsModel
                                                     .colors![index]
                                                     .code!
@@ -234,14 +237,15 @@ class _ProductSingleScreenState extends State<ProductSingleScreen> {
                               ),
                               AppDimens.large.height,
                               Text(
-                                state.productDetailsModel.guaranty!,
+                                productState.productDetailsModel.guaranty!,
                                 style: AppTextStyles.mainButton
                                     .apply(color: Colors.green.shade900),
                               ),
                               AppDimens.small.height,
                               const Divider(),
                               ProductTabView(
-                                  productDetails: state.productDetailsModel),
+                                  productDetails:
+                                      productState.productDetailsModel),
                             ],
                           ),
                         ),
@@ -274,14 +278,15 @@ class _ProductSingleScreenState extends State<ProductSingleScreen> {
                               Row(
                                 children: [
                                   Text(
-                                    "${state.productDetailsModel.price!.separateWithComma} تومان",
+                                    "${productState.productDetailsModel.price!.separateWithComma} تومان",
                                     textDirection: TextDirection.rtl,
                                     style: AppTextStyles.productPrice,
                                   ),
                                   AppDimens.small.width,
                                   Visibility(
-                                    visible:
-                                        state.productDetailsModel.discount! > 0,
+                                    visible: productState
+                                            .productDetailsModel.discount! >
+                                        0,
                                     child: Container(
                                       padding: const EdgeInsets.all(
                                           AppDimens.small * .31),
@@ -290,7 +295,7 @@ class _ProductSingleScreenState extends State<ProductSingleScreen> {
                                               BorderRadius.circular(13),
                                           color: Colors.red),
                                       child: Text(
-                                        " ${state.productDetailsModel.discount!} % ",
+                                        " ${productState.productDetailsModel.discount!} % ",
                                         style: AppTextStyles.discount,
                                       ),
                                     ),
@@ -298,26 +303,52 @@ class _ProductSingleScreenState extends State<ProductSingleScreen> {
                                 ],
                               ),
                               Visibility(
-                                  visible:
-                                      state.productDetailsModel.discount! > 0,
+                                  visible: productState
+                                          .productDetailsModel.discount! >
+                                      0,
                                   child: Text(
-                                    state.productDetailsModel.discountPrice!
-                                        .separateWithComma,
+                                    productState.productDetailsModel
+                                        .discountPrice!.separateWithComma,
                                     style: AppTextStyles.oldPrice,
                                   )),
                             ],
                           ),
-                          SizedBox(
-                            height: size.height * .055,
-                            width: size.width * .4,
-                            child: ElevatedButton(
-                              style: AppButtonStyle.mainButtonStyle,
-                              onPressed: () {},
-                              child: const Text(
-                                "افزودن به سبد خرید",
-                                style: AppTextStyles.mainButton,
-                              ),
-                            ),
+                          BlocConsumer<CartBloc, CartState>(
+                            listener: (cartContext, cartState) {
+                              if (cartState is CartItemAddedState) {
+                                showCustomSnackBar(
+                                    context,
+                                    'محصول مورد نظر به سبد خرید اضافه شد',
+                                    3,
+                                    'success');
+                              } else if (cartState is CartErrorState) {
+                                showCustomSnackBar(context,
+                                    'فرایند با خطا مواجه شد', 2, 'error');
+                              }
+                            },
+                            builder: (cartContext, cartState) {
+                              return SizedBox(
+                                height: size.height * .055,
+                                width: size.width * .4,
+                                child: ElevatedButton(
+                                  style: AppButtonStyle.mainButtonStyle,
+                                  onPressed: () {
+                                    BlocProvider.of<CartBloc>(context).add(
+                                        AddToCart(productState
+                                            .productDetailsModel.id!));
+                                  },
+                                  child: cartState is CartLoadingState
+                                      ? LoadingAnimationWidget.prograssiveDots(
+                                          color: Colors.white,
+                                          size: 37,
+                                        )
+                                      : const Text(
+                                          "افزودن به سبد خرید",
+                                          style: AppTextStyles.mainButton,
+                                        ),
+                                ),
+                              );
+                            },
                           ),
                         ],
                       ),
@@ -326,12 +357,12 @@ class _ProductSingleScreenState extends State<ProductSingleScreen> {
                 ],
               ),
             );
-          } else if (state is ProductSingleError) {
+          } else if (productState is ProductSingleError) {
             return Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  state.error,
+                  productState.error,
                   style: AppTextStyles.error,
                 ),
                 AppDimens.medium.width,
@@ -459,25 +490,25 @@ class Comments extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-        physics: const ClampingScrollPhysics(),
-        itemCount: comments.length,
-        shrinkWrap: true,
-        itemBuilder: (context, index) {
-          return Container(
-            padding: const EdgeInsets.symmetric(
-      vertical: AppDimens.medium, horizontal: AppDimens.medium),
-            margin: const EdgeInsets.only(bottom: AppDimens.small),
-            decoration: BoxDecoration(
-      color: AppColors.surfaceColor,
-      borderRadius: BorderRadius.circular(12)),
-            child: Text(
-    "${comments[index].user}: ${comments[index].body}",
-    textDirection: TextDirection.rtl,
-    textAlign: TextAlign.left,
-    style: AppTextStyles.appBarText,
-            ),
-          );
-        },
+      physics: const ClampingScrollPhysics(),
+      itemCount: comments.length,
+      shrinkWrap: true,
+      itemBuilder: (context, index) {
+        return Container(
+          padding: const EdgeInsets.symmetric(
+              vertical: AppDimens.medium, horizontal: AppDimens.medium),
+          margin: const EdgeInsets.only(bottom: AppDimens.small),
+          decoration: BoxDecoration(
+              color: AppColors.surfaceColor,
+              borderRadius: BorderRadius.circular(12)),
+          child: Text(
+            "${comments[index].user}: ${comments[index].body}",
+            textDirection: TextDirection.rtl,
+            textAlign: TextAlign.left,
+            style: AppTextStyles.appBarText,
+          ),
+        );
+      },
     );
   }
 }
