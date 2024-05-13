@@ -7,11 +7,13 @@ import '../model/cart_model.dart';
 abstract class ICartDataSrc {
   Future<List<CartModel>> getUserCart();
 
-  Future<void> addToCart({required int productId});
+  Future<int> addToCart({required int productId});
 
   Future<void> removeFromCart({required int productId});
 
-  Future<void> deleteFromCart({required int productId});
+  Future<int> deleteFromCart({required int productId});
+
+  Future<int> countCartItem();
 
 // Future<void> totalCartPrice();
 }
@@ -22,17 +24,20 @@ class CartRemoteDataSrc implements ICartDataSrc {
   CartRemoteDataSrc(this.httpClient);
 
   @override
-  Future<void> addToCart({required int productId}) async => await httpClient
-      .post(ApiConstant.addToCart, data: {'product_id': productId}).then(
-          (value) =>
-              HttpResponseValidator.isValidStatusCode(value.statusCode ?? 0));
+  Future<int> addToCart({required int productId}) async =>
+      await httpClient.post(ApiConstant.addToCart,
+          data: {'product_id': productId}).then((value) {
+        HttpResponseValidator.isValidStatusCode(value.statusCode ?? 0);
+        return (value.data['data']['user_cart'] as List).length;
+      });
 
   @override
-  Future<void> deleteFromCart({required int productId}) async =>
-      await httpClient.post(ApiConstant.deleteFromCart, data: {
-        'product_id': productId
-      }).then((value) =>
-          HttpResponseValidator.isValidStatusCode(value.statusCode ?? 0));
+  Future<int> deleteFromCart({required int productId}) async =>
+      await httpClient.post(ApiConstant.deleteFromCart,
+          data: {'product_id': productId}).then((value) {
+        HttpResponseValidator.isValidStatusCode(value.statusCode ?? 0);
+        return (value.data['data']['user_cart'] as List).length;
+      });
 
   @override
   Future<List<CartModel>> getUserCart() async {
@@ -51,6 +56,13 @@ class CartRemoteDataSrc implements ICartDataSrc {
         'product_id': productId
       }).then((value) =>
           HttpResponseValidator.isValidStatusCode(value.statusCode ?? 0));
+
+  @override
+  Future<int> countCartItem() async {
+    final response = await httpClient.post(ApiConstant.userCart);
+    HttpResponseValidator.isValidStatusCode(response.statusCode ?? 0);
+    return (response.data['data']['user_cart'] as List).length;
+  }
 
 // @override
 // Future<void> totalCartPrice() {

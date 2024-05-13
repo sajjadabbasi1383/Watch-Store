@@ -20,3 +20,5 @@ final class CartItemDeleteState extends CartState {}
 final class CartItemAddedState extends CartState {}
 
 final class CartItemRemoveState extends CartState {}
+
+final class CartItemCountState extends CartState {}

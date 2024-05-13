@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:watch_store/data/config/remote_config.dart';
 import 'package:watch_store/data/model/cart_model.dart';
 
@@ -6,27 +7,32 @@ import '../src/cart_data_src.dart';
 abstract class ICartRepo {
   Future<List<CartModel>> getUserCart();
 
-  Future<void> addToCart({required int productId});
+  Future<int> addToCart({required int productId});
 
   Future<void> removeFromCart({required int productId});
 
-  Future<void> deleteFromCart({required int productId});
+  Future<int> deleteFromCart({required int productId});
+
+  Future<int> countCartItem();
 
 // Future<void> totalCartPrice();
 }
 
 class CartRepository extends ICartRepo {
   final ICartDataSrc _iCartDataSrc;
+  ValueNotifier<int> cartCount = ValueNotifier(0);
 
   CartRepository(this._iCartDataSrc);
 
   @override
-  Future<void> addToCart({required int productId}) =>
-      _iCartDataSrc.addToCart(productId: productId);
+  Future<int> addToCart({required int productId}) => _iCartDataSrc
+      .addToCart(productId: productId)
+      .then((value) => cartCount.value = value);
 
   @override
-  Future<void> deleteFromCart({required int productId}) =>
-      _iCartDataSrc.deleteFromCart(productId: productId);
+  Future<int> deleteFromCart({required int productId}) => _iCartDataSrc
+      .deleteFromCart(productId: productId)
+      .then((value) => cartCount.value = value);
 
   @override
   Future<List<CartModel>> getUserCart() => _iCartDataSrc.getUserCart();
@@ -34,6 +40,10 @@ class CartRepository extends ICartRepo {
   @override
   Future<void> removeFromCart({required int productId}) =>
       _iCartDataSrc.removeFromCart(productId: productId);
+
+  @override
+  Future<int> countCartItem() =>
+      _iCartDataSrc.countCartItem().then((value) => cartCount.value = value);
 
 // @override
 // Future<void> totalCartPrice() => _iCartDataSrc.totalCartPrice();

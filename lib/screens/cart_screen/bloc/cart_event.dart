@@ -3,22 +3,24 @@ part of 'cart_bloc.dart';
 @immutable
 sealed class CartEvent {}
 
-class CartInit extends CartEvent {}
+class CartInitEvent extends CartEvent {}
 
-class AddToCart extends CartEvent {
+class CartCountItemEvent extends CartEvent {}
+
+class AddToCartEvent extends CartEvent {
   final int productId;
 
-  AddToCart(this.productId);
+  AddToCartEvent(this.productId);
 }
 
-class RemoveFromCart extends CartEvent {
+class RemoveFromCartEvent extends CartEvent {
   final int productId;
 
-  RemoveFromCart(this.productId);
+  RemoveFromCartEvent(this.productId);
 }
 
-class DeleteFromCart extends CartEvent {
+class DeleteFromCartEvent extends CartEvent {
   final int productId;
 
-  DeleteFromCart(this.productId);
+  DeleteFromCartEvent(this.productId);
 }
