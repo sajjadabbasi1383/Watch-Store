@@ -98,6 +98,7 @@ class CartScreen extends StatelessWidget {
                     child: Text(
                       'خطا در بارگذاری اطلاعات...',
                       style: AppTextStyles.error,
+                      textDirection: TextDirection.rtl,
                     ),
                   );
                 } else if (state is CartLoadingState) {
@@ -120,25 +121,31 @@ class CartScreen extends StatelessWidget {
                     ),
                   );
                 } else {
-                  return Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text(
-                        'خطا در بارگذاری اطلاعات...',
-                        style: AppTextStyles.error,
-                      ),
-                      const SizedBox(height: 8,),
-                      ElevatedButton(
-                        style: AppButtonStyle.mainButtonStyle,
-                        onPressed: () {
-                          BlocProvider.of<CartBloc>(context).add(CartInitEvent());
-                        },
-                        child: const Text(
-                          'تلاش مجدد',
-                          style: AppTextStyles.mainButton,
+                  return Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          'خطا در بارگذاری اطلاعات...',
+                          style: AppTextStyles.error,
+                          textDirection: TextDirection.rtl,
                         ),
-                      ),
-                    ],
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        ElevatedButton(
+                          style: AppButtonStyle.mainButtonStyle,
+                          onPressed: () {
+                            BlocProvider.of<CartBloc>(context)
+                                .add(CartInitEvent());
+                          },
+                          child: const Text(
+                            'تلاش مجدد',
+                            style: AppTextStyles.mainButton,
+                          ),
+                        ),
+                      ],
+                    ),
                   );
                 }
               },
@@ -198,17 +205,7 @@ class CartList extends StatelessWidget {
               itemCount: cartList.length,
               itemBuilder: (context, index) {
                 return ShoppingCartItem(
-                  productTitle: cartList[index].product!,
-                  price: cartList[index].price!,
-                  oldPrice: cartList[index].discountPrice!,
-                  count: cartList[index].count!,
-                  image: cartList[index].image!,
-                  add: () => BlocProvider.of<CartBloc>(context)
-                      .add(AddToCartEvent(cartList[index].productId!)),
-                  remove: () => BlocProvider.of<CartBloc>(context)
-                      .add(RemoveFromCartEvent(cartList[index].productId!)),
-                  delete: () => BlocProvider.of<CartBloc>(context)
-                      .add(DeleteFromCartEvent(cartList[index].productId!)),
+                  cartModel: cartList[index],
                 );
               },
             ),

@@ -7,16 +7,21 @@ class CartModel {
   int? discount;
   int? discountPrice;
   String? image;
+  bool countLoading = false;
+  bool deleteLoading = false;
 
-  CartModel(
-      {this.id,
-      this.productId,
-      this.product,
-      this.count,
-      required this.price,
-      required this.discount,
-      required this.image,
-      required this.discountPrice});
+  CartModel({
+    this.id,
+    this.productId,
+    this.product,
+    this.count,
+    required this.price,
+    required this.discount,
+    required this.image,
+    required this.discountPrice,
+    this.countLoading = false,
+    this.deleteLoading = false,
+  });
 
   CartModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
