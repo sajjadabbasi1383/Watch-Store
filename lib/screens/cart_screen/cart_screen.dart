@@ -17,12 +17,24 @@ import '../../widget/shopping_cart_item.dart';
 import '../product_list/bloc/product_list_bloc.dart';
 import '../product_list/product_list_screen.dart';
 
-class CartScreen extends StatelessWidget {
+class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  State<CartScreen> createState() => _CartScreenState();
+}
+
+class _CartScreenState extends State<CartScreen> {
+
+
+  @override
+  void initState() {
     BlocProvider.of<CartBloc>(context).add(CartInitEvent());
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     Size size = MediaQuery.sizeOf(context);
     return SafeArea(
       child: Scaffold(
@@ -33,7 +45,7 @@ class CartScreen extends StatelessWidget {
             AppStrings.basket,
             style: AppTextStyles.appBarText,
           ),
-        )),
+        ),),
         body: Column(
           children: [
             Container(
@@ -94,11 +106,30 @@ class CartScreen extends StatelessWidget {
                     cartList: state.cartList,
                   );
                 } else if (state is CartErrorState) {
-                  return const Center(
-                    child: Text(
-                      'خطا در بارگذاری اطلاعات...',
-                      style: AppTextStyles.error,
-                      textDirection: TextDirection.rtl,
+                  return Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          'خطا در بارگذاری اطلاعات...',
+                          style: AppTextStyles.error,
+                          textDirection: TextDirection.rtl,
+                        ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        ElevatedButton(
+                          style: AppButtonStyle.mainButtonStyle,
+                          onPressed: () {
+                            BlocProvider.of<CartBloc>(context)
+                                .add(CartInitEvent());
+                          },
+                          child: const Text(
+                            'تلاش مجدد',
+                            style: AppTextStyles.mainButton,
+                          ),
+                        ),
+                      ],
                     ),
                   );
                 } else if (state is CartLoadingState) {
