@@ -33,6 +33,15 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
           emit(ProfileAddressError('خطا در بارگذاری آدرس'));
         }
       }
+      if (event is UserProcessingOrders) {
+        try {
+          emit(UserOrderLoading());
+          final response = await _iProfileRepo.getUserProcessingOrders();
+          emit(UserOrderSuccess(response));
+        } catch (e) {
+          emit(UserOrderError('error'));
+        }
+      }
     });
   }
 }
