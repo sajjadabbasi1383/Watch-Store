@@ -27,7 +27,7 @@ class ProfileRemoteDataSrc implements IProfileDataSrc {
   Future<AddressModel> getUserAddress() async {
     final response = await httpClient.post(ApiConstant.userAddresses);
     HttpResponseValidator.isValidStatusCode(response.statusCode ?? 0);
-    return AddressModel.fromJson(response.data['data']);
+    return AddressModel.fromJson(response.data['data'][0]);
   }
 
   @override
