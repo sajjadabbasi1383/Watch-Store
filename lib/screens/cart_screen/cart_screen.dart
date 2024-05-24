@@ -14,8 +14,6 @@ import 'package:watch_store/widget/app_bar.dart';
 import '../../component/button_style.dart';
 import '../../data/model/cart_model.dart';
 import '../../widget/shopping_cart_item.dart';
-import '../product_list/bloc/product_list_bloc.dart';
-import '../product_list/product_list_screen.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});

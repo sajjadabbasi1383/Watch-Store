@@ -12,7 +12,6 @@ import 'package:watch_store/res/dimens.dart';
 import 'package:watch_store/route_manager/screen_names.dart';
 import 'package:watch_store/screens/auth/cubit/auth_cubit.dart';
 
-import 'cart_screen/bloc/cart_bloc.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
