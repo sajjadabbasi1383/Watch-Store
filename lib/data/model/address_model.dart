@@ -1,12 +1,12 @@
-class Address {
+class AddressModel {
   String? address;
   double? lat;
   double? lng;
   String? postalCode;
 
-  Address({this.address, this.lat, this.lng, this.postalCode});
+  AddressModel({this.address, this.lat, this.lng, this.postalCode});
 
-  Address.fromJson(Map<String, dynamic> json) {
+  AddressModel.fromJson(Map<String, dynamic> json) {
     address = json['address'];
     lat = json['lat'];
     lng = json['lng'];

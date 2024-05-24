@@ -5,7 +5,7 @@ class ProfileModel {
   String? name;
   String? mobile;
   String? phone;
-  Address? address;
+  AddressModel? address;
 
   ProfileModel({this.id, this.name, this.mobile, this.phone, this.address});
 
@@ -15,7 +15,7 @@ class ProfileModel {
     mobile = json['mobile'];
     phone = json['phone'];
     address =
-        json['address'] != null ? Address.fromJson(json['address']) : null;
+        json['address'] != null ? AddressModel.fromJson(json['address']) : null;
   }
 
   Map<String, dynamic> toJson() {
