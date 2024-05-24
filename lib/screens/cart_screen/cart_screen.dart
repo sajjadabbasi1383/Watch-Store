@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -9,6 +10,7 @@ import 'package:watch_store/res/colors.dart';
 import 'package:watch_store/res/dimens.dart';
 import 'package:watch_store/res/strings.dart';
 import 'package:watch_store/screens/cart_screen/bloc/cart_bloc.dart';
+import 'package:watch_store/screens/profile/bloc/profile_bloc.dart';
 import 'package:watch_store/widget/app_bar.dart';
 
 import '../../component/button_style.dart';
@@ -23,11 +25,10 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
-
-
   @override
   void initState() {
     BlocProvider.of<CartBloc>(context).add(CartInitEvent());
+    BlocProvider.of<ProfileBloc>(context).add(ProfileAddressEvent());
     super.initState();
   }
 
@@ -37,17 +38,18 @@ class _CartScreenState extends State<CartScreen> {
     return SafeArea(
       child: Scaffold(
         appBar: const CustomAppBar(
-            child: Align(
-          alignment: Alignment.centerRight,
-          child: Text(
-            AppStrings.basket,
-            style: AppTextStyles.appBarText,
+          child: Align(
+            alignment: Alignment.centerRight,
+            child: Text(
+              AppStrings.basket,
+              style: AppTextStyles.appBarText,
+            ),
           ),
-        ),),
+        ),
         body: Column(
           children: [
             Container(
-              height: size.height * .105,
+              height: size.height * .100,
               width: double.infinity,
               margin: const EdgeInsets.only(
                   top: AppDimens.medium, bottom: AppDimens.small),
@@ -58,52 +60,80 @@ class _CartScreenState extends State<CartScreen> {
                     offset: Offset(0, 2),
                     blurRadius: 4)
               ]),
-              child: Row(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  IconButton(
-                      onPressed: () {},
-                      icon: SvgPicture.asset(Assets.svg.leftArrow.path)),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          AppStrings.sendToAddress,
-                          style: AppTextStyles.productCaption,
-                        ),
-                        const Text(
-                          AppStrings.fakeAddress,
+                  Text(
+                    AppStrings.sendToAddress,
+                    style: AppTextStyles.productCaption,
+                  ),
+                  AppDimens.small.height,
+                  BlocBuilder<ProfileBloc, ProfileState>(
+                    buildWhen: (previous, current) {
+                      if (current is ProfileAddressLoading ||
+                          current is ProfileAddressError ||
+                          current is ProfileAddressSuccess) {
+                        return true;
+                      } else {
+                        return false;
+                      }
+                    },
+                    builder: (profileContext, profileState) {
+                      if (profileState is ProfileAddressLoading ||
+                          profileState is ProfileLoading) {
+                        return const LinearProgressIndicator();
+                      } else if (profileState is ProfileAddressSuccess) {
+                        return Text(
+                          profileState.addressModel.address!,
                           style: AppTextStyles.avatarText,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           textDirection: TextDirection.rtl,
-                        ),
-                      ],
-                    ),
+                        );
+                      } else if (profileState is ProfileAddressError) {
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              profileState.error,
+                              maxLines: 3,
+                              style: AppTextStyles.error,
+                            ),
+                            AppDimens.medium.width,
+                            Icon(
+                              CupertinoIcons.exclamationmark_circle,
+                              color: Colors.red.shade400,
+                            ),
+                          ],
+                        );
+                      } else {
+                        throw Exception("Invalid $profileState State");
+                      }
+                    },
                   ),
                 ],
               ),
             ),
             BlocBuilder<CartBloc, CartState>(
-              builder: (context, state) {
-                if (state is CartSuccessState) {
+              builder: (cartContext, cartState) {
+                if (cartState is CartSuccessState) {
                   return CartList(
-                    cartList: state.cartList,
+                    cartList: cartState.cartList,
                   );
-                } else if (state is CartItemAddedState) {
+                } else if (cartState is CartItemAddedState) {
                   return CartList(
-                    cartList: state.cartList,
+                    cartList: cartState.cartList,
                   );
-                } else if (state is CartItemRemoveState) {
+                } else if (cartState is CartItemRemoveState) {
                   return CartList(
-                    cartList: state.cartList,
+                    cartList: cartState.cartList,
                   );
-                } else if (state is CartItemDeleteState) {
+                } else if (cartState is CartItemDeleteState) {
                   return CartList(
-                    cartList: state.cartList,
+                    cartList: cartState.cartList,
                   );
-                } else if (state is CartErrorState) {
+                } else if (cartState is CartErrorState) {
                   return Expanded(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -130,7 +160,7 @@ class _CartScreenState extends State<CartScreen> {
                       ],
                     ),
                   );
-                } else if (state is CartLoadingState) {
+                } else if (cartState is CartLoadingState) {
                   return Expanded(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
