@@ -11,7 +11,7 @@ part 'cart_state.dart';
 class CartBloc extends Bloc<CartEvent, CartState> {
   final ICartRepo _iCartRepo;
 
-  CartBloc(this._iCartRepo) : super(CartInitialState()) {
+  CartBloc(this._iCartRepo) : super(CartLoadingState()) {
     on<CartEvent>((event, emit) async {
       try {
         if (event is CartInitEvent) {
@@ -30,7 +30,8 @@ class CartBloc extends Bloc<CartEvent, CartState> {
           await _iCartRepo
               .deleteFromCart(productId: event.productId)
               .then((value) => emit(CartItemDeleteState(value)));
-        } else if (event is CartCountItemEvent) {
+        }
+        else if (event is CartCountItemEvent) {
           await _iCartRepo
               .countCartItem()
               .then((value) => emit(CartItemCountState()));

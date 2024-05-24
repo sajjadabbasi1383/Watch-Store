@@ -116,6 +116,18 @@ class _CartScreenState extends State<CartScreen> {
               ),
             ),
             BlocBuilder<CartBloc, CartState>(
+              buildWhen: (previous, current) {
+                if (current is CartSuccessState ||
+                    current is CartItemAddedState ||
+                    current is CartItemRemoveState ||
+                    current is CartItemDeleteState ||
+                    current is CartLoadingState ||
+                    current is CartErrorState) {
+                  return true;
+                } else {
+                  return false;
+                }
+              },
               builder: (cartContext, cartState) {
                 if (cartState is CartSuccessState) {
                   return CartList(
@@ -180,32 +192,33 @@ class _CartScreenState extends State<CartScreen> {
                     ),
                   );
                 } else {
-                  return Expanded(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text(
-                          'خطا در بارگذاری اطلاعات...',
-                          style: AppTextStyles.error,
-                          textDirection: TextDirection.rtl,
-                        ),
-                        const SizedBox(
-                          height: 8,
-                        ),
-                        ElevatedButton(
-                          style: AppButtonStyle.mainButtonStyle,
-                          onPressed: () {
-                            BlocProvider.of<CartBloc>(context)
-                                .add(CartInitEvent());
-                          },
-                          child: const Text(
-                            'تلاش مجدد',
-                            style: AppTextStyles.mainButton,
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
+                  throw Exception('invalid $cartState');
+                  // return Expanded(
+                  //   child: Column(
+                  //     mainAxisAlignment: MainAxisAlignment.center,
+                  //     children: [
+                  //       const Text(
+                  //         'خطا در بارگذاری اطلاعات...',
+                  //         style: AppTextStyles.error,
+                  //         textDirection: TextDirection.rtl,
+                  //       ),
+                  //       const SizedBox(
+                  //         height: 8,
+                  //       ),
+                  //       ElevatedButton(
+                  //         style: AppButtonStyle.mainButtonStyle,
+                  //         onPressed: () {
+                  //           BlocProvider.of<CartBloc>(context)
+                  //               .add(CartInitEvent());
+                  //         },
+                  //         child: const Text(
+                  //           'تلاش مجدد',
+                  //           style: AppTextStyles.mainButton,
+                  //         ),
+                  //       ),
+                  //     ],
+                  //   ),
+                  // );
                 }
               },
             ),
