@@ -16,8 +16,8 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       try {
         if (event is CartInitEvent) {
           emit(CartLoadingState());
-          final cartList = await _iCartRepo.getUserCart();
-          emit(CartSuccessState(cartList));
+          final cartModel = await _iCartRepo.getUserCart();
+          emit(CartSuccessState(cartModel));
         } else if (event is AddToCartEvent) {
           await _iCartRepo
               .addToCart(productId: event.productId)

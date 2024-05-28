@@ -9,27 +9,27 @@ final class CartLoadingState extends CartState {}
 final class CartErrorState extends CartState {}
 
 final class CartSuccessState extends CartState {
-  final List<CartModel> cartList;
+  final CartModel cartModel;
 
-  CartSuccessState(this.cartList);
+  CartSuccessState(this.cartModel);
 }
 
 final class CartItemDeleteState extends CartState {
-  final List<CartModel> cartList;
+  final CartModel cartModel;
 
-  CartItemDeleteState(this.cartList);
+  CartItemDeleteState(this.cartModel);
 }
 
 final class CartItemAddedState extends CartState {
-  final List<CartModel> cartList;
+  final CartModel cartModel;
 
-  CartItemAddedState(this.cartList);
+  CartItemAddedState(this.cartModel);
 }
 
 final class CartItemRemoveState extends CartState {
-  final List<CartModel> cartList;
+  final CartModel cartModel;
 
-  CartItemRemoveState(this.cartList);
+  CartItemRemoveState(this.cartModel);
 }
 
 final class CartItemCountState extends CartState {}
