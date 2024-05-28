@@ -1,11 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:watch_store/component/extension.dart';
 import 'package:watch_store/component/text_style.dart';
-import 'package:watch_store/gen/assets.gen.dart';
 import 'package:watch_store/res/colors.dart';
 import 'package:watch_store/res/dimens.dart';
 import 'package:watch_store/res/strings.dart';
@@ -131,19 +129,19 @@ class _CartScreenState extends State<CartScreen> {
               builder: (cartContext, cartState) {
                 if (cartState is CartSuccessState) {
                   return CartList(
-                    cartList: cartState.cartList,
+                    cartList: cartState.cartModel.userCart!,
                   );
                 } else if (cartState is CartItemAddedState) {
                   return CartList(
-                    cartList: cartState.cartList,
+                    cartList: cartState.cartModel.userCart!,
                   );
                 } else if (cartState is CartItemRemoveState) {
                   return CartList(
-                    cartList: cartState.cartList,
+                    cartList: cartState.cartModel.userCart!,
                   );
                 } else if (cartState is CartItemDeleteState) {
                   return CartList(
-                    cartList: cartState.cartList,
+                    cartList: cartState.cartModel.userCart!,
                   );
                 } else if (cartState is CartErrorState) {
                   return Expanded(
@@ -172,7 +170,7 @@ class _CartScreenState extends State<CartScreen> {
                       ],
                     ),
                   );
-                } else if (cartState is CartLoadingState) {
+                } else {
                   return Expanded(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -191,34 +189,6 @@ class _CartScreenState extends State<CartScreen> {
                       ],
                     ),
                   );
-                } else {
-                  throw Exception('invalid $cartState');
-                  // return Expanded(
-                  //   child: Column(
-                  //     mainAxisAlignment: MainAxisAlignment.center,
-                  //     children: [
-                  //       const Text(
-                  //         'خطا در بارگذاری اطلاعات...',
-                  //         style: AppTextStyles.error,
-                  //         textDirection: TextDirection.rtl,
-                  //       ),
-                  //       const SizedBox(
-                  //         height: 8,
-                  //       ),
-                  //       ElevatedButton(
-                  //         style: AppButtonStyle.mainButtonStyle,
-                  //         onPressed: () {
-                  //           BlocProvider.of<CartBloc>(context)
-                  //               .add(CartInitEvent());
-                  //         },
-                  //         child: const Text(
-                  //           'تلاش مجدد',
-                  //           style: AppTextStyles.mainButton,
-                  //         ),
-                  //       ),
-                  //     ],
-                  //   ),
-                  // );
                 }
               },
             ),
@@ -258,9 +228,9 @@ class _CartScreenState extends State<CartScreen> {
 }
 
 class CartList extends StatelessWidget {
-  CartList({super.key, required this.cartList});
+  const CartList({super.key, required this.cartList});
 
-  List<CartModel> cartList;
+  final List<UserCart> cartList;
 
   @override
   Widget build(BuildContext context) {

@@ -15,7 +15,7 @@ class SearchBtn extends StatelessWidget {
     super.key,
   });
 
-  TextEditingController searchController = TextEditingController();
+  final TextEditingController searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {

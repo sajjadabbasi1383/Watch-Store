@@ -15,7 +15,7 @@ import '../res/colors.dart';
 class ShoppingCartItem extends StatefulWidget {
   const ShoppingCartItem({super.key, required this.cartModel});
 
-  final CartModel cartModel;
+  final UserCart cartModel;
 
   @override
   State<ShoppingCartItem> createState() => _ShoppingCartItemState();

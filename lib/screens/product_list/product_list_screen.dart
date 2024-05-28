@@ -1,3 +1,5 @@
+// ignore_for_file: invalid_use_of_visible_for_testing_member
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,11 +18,11 @@ import '../../widget/cart_badge.dart';
 import '../../widget/product_item.dart';
 
 class ProductListScreen extends StatefulWidget {
-  ProductListScreen(
+  const ProductListScreen(
       {super.key, required this.catTitle, required this.isActiveSort});
 
-  ValueNotifier<String> catTitle;
-  ValueNotifier<bool> isActiveSort;
+  final ValueNotifier<String> catTitle;
+  final ValueNotifier<bool> isActiveSort;
 
   @override
   State<ProductListScreen> createState() => _ProductListScreenState();
@@ -168,28 +170,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
         ),
         body: BlocBuilder<ProductListBloc, ProductListState>(
           builder: (context, state) {
-            if (state is ProductListLoading) {
-              return SizedBox(
-                width: double.infinity,
-                height: MediaQuery.sizeOf(context).height,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    LoadingAnimationWidget.staggeredDotsWave(
-                      color: AppColors.loadingColor,
-                      size: 40,
-                    ),
-                    AppDimens.small.height,
-                    const Text(
-                      "در حال تکمیل اطلاعات...",
-                      style: AppTextStyles.loadingText,
-                      textDirection: TextDirection.rtl,
-                    )
-                  ],
-                ),
-              );
-            } else if (state is ProductListSuccess) {
+             if (state is ProductListSuccess) {
               return Column(
                 children: [
                   Padding(
@@ -293,7 +274,26 @@ class _ProductListScreenState extends State<ProductListScreen> {
                 style: AppTextStyles.error,
               ));
             } else {
-              throw Exception("Invalid Home State");
+               return SizedBox(
+                 width: double.infinity,
+                 height: MediaQuery.sizeOf(context).height,
+                 child: Column(
+                   mainAxisAlignment: MainAxisAlignment.center,
+                   crossAxisAlignment: CrossAxisAlignment.center,
+                   children: [
+                     LoadingAnimationWidget.staggeredDotsWave(
+                       color: AppColors.loadingColor,
+                       size: 40,
+                     ),
+                     AppDimens.small.height,
+                     const Text(
+                       "در حال تکمیل اطلاعات...",
+                       style: AppTextStyles.loadingText,
+                       textDirection: TextDirection.rtl,
+                     )
+                   ],
+                 ),
+               );
             }
           },
         ),

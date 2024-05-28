@@ -19,7 +19,7 @@ class ProductItem extends StatefulWidget {
       required this.image,
       required this.productName,
       required this.price,
-      this.oldPrice = 0,
+      this.oldPrice='0',
       this.specialExpiration = "",
       this.discount = 0});
 
@@ -27,7 +27,7 @@ class ProductItem extends StatefulWidget {
   final String image;
   final String productName;
   final String price;
-  final oldPrice;
+  final String oldPrice;
   final int discount;
   final String specialExpiration;
 
