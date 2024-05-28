@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -167,11 +166,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                         ),
                         const SurfaceContainer(
-                            child: Text(
-                          "قوانین و مقررات",
-                          textAlign: TextAlign.right,
-                          style: AppTextStyles.selectedTab,
-                        )),
+                          child: Text(
+                            "قوانین و مقررات",
+                            textAlign: TextAlign.right,
+                            style: AppTextStyles.selectedTab,
+                          ),
+                        ),
                         SurfaceContainer(
                           child: Padding(
                             padding: const EdgeInsets.all(AppDimens.medium),
@@ -180,10 +180,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               children: [
                                 GestureDetector(
                                   onTap: () => Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => OrderListScreen(),
-                                      )),
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const OrderListScreen(
+                                              screen: 'delivered'),
+                                    ),
+                                  ),
                                   child: Column(
                                     children: [
                                       SvgPicture.asset(
@@ -196,26 +199,51 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     ],
                                   ),
                                 ),
-                                Column(
-                                  children: [
-                                    SvgPicture.asset(Assets.svg.cancelled.path),
-                                    AppDimens.small.height,
-                                    const Text(
-                                      AppStrings.cancelled,
-                                      style: AppTextStyles.avatarText,
-                                    )
-                                  ],
+                                GestureDetector(
+                                  onTap: () => Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const OrderListScreen(
+                                        screen: 'cancelled',
+                                      ),
+                                    ),
+                                  ),
+                                  behavior: HitTestBehavior.opaque,
+                                  child: Column(
+                                    children: [
+                                      SvgPicture.asset(
+                                          Assets.svg.cancelled.path),
+                                      AppDimens.small.height,
+                                      const Text(
+                                        AppStrings.cancelled,
+                                        style: AppTextStyles.avatarText,
+                                      )
+                                    ],
+                                  ),
                                 ),
-                                Column(
-                                  children: [
-                                    SvgPicture.asset(
-                                        Assets.svg.inProccess.path),
-                                    AppDimens.small.height,
-                                    const Text(
-                                      AppStrings.inProccess,
-                                      style: AppTextStyles.avatarText,
-                                    )
-                                  ],
+                                GestureDetector(
+                                  onTap: () => Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const OrderListScreen(
+                                        screen: 'inProccess',
+                                      ),
+                                    ),
+                                  ),
+                                  behavior: HitTestBehavior.opaque,
+                                  child: Column(
+                                    children: [
+                                      SvgPicture.asset(
+                                          Assets.svg.inProccess.path),
+                                      AppDimens.small.height,
+                                      const Text(
+                                        AppStrings.inProccess,
+                                        style: AppTextStyles.avatarText,
+                                      )
+                                    ],
+                                  ),
                                 ),
                               ],
                             ),
