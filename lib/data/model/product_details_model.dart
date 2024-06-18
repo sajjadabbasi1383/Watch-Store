@@ -8,10 +8,10 @@ class ProductDetailsModel {
   String? guaranty;
   int? productCount;
   String? category;
-  int? categoryId;
+  String? categoryId;
   List<ColorModel>? colors;
   String? brand;
-  int? brandId;
+  String? brandId;
   int? review;
   String? image;
   List<Properties>? properties;

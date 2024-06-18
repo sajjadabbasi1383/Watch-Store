@@ -148,8 +148,9 @@ class _CartScreenState extends State<CartScreen> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Text(
-                          'خطا در بارگذاری اطلاعات...',
+                        Text(
+                          cartState.error,
+                          // 'خطا در بارگذاری اطلاعات...',
                           style: AppTextStyles.error,
                           textDirection: TextDirection.rtl,
                         ),

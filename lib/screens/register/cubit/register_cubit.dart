@@ -57,6 +57,7 @@ class RegisterCubit extends Cubit<RegisterState> {
         if (value.statusCode == 201) {
           emit(OkRegisteredState());
         } else {
+          debugPrint(value.statusCode!.toString());
           emit(ErrorState());
         }
       });

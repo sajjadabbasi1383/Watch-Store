@@ -20,7 +20,8 @@ class ProductSingleBloc extends Bloc<ProductSingleEvent, ProductSingleState> {
               await _iProductRepo.getProductDetails(event.id);
           emit(ProductSingleSuccess(productDetails));
         } catch (e) {
-          emit(ProductSingleError("خطا در پردازش اطلاعات محصول"));
+          emit(ProductSingleError(e.toString()));
+          // emit(ProductSingleError("خطا در پردازش اطلاعات محصول"));
         }
       }
     });

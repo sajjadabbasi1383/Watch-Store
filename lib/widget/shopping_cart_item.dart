@@ -54,7 +54,7 @@ class _ShoppingCartItemState extends State<ShoppingCartItem> {
                             widget.cartModel.deleteLoading = true;
                           });
                           BlocProvider.of<CartBloc>(context).add(
-                              DeleteFromCartEvent(widget.cartModel.productId!));
+                              DeleteFromCartEvent(int.parse(widget.cartModel.productId!)));
                         },
                         icon: SvgPicture.asset(Assets.svg.delete.path)),
                     const Expanded(child: SizedBox.shrink()),
@@ -64,7 +64,7 @@ class _ShoppingCartItemState extends State<ShoppingCartItem> {
                             widget.cartModel.countLoading = true;
                           });
                           BlocProvider.of<CartBloc>(context).add(
-                              RemoveFromCartEvent(widget.cartModel.productId!));
+                              RemoveFromCartEvent(int.parse(widget.cartModel.productId!)));
                         },
                         icon: SvgPicture.asset(Assets.svg.minus.path)),
                     widget.cartModel.countLoading
@@ -85,7 +85,7 @@ class _ShoppingCartItemState extends State<ShoppingCartItem> {
                             widget.cartModel.countLoading = true;
                           });
                           BlocProvider.of<CartBloc>(context)
-                              .add(AddToCartEvent(widget.cartModel.productId!));
+                              .add(AddToCartEvent(int.parse(widget.cartModel.productId!)));
                         },
                         icon: SvgPicture.asset(Assets.svg.plus.path)),
                   ],

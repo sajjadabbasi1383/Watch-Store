@@ -30,9 +30,9 @@ class CartModel {
 
 class UserCart {
   int? id;
-  int? productId;
+  String? productId;
   String? product;
-  int? count;
+  String? count;
   int? price;
   int? discount;
   int? discountPrice;

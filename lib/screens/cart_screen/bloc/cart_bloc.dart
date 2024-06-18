@@ -37,7 +37,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
               .then((value) => emit(CartItemCountState()));
         }
       } catch (e) {
-        emit(CartErrorState());
+        emit(CartErrorState(e.toString()));
       }
     });
   }

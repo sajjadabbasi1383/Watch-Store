@@ -6,7 +6,10 @@ sealed class CartState {}
 
 final class CartLoadingState extends CartState {}
 
-final class CartErrorState extends CartState {}
+final class CartErrorState extends CartState {
+  final String error;
+  CartErrorState(this.error);
+}
 
 final class CartSuccessState extends CartState {
   final CartModel cartModel;
