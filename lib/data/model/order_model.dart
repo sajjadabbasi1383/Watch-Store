@@ -1,6 +1,6 @@
 class OrderModel {
   int? id;
-  int? code;
+  String? code;
   String? status;
   List<OrderDetails>? orderDetails;
 
@@ -34,9 +34,9 @@ class OrderModel {
 class OrderDetails {
   int? id;
   String? product;
-  int? count;
-  int? price;
-  int? discountPrice;
+  String? count;
+  String? price;
+  String? discountPrice;
   String? status;
 
   OrderDetails(

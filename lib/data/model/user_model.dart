@@ -5,7 +5,6 @@ class UserModel {
   final String phone;
   final String address;
   final String postalCode;
-  final image;
   final double lat;
   final double lng;
 
@@ -14,7 +13,6 @@ class UserModel {
     required this.phone,
     required this.postalCode,
     required this.address,
-    required this.image,
     required this.lat,
     required this.lng,
   });
@@ -25,7 +23,6 @@ class UserModel {
       'phone': phone,
       'address': address,
       'postal_code': postalCode,
-      'image': image,
       'lat': lat,
       'lng': lng,
     };
@@ -38,7 +35,6 @@ class UserModel {
         phone: map['phone'],
         postalCode: map['postal_code'],
         address: map['address'],
-        image: map['image'],
         lat: map['lat'],
         lng: map['lng']);
   }

@@ -14,11 +14,17 @@ import 'package:watch_store/screens/product_list/bloc/product_list_bloc.dart';
 import 'package:watch_store/screens/product_single/bloc/product_single_bloc.dart';
 import 'package:watch_store/screens/profile/bloc/profile_bloc.dart';
 import 'package:watch_store/screens/register/cubit/register_cubit.dart';
+import 'package:watch_store/utils/shared_preferences_constant.dart';
 import 'package:watch_store/utils/shared_preferences_manager.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferencesManager().init();
+
+  String? token =
+  SharedPreferencesManager().getString(SharedPreferencesConstant.token);
+  debugPrint('Bearer $token');
+
   runApp(MultiBlocProvider(providers: [
     BlocProvider(
       create: (context) => AuthCubit(),

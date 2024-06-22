@@ -1,7 +1,8 @@
+
 class AddressModel {
   String? address;
-  double? lat;
-  double? lng;
+  String? lat;
+  String? lng;
   String? postalCode;
 
   AddressModel({this.address, this.lat, this.lng, this.postalCode});

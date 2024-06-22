@@ -49,7 +49,7 @@ class RegisterCubit extends Cubit<RegisterState> {
       await _dio
           .post(
         ApiConstant.register,
-        data: FormData.fromMap(user.toMap()),
+        data: user.toMap(),
       )
           .then((value) {
         debugPrint(value.data.toString());

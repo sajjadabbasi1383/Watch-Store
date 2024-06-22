@@ -64,19 +64,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         AppDimens.large.height,
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(300),
-                          child: SvgPicture.asset(
-                            Assets.svg.avatar.path,
-                            height: 80,
-                          ),
-                        ),
-                        AppDimens.small.height,
-                        Text(
-                          state.profileModel.name!,
-                          style: AppTextStyles.avatarText,
-                        ),
-                        AppDimens.large.height,
                         Align(
                           alignment: Alignment.centerRight,
                           child: Text(
@@ -160,6 +147,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 SvgPicture.asset(
                                   Assets.svg.userMenu.path,
                                   height: 24,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: AppDimens.small),
+                          child: Align(
+                            alignment: Alignment.centerRight,
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    state.profileModel.address!.postalCode!,
+                                    textAlign: TextAlign.right,
+                                    style: AppTextStyles.selectedTab,
+                                  ),
+                                ),
+                                AppDimens.small.width,
+                                const Icon(
+                                  Icons.location_on_outlined,
                                 ),
                               ],
                             ),

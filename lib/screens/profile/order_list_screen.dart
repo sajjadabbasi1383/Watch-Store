@@ -80,138 +80,153 @@ class _OrderListScreenState extends State<OrderListScreen> {
                       return Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: AppDimens.small),
-                        child: ListView.builder(
-                          itemCount: state.orderList.length,
-                          padding: const EdgeInsets.only(bottom: 50),
-                          physics: const BouncingScrollPhysics(),
-                          shrinkWrap: true,
-                          scrollDirection: Axis.vertical,
-                          itemBuilder: (context, index) {
-                            var order = state.orderList[index].orderDetails!;
-                            return SurfaceContainer(
-                              child: Column(
-                                children: [
-                                  Text(
-                                    "کد سفارش: ${state.orderList[index].code}",
-                                    style: AppTextStyles.appBarText,
-                                  ),
-                                  AppDimens.medium.height,
-                                  ListView.builder(
-                                    itemCount: order.length,
-                                    scrollDirection: Axis.vertical,
-                                    shrinkWrap: true,
-                                    physics:
-                                        const NeverScrollableScrollPhysics(),
-                                    itemBuilder: (context, index) {
-                                      return Container(
-                                        margin: const EdgeInsets.only(
-                                            bottom: AppDimens.small),
-                                        width: double.infinity,
-                                        padding: const EdgeInsets.all(
-                                            AppDimens.medium),
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(
-                                              AppDimens.medium),
-                                          color: AppColors.surfaceColor,
-                                          border: Border.all(
-                                            color: Colors.grey,
-                                          ),
+                        child: state.orderList.isEmpty
+                            ? Center(
+                                child: Text('empty'),
+                              )
+                            : ListView.builder(
+                                itemCount: state.orderList.length,
+                                padding: const EdgeInsets.only(bottom: 50),
+                                physics: const BouncingScrollPhysics(),
+                                shrinkWrap: true,
+                                scrollDirection: Axis.vertical,
+                                itemBuilder: (context, index) {
+                                  var order =
+                                      state.orderList[index].orderDetails!;
+                                  return SurfaceContainer(
+                                    child: Column(
+                                      children: [
+                                        Text(
+                                          "کد سفارش: ${state.orderList[index].code}",
+                                          style: AppTextStyles.appBarText,
                                         ),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.end,
-                                          children: [
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Container(
-                                                  padding: const EdgeInsets
-                                                      .symmetric(
-                                                      vertical: 5,
-                                                      horizontal:
-                                                          AppDimens.small),
-                                                  decoration: BoxDecoration(
-                                                      color: Colors.grey,
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              AppDimens.small)),
-                                                  child: Text(
-                                                    '${order[index].count} عدد',
-                                                    style: AppTextStyles
-                                                        .productTitle
-                                                        .copyWith(
-                                                            color:
-                                                                Colors.white),
-                                                    textDirection:
-                                                        TextDirection.rtl,
-                                                  ),
-                                                ),
-                                                AppDimens.medium.width,
-                                                Expanded(
-                                                  child: Text(
-                                                    order[index].product!,
-                                                    style: AppTextStyles
-                                                        .productTitle,
-                                                    textDirection:
-                                                        TextDirection.rtl,
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    maxLines: 1,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            AppDimens.medium.height,
-                                            Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.end,
-                                              children: [
-                                                Text(
-                                                  "با تخفیف: ${order[index].discountPrice!.separateWithComma} تومان",
-                                                  textDirection:
-                                                      TextDirection.rtl,
-                                                  style: AppTextStyles
-                                                      .productPrice,
-                                                ),
-                                                Text(
-                                                  'قیمت: ${order[index].price!.separateWithComma}',
-                                                  style: AppTextStyles.oldPrice,
-                                                ),
-                                              ],
-                                            ),
-                                            AppDimens.medium.height,
-                                            Container(
+                                        AppDimens.medium.height,
+                                        ListView.builder(
+                                          itemCount: order.length,
+                                          scrollDirection: Axis.vertical,
+                                          shrinkWrap: true,
+                                          physics:
+                                              const NeverScrollableScrollPhysics(),
+                                          itemBuilder: (context, index) {
+                                            return Container(
+                                              margin: const EdgeInsets.only(
+                                                  bottom: AppDimens.small),
+                                              width: double.infinity,
                                               padding: const EdgeInsets.all(
-                                                  AppDimens.small),
+                                                  AppDimens.medium),
                                               decoration: BoxDecoration(
-                                                  color: AppColors
-                                                      .scaffoldBackgroundColor,
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          AppDimens.small)),
-                                              child: Text(
-                                                'در حال پردازش',
-                                                style: AppTextStyles
-                                                    .productTitle
-                                                    .copyWith(
-                                                        color: Colors
-                                                            .deepOrangeAccent,
-                                                        fontWeight:
-                                                            FontWeight.w500),
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        AppDimens.medium),
+                                                color: AppColors.surfaceColor,
+                                                border: Border.all(
+                                                  color: Colors.grey,
+                                                ),
                                               ),
-                                            )
-                                          ],
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.end,
+                                                children: [
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      Container(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .symmetric(
+                                                                vertical: 5,
+                                                                horizontal:
+                                                                    AppDimens
+                                                                        .small),
+                                                        decoration: BoxDecoration(
+                                                            color: Colors.grey,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        AppDimens
+                                                                            .small)),
+                                                        child: Text(
+                                                          '${order[index].count} عدد',
+                                                          style: AppTextStyles
+                                                              .productTitle
+                                                              .copyWith(
+                                                                  color: Colors
+                                                                      .white),
+                                                          textDirection:
+                                                              TextDirection.rtl,
+                                                        ),
+                                                      ),
+                                                      AppDimens.medium.width,
+                                                      Expanded(
+                                                        child: Text(
+                                                          order[index].product!,
+                                                          style: AppTextStyles
+                                                              .productTitle,
+                                                          textDirection:
+                                                              TextDirection.rtl,
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                          maxLines: 1,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  AppDimens.medium.height,
+                                                  Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment.end,
+                                                    children: [
+                                                      Text(
+                                                        "با تخفیف: ${int.parse(order[index].discountPrice!).separateWithComma} تومان",
+                                                        textDirection:
+                                                            TextDirection.rtl,
+                                                        style: AppTextStyles
+                                                            .productPrice,
+                                                      ),
+                                                      Text(
+                                                        'قیمت: ${int.parse(order[index].price!).separateWithComma}',
+                                                        style: AppTextStyles
+                                                            .oldPrice,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  AppDimens.medium.height,
+                                                  Container(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            AppDimens.small),
+                                                    decoration: BoxDecoration(
+                                                        color: AppColors
+                                                            .scaffoldBackgroundColor,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(
+                                                                    AppDimens
+                                                                        .small)),
+                                                    child: Text(
+                                                      'در حال پردازش',
+                                                      style: AppTextStyles
+                                                          .productTitle
+                                                          .copyWith(
+                                                              color: Colors
+                                                                  .deepOrangeAccent,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500),
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            );
+                                          },
                                         ),
-                                      );
-                                    },
-                                  ),
-                                ],
+                                      ],
+                                    ),
+                                  );
+                                },
                               ),
-                            );
-                          },
-                        ),
                       );
                     } else if (state is UserOrderError) {
                       return Row(

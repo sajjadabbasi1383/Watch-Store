@@ -38,8 +38,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
   double lat = 0.0;
   double lng = 0.0;
 
-  ImageHandler imageHandler = ImageHandler();
-
   @override
   Widget build(BuildContext context) {
     final tokenRoutArg = ModalRoute.of(context)!.settings.arguments as String;
@@ -82,12 +80,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  AppDimens.medium.height,
-                  Avatar(
-                      file: imageHandler.getImage,
-                      onTap: () async => await imageHandler
-                          .pickAndCropImage(source: ImageSource.gallery)
-                          .then((value) => setState(() {}))),
                   AppDimens.large.height,
                   AppTextField(
                     lable: AppStrings.nameLastName,
@@ -213,20 +205,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 style: AppTextStyles.mainButton,
                               ),
                         onPressed: () async {
-                          if (imageHandler.getImage == null) {
-                            showCustomSnackBar(
-                                context,
-                                "لطفا تصویر پروفایل را انتخاب کنید",
-                                5,
-                                "error");
-                          } else if (_formKey.currentState!.validate()) {
+                           if (_formKey.currentState!.validate()) {
                             UserModel user = UserModel(
                                 name: _nameController.text,
                                 phone: _phoneController.text,
                                 postalCode: _postalController.text,
                                 address: _addressController.text,
-                                image: await MultipartFile.fromFile(
-                                    imageHandler.getImage!.path),
                                 lat: lat,
                                 lng: lng);
                             BlocProvider.of<RegisterCubit>(context)
