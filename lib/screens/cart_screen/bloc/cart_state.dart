@@ -36,3 +36,8 @@ final class CartItemRemoveState extends CartState {
 }
 
 final class CartItemCountState extends CartState {}
+
+final class RecivedPaymentLinkState extends CartState{
+  final String url;
+  RecivedPaymentLinkState(this.url);
+}

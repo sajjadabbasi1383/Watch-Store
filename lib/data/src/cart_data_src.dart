@@ -14,6 +14,8 @@ abstract class ICartDataSrc {
   Future<CartModel> deleteFromCart({required int productId});
 
   Future<int> countCartItem();
+
+  Future<String> paymentCart();
 }
 
 class CartRemoteDataSrc implements ICartDataSrc {
@@ -57,5 +59,12 @@ class CartRemoteDataSrc implements ICartDataSrc {
     final response = await httpClient.post(ApiConstant.userCart);
     HttpResponseValidator.isValidStatusCode(response.statusCode ?? 0);
     return (response.data['data']['user_cart'] as List).length;
+  }
+
+  @override
+  Future<String> paymentCart() async {
+    final response=await httpClient.post(ApiConstant.payment);
+    HttpResponseValidator.isValidStatusCode(response.statusCode??0);
+    return response.data['action'];
   }
 }

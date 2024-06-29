@@ -15,6 +15,8 @@ abstract class ICartRepo {
 
   Future<int> countCartItem();
 
+  Future<String> paymentCart();
+
 }
 
 class CartRepository extends ICartRepo {
@@ -50,6 +52,9 @@ class CartRepository extends ICartRepo {
   @override
   Future<int> countCartItem() =>
       _iCartDataSrc.countCartItem().then((value) => cartCount.value = value);
+
+  @override
+  Future<String> paymentCart() =>_iCartDataSrc.paymentCart();
 
 }
 

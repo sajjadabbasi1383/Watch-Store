@@ -24,3 +24,5 @@ class DeleteFromCartEvent extends CartEvent {
 
   DeleteFromCartEvent(this.productId);
 }
+
+class PaymentEvent extends CartEvent{}

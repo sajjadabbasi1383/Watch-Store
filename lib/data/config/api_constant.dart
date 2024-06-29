@@ -18,6 +18,7 @@ class ApiConstant {
   static const deleteFromCart = "$baseUrl/delete_from_cart";
   static const totalCartPrice = "$baseUrl/total_cart_price";
   static const profile = "$baseUrl/profile";
+  static const payment = "$baseUrl/payment";
   static const userAddresses = "$baseUrl/user_addresses";
   static const userReceivedOrders = "$baseUrl/user_received_orders";
   static const userCancelledOrders = "$baseUrl/user_cancelled_orders";
