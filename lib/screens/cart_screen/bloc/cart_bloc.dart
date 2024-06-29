@@ -30,11 +30,14 @@ class CartBloc extends Bloc<CartEvent, CartState> {
           await _iCartRepo
               .deleteFromCart(productId: event.productId)
               .then((value) => emit(CartItemDeleteState(value)));
-        }
-        else if (event is CartCountItemEvent) {
+        } else if (event is CartCountItemEvent) {
           await _iCartRepo
               .countCartItem()
               .then((value) => emit(CartItemCountState()));
+        } else if (event is PaymentEvent) {
+          await _iCartRepo
+              .paymentCart()
+              .then((value) => emit(RecivedPaymentLinkState(value)));
         }
       } catch (e) {
         emit(CartErrorState(e.toString()));

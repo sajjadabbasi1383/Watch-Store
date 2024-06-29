@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:watch_store/component/extension.dart';
 import 'package:watch_store/component/text_style.dart';
 import 'package:watch_store/res/colors.dart';
@@ -35,12 +36,24 @@ class _CartScreenState extends State<CartScreen> {
     Size size = MediaQuery.sizeOf(context);
     return SafeArea(
       child: Scaffold(
-        appBar: const CustomAppBar(
+        appBar: CustomAppBar(
           child: Align(
             alignment: Alignment.centerRight,
-            child: Text(
-              AppStrings.basket,
-              style: AppTextStyles.appBarText,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                IconButton(
+                  onPressed: () {
+                    BlocProvider.of<CartBloc>(context).add(CartInitEvent());
+                    BlocProvider.of<CartBloc>(context).add(CartCountItemEvent());
+                  },
+                  icon: const Icon(CupertinoIcons.refresh),
+                ),
+                const Text(
+                  AppStrings.basket,
+                  style: AppTextStyles.appBarText,
+                ),
+              ],
             ),
           ),
         ),
@@ -148,9 +161,8 @@ class _CartScreenState extends State<CartScreen> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(
-                          cartState.error,
-                          // 'خطا در بارگذاری اطلاعات...',
+                        const Text(
+                          'خطا در بارگذاری اطلاعات...',
                           style: AppTextStyles.error,
                           textDirection: TextDirection.rtl,
                         ),
@@ -193,33 +205,114 @@ class _CartScreenState extends State<CartScreen> {
                 }
               },
             ),
-            Container(
-              height: 60,
-              width: double.infinity,
-              decoration: const BoxDecoration(color: Colors.white, boxShadow: [
-                BoxShadow(color: AppColors.shadow, blurRadius: 10)
-              ]),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  const Text(
-                    "مجموع  63,500 تومان",
-                    style: AppTextStyles.productPrice,
-                  ),
-                  SizedBox(
-                    height: size.height * .052,
-                    width: size.width * .38,
-                    child: ElevatedButton(
-                      style: AppButtonStyle.continueShoppingButtonStyle,
-                      onPressed: () {},
-                      child: const Text(
-                        "ادامه فرآیند خرید",
-                        style: AppTextStyles.mainButton,
+            BlocConsumer<CartBloc, CartState>(
+              listener: (context, state) async {
+                if (state is RecivedPaymentLinkState) {
+                  final Uri url = Uri.parse(state.url);
+                  if (await launchUrl(url)) {
+                    debugPrint('could not launch $url');
+                  }
+                }
+              },
+              builder: (context, state) {
+                CartModel? userCart;
+                switch (state.runtimeType) {
+                  case CartSuccessState:
+                  case CartItemAddedState:
+                  case CartItemRemoveState:
+                  case CartItemDeleteState:
+                    userCart = (state as dynamic).cartModel;
+                    break;
+                  case CartErrorState:
+                    return Container(
+                      height: 70,
+                      padding: const EdgeInsets.all(8),
+                      width: double.infinity,
+                      decoration: const BoxDecoration(
+                          color: Colors.white,
+                          boxShadow: [
+                            BoxShadow(color: AppColors.shadow, blurRadius: 10)
+                          ]),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text(
+                            'خطا در بارگذاری اطلاعات...',
+                            style: AppTextStyles.error,
+                            textDirection: TextDirection.rtl,
+                          ),
+                          const SizedBox(
+                            width: 12,
+                          ),
+                          ElevatedButton(
+                            style: AppButtonStyle.mainButtonStyle,
+                            onPressed: () {
+                              BlocProvider.of<CartBloc>(context)
+                                  .add(CartInitEvent());
+                            },
+                            child: const Text(
+                              'تلاش مجدد',
+                              style: AppTextStyles.mainButton,
+                            ),
+                          ),
+                        ],
                       ),
+                    );
+                  case CartLoadingState:
+                    return const SizedBox();
+                  default:
+                    return const SizedBox();
+                }
+                return Visibility(
+                  visible: (userCart!.cartTotalPrice ?? 0) > 0,
+                  child: Container(
+                    // height: 70,
+                    padding: const EdgeInsets.all(12),
+                    width: double.infinity,
+                    decoration: const BoxDecoration(
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(color: AppColors.shadow, blurRadius: 10)
+                        ]),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Column(
+                          children: [
+                            Text(
+                              'قیمت نهایی: ${userCart.cartTotalPrice!.separateWithComma} تومان',
+                              style: AppTextStyles.productPrice,
+                            ),
+                            userCart.totalWithoutDiscountPrice !=
+                                    userCart.cartTotalPrice
+                                ? Text(
+                                    'بدون تخفیف: ${userCart.totalWithoutDiscountPrice!.separateWithComma} تومان',
+                                    style: AppTextStyles.primaryStyle
+                                        .copyWith(fontSize: 16),
+                                  )
+                                : const SizedBox(),
+                          ],
+                        ),
+                        SizedBox(
+                          height: size.height * .052,
+                          width: size.width * .38,
+                          child: ElevatedButton(
+                            style: AppButtonStyle.continueShoppingButtonStyle,
+                            onPressed: () {
+                              BlocProvider.of<CartBloc>(context)
+                                  .add(PaymentEvent());
+                            },
+                            child: const Text(
+                              "ادامه فرآیند خرید",
+                              style: AppTextStyles.mainButton,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                ],
-              ),
+                );
+              },
             )
           ],
         ),
