@@ -17,6 +17,8 @@ final class ProfileSuccess extends ProfileState {
   ProfileSuccess(this.profileModel);
 }
 
+/////////////////////////////////////////////////////////
+
 final class ProfileAddressLoading extends ProfileState {}
 
 final class ProfileAddressError extends ProfileState {
@@ -31,16 +33,50 @@ final class ProfileAddressSuccess extends ProfileState {
   ProfileAddressSuccess(this.addressModel);
 }
 
-final class UserOrderLoading extends ProfileState {}
+/////////////////////////////////////////////////////////
 
-final class UserOrderError extends ProfileState {
+final class UserProcessingOrderLoading extends ProfileState {}
+
+final class UserProcessingOrderError extends ProfileState {
   final String error;
 
-  UserOrderError(this.error);
+  UserProcessingOrderError(this.error);
 }
 
-final class UserOrderSuccess extends ProfileState {
+final class UserProcessingOrderSuccess extends ProfileState {
   final List<OrderModel> orderList;
 
-  UserOrderSuccess(this.orderList);
+  UserProcessingOrderSuccess(this.orderList);
+}
+
+/////////////////////////////////////////////////////////
+
+final class UserCancelledOrderLoading extends ProfileState {}
+
+final class UserCancelledOrderError extends ProfileState {
+  final String error;
+
+  UserCancelledOrderError(this.error);
+}
+
+final class UserCancelledOrderSuccess extends ProfileState {
+  final List<OrderModel> orderList;
+
+  UserCancelledOrderSuccess(this.orderList);
+}
+
+/////////////////////////////////////////////////////////
+
+final class UserReceivedOrderLoading extends ProfileState {}
+
+final class UserReceivedOrderError extends ProfileState {
+  final String error;
+
+  UserReceivedOrderError(this.error);
+}
+
+final class UserReceivedOrderSuccess extends ProfileState {
+  final List<OrderModel> orderList;
+
+  UserReceivedOrderSuccess(this.orderList);
 }

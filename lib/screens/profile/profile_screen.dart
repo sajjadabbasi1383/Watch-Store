@@ -14,6 +14,7 @@ import '../../component/text_style.dart';
 import '../../res/colors.dart';
 import '../../res/strings.dart';
 import '../../widget/app_bar.dart';
+import '../../widget/custom_loading.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -33,12 +34,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: const CustomAppBar(
+        appBar: CustomAppBar(
           child: Align(
             alignment: Alignment.centerRight,
-            child: Text(
-              AppStrings.profile,
-              style: AppTextStyles.appBarText,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                IconButton(
+                  onPressed: () {
+                    BlocProvider.of<ProfileBloc>(context).add(ProfileInit());
+                  },
+                  icon: const Icon(CupertinoIcons.refresh),
+                ),
+                const Text(
+                  AppStrings.profile,
+                  style: AppTextStyles.appBarText,
+                ),
+              ],
             ),
           ),
         ),
@@ -75,7 +87,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         Align(
                             alignment: Alignment.centerRight,
                             child: Text(
-                              state.profileModel.address!.address!,
+                              state.profileModel.userInfo?.address?.address??'',
                               textDirection: TextDirection.rtl,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
@@ -93,7 +105,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               children: [
                                 Expanded(
                                   child: Text(
-                                    state.profileModel.mobile!,
+                                    state.profileModel.userInfo?.mobile??'',
                                     textAlign: TextAlign.right,
                                     style: AppTextStyles.selectedTab,
                                   ),
@@ -115,7 +127,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               children: [
                                 Expanded(
                                   child: Text(
-                                    state.profileModel.phone!,
+                                    state.profileModel.userInfo?.phone??'',
                                     textAlign: TextAlign.right,
                                     style: AppTextStyles.selectedTab,
                                   ),
@@ -138,7 +150,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               children: [
                                 Expanded(
                                   child: Text(
-                                    state.profileModel.name!,
+                                    state.profileModel.userInfo?.name??'',
                                     textAlign: TextAlign.right,
                                     style: AppTextStyles.selectedTab,
                                   ),
@@ -161,7 +173,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               children: [
                                 Expanded(
                                   child: Text(
-                                    state.profileModel.address!.postalCode!,
+                                    state.profileModel.userInfo?.address?.postalCode??'',
                                     textAlign: TextAlign.right,
                                     style: AppTextStyles.selectedTab,
                                   ),
@@ -174,11 +186,67 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             ),
                           ),
                         ),
-                        const SurfaceContainer(
-                          child: Text(
-                            "قوانین و مقررات",
-                            textAlign: TextAlign.right,
-                            style: AppTextStyles.selectedTab,
+                        SurfaceContainer(
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              const Spacer(),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Text(
+                                    '${state.profileModel.userProcessingCount}  سفارش',
+                                    textDirection: TextDirection.rtl,
+                                    textAlign: TextAlign.right,
+                                    style: AppTextStyles.selectedTab,
+                                  ),
+                                  8.height,
+                                  Text(
+                                    '${state.profileModel.userCancelCount}  سفارش',
+                                    textDirection: TextDirection.rtl,
+                                    textAlign: TextAlign.right,
+                                    style: AppTextStyles.selectedTab,
+                                  ),
+                                  8.height,
+                                  Text(
+                                    '${state.profileModel.userReceivedCount}  سفارش',
+                                    textDirection: TextDirection.rtl,
+                                    textAlign: TextAlign.right,
+                                    style: AppTextStyles.selectedTab,
+                                  ),
+                                ],
+                              ),
+                              12.width,
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Text(
+                                    'در حال پردازش:  ',
+                                    textDirection: TextDirection.rtl,
+                                    textAlign: TextAlign.right,
+                                    style: AppTextStyles.selectedTab.copyWith(color: Colors.blue),
+                                  ),
+                                  8.height,
+                                  Text(
+                                    'لغو شده:  ',
+                                    textDirection: TextDirection.rtl,
+                                    textAlign: TextAlign.right,
+                                    style: AppTextStyles.selectedTab.copyWith(color: Colors.red),
+                                  ),
+                                  8.height,
+                                  Text(
+                                    'تحویل شده:  ',
+                                    textDirection: TextDirection.rtl,
+                                    textAlign: TextAlign.right,
+                                    style: AppTextStyles.selectedTab.copyWith(color: Colors.green),
+                                  ),
+                                ],
+                              ),
+
+                            ],
                           ),
                         ),
                         SurfaceContainer(
@@ -264,32 +332,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               );
             } else if (state is ProfileLoading) {
-              return SizedBox(
-                width: double.infinity,
-                height: MediaQuery.sizeOf(context).height,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    LoadingAnimationWidget.staggeredDotsWave(
-                      color: AppColors.loadingColor,
-                      size: 40,
-                    ),
-                    AppDimens.small.height,
-                    const Text(
-                      "در حال تکمیل اطلاعات...",
-                      style: AppTextStyles.loadingText,
-                      textDirection: TextDirection.rtl,
-                    )
-                  ],
-                ),
-              );
+              return const CustomLoading();
             } else if (state is ProfileError) {
               return Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
                     state.error,
+                    maxLines: 3,
                     style: AppTextStyles.error,
                   ),
                   AppDimens.medium.width,

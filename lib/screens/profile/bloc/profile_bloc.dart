@@ -37,11 +37,31 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       }
       if (event is UserProcessingOrders) {
         try {
-          emit(UserOrderLoading());
+          emit(UserProcessingOrderLoading());
           final response = await _iProfileRepo.getUserProcessingOrders();
-          emit(UserOrderSuccess(response));
+          emit(UserProcessingOrderSuccess(response));
         } catch (e) {
-          emit(UserOrderError(e.toString()));
+          emit(UserProcessingOrderError(e.toString()));
+          // emit(UserOrderError('error'));
+        }
+      }
+      if (event is UserCancelledOrdersEvent) {
+        try {
+          emit(UserCancelledOrderLoading());
+          final response = await _iProfileRepo.getUserCancelledOrders();
+          emit(UserCancelledOrderSuccess(response));
+        } catch (e) {
+          emit(UserCancelledOrderError(e.toString()));
+          // emit(UserOrderError('error'));
+        }
+      }
+      if (event is UserReceivedOrders) {
+        try {
+          emit(UserReceivedOrderLoading());
+          final response = await _iProfileRepo.getUserReceivedOrders();
+          emit(UserReceivedOrderSuccess(response));
+        } catch (e) {
+          emit(UserReceivedOrderError(e.toString()));
           // emit(UserOrderError('error'));
         }
       }

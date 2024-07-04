@@ -56,7 +56,7 @@ class ProfileRemoteDataSrc implements IProfileDataSrc {
   Future<ProfileModel> getUserProfile() async {
     final response = await httpClient.post(ApiConstant.profile);
     HttpResponseValidator.isValidStatusCode(response.statusCode ?? 0);
-    return ProfileModel.fromJson(response.data['data']['user_info']);
+    return ProfileModel.fromJson(response.data['data']);
   }
 
   @override
