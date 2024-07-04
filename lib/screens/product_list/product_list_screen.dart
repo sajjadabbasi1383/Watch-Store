@@ -15,6 +15,7 @@ import '../../res/colors.dart';
 import '../../res/dimens.dart';
 import '../../widget/app_bar.dart';
 import '../../widget/cart_badge.dart';
+import '../../widget/custom_loading.dart';
 import '../../widget/product_item.dart';
 
 class ProductListScreen extends StatefulWidget {
@@ -274,26 +275,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
                 style: AppTextStyles.error,
               ));
             } else {
-               return SizedBox(
-                 width: double.infinity,
-                 height: MediaQuery.sizeOf(context).height,
-                 child: Column(
-                   mainAxisAlignment: MainAxisAlignment.center,
-                   crossAxisAlignment: CrossAxisAlignment.center,
-                   children: [
-                     LoadingAnimationWidget.staggeredDotsWave(
-                       color: AppColors.loadingColor,
-                       size: 40,
-                     ),
-                     AppDimens.small.height,
-                     const Text(
-                       "در حال تکمیل اطلاعات...",
-                       style: AppTextStyles.loadingText,
-                       textDirection: TextDirection.rtl,
-                     )
-                   ],
-                 ),
-               );
+               return const CustomLoading();
             }
           },
         ),

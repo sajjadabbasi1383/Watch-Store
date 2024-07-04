@@ -12,6 +12,7 @@ import 'package:watch_store/widget/cat_widget.dart';
 
 import '../../component/text_style.dart';
 import '../../widget/app_slider.dart';
+import '../../widget/custom_loading.dart';
 import '../../widget/product_item.dart';
 import '../../widget/search_btn.dart';
 import '../../widget/vertical_text.dart';
@@ -60,26 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
           child: BlocBuilder<HomeBloc, HomeState>(
             builder: (context, state) {
               if (state is HomeLoading) {
-                return SizedBox(
-                  width: double.infinity,
-                  height: MediaQuery.sizeOf(context).height,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      LoadingAnimationWidget.staggeredDotsWave(
-                        color: AppColors.loadingColor,
-                        size: 40,
-                      ),
-                      AppDimens.small.height,
-                      const Text(
-                        "در حال تکمیل اطلاعات...",
-                        style: AppTextStyles.loadingText,
-                        textDirection: TextDirection.rtl,
-                      )
-                    ],
-                  ),
-                );
+                return const CustomLoading();
               } else if (state is HomeSuccess) {
                 return Column(
                   children: [

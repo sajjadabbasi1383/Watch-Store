@@ -14,6 +14,7 @@ import 'package:watch_store/widget/app_bar.dart';
 
 import '../../component/button_style.dart';
 import '../../data/model/cart_model.dart';
+import '../../widget/custom_loading.dart';
 import '../../widget/shopping_cart_item.dart';
 
 class CartScreen extends StatefulWidget {
@@ -184,23 +185,8 @@ class _CartScreenState extends State<CartScreen> {
                     ),
                   );
                 } else {
-                  return Expanded(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        LoadingAnimationWidget.staggeredDotsWave(
-                          color: AppColors.loadingColor,
-                          size: 40,
-                        ),
-                        AppDimens.small.height,
-                        const Text(
-                          "در حال تکمیل اطلاعات...",
-                          style: AppTextStyles.loadingText,
-                          textDirection: TextDirection.rtl,
-                        )
-                      ],
-                    ),
+                  return const Expanded(
+                    child: CustomLoading()
                   );
                 }
               },

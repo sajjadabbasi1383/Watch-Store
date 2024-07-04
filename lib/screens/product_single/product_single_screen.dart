@@ -16,6 +16,7 @@ import 'package:watch_store/widget/cart_badge.dart';
 import 'package:watch_store/widget/snack_bar.dart';
 import '../../component/button_style.dart';
 import '../../data/model/product_details_model.dart';
+import '../../widget/custom_loading.dart';
 import '../cart_screen/bloc/cart_bloc.dart';
 
 class ProductSingleScreen extends StatefulWidget {
@@ -45,26 +46,7 @@ class _ProductSingleScreenState extends State<ProductSingleScreen> {
         },
         builder: (productContext, productState) {
           if (productState is ProductSingleLoading) {
-            return SizedBox(
-              width: double.infinity,
-              height: MediaQuery.sizeOf(context).height,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  LoadingAnimationWidget.staggeredDotsWave(
-                    color: AppColors.loadingColor,
-                    size: 40,
-                  ),
-                  AppDimens.small.height,
-                  const Text(
-                    "در حال تکمیل اطلاعات...",
-                    style: AppTextStyles.loadingText,
-                    textDirection: TextDirection.rtl,
-                  )
-                ],
-              ),
-            );
+            return const CustomLoading();
           } else if (productState is ProductSingleSuccess) {
             return Scaffold(
               appBar: CustomAppBar(
