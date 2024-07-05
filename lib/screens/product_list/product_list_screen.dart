@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:watch_store/component/extension.dart';
 import 'package:watch_store/data/model/sort_model.dart';
 import 'package:watch_store/gen/assets.gen.dart';
@@ -171,7 +170,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
         ),
         body: BlocBuilder<ProductListBloc, ProductListState>(
           builder: (context, state) {
-             if (state is ProductListSuccess) {
+            if (state is ProductListSuccess) {
               return Column(
                 children: [
                   Padding(
@@ -252,7 +251,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
                               crossAxisCount: 2,
                               mainAxisSpacing: 2,
                               crossAxisSpacing: 2,
-                              childAspectRatio: 0.63),
+                              childAspectRatio: 0.62),
                       itemBuilder: (context, index) => ProductItem(
                           id: state.productList[index].id,
                           image: state.productList[index].image,
@@ -275,7 +274,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
                 style: AppTextStyles.error,
               ));
             } else {
-               return const CustomLoading();
+              return const CustomLoading();
             }
           },
         ),

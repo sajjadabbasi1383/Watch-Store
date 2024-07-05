@@ -1,7 +1,7 @@
 import 'package:watch_store/data/config/remote_config.dart';
+import 'package:watch_store/data/model/address_model.dart';
 import 'package:watch_store/data/model/order_model.dart';
 import 'package:watch_store/data/src/profile_data_src.dart';
-import '../model/address_model.dart';
 import '../model/profile_model.dart';
 
 abstract class IProfileRepo {

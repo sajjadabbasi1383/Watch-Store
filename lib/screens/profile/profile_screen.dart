@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:watch_store/component/extension.dart';
 import 'package:watch_store/gen/assets.gen.dart';
 import 'package:watch_store/res/dimens.dart';
@@ -11,7 +10,6 @@ import 'package:watch_store/screens/profile/order_list_screen.dart';
 import 'package:watch_store/widget/surface_container.dart';
 
 import '../../component/text_style.dart';
-import '../../res/colors.dart';
 import '../../res/strings.dart';
 import '../../widget/app_bar.dart';
 import '../../widget/custom_loading.dart';

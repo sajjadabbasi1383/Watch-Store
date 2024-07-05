@@ -16,7 +16,6 @@ abstract class ICartRepo {
   Future<int> countCartItem();
 
   Future<String> paymentCart();
-
 }
 
 class CartRepository extends ICartRepo {
@@ -44,7 +43,7 @@ class CartRepository extends ICartRepo {
 
   @override
   Future<CartModel> removeFromCart({required int productId}) =>
-      _iCartDataSrc.removeFromCart(productId: productId).then((value){
+      _iCartDataSrc.removeFromCart(productId: productId).then((value) {
         cartCount.value = value.userCart!.length;
         return value;
       });
@@ -54,8 +53,7 @@ class CartRepository extends ICartRepo {
       _iCartDataSrc.countCartItem().then((value) => cartCount.value = value);
 
   @override
-  Future<String> paymentCart() =>_iCartDataSrc.paymentCart();
-
+  Future<String> paymentCart() => _iCartDataSrc.paymentCart();
 }
 
 final cartRepository = CartRepository(CartRemoteDataSrc(DioManager.dio));

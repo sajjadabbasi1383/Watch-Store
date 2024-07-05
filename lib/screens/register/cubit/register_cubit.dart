@@ -2,8 +2,8 @@ import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_osm_plugin/flutter_osm_plugin.dart';
-import 'package:watch_store/data/model/user_model.dart';
 import 'package:watch_store/data/config/api_constant.dart';
+import 'package:watch_store/data/model/user_model.dart';
 import 'package:watch_store/utils/shared_preferences_manager.dart';
 
 import '../../../component/text_style.dart';

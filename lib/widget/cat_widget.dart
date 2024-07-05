@@ -30,7 +30,7 @@ class CatWidget extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(7),
             margin: const EdgeInsets.all(AppDimens.small),
-            width: size.height * .09,
+            width: size.height * .088,
             height: size.height * .09,
             decoration: BoxDecoration(
                 gradient: LinearGradient(
@@ -57,7 +57,7 @@ class CatWidget extends StatelessWidget {
           ),
           Text(
             title,
-            style: AppTextStyles.catTitle,
+            style: AppTextStyles.catTitle.copyWith(fontSize: MediaQuery.sizeOf(context).width*.035),
           )
         ],
       ),

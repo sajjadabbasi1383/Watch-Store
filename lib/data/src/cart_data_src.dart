@@ -1,8 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:watch_store/data/config/api_constant.dart';
+import 'package:watch_store/data/model/cart_model.dart';
 import 'package:watch_store/utils/response_validator.dart';
-
-import '../model/cart_model.dart';
 
 abstract class ICartDataSrc {
   Future<CartModel> getUserCart();
@@ -63,8 +62,8 @@ class CartRemoteDataSrc implements ICartDataSrc {
 
   @override
   Future<String> paymentCart() async {
-    final response=await httpClient.post(ApiConstant.payment);
-    HttpResponseValidator.isValidStatusCode(response.statusCode??0);
+    final response = await httpClient.post(ApiConstant.payment);
+    HttpResponseValidator.isValidStatusCode(response.statusCode ?? 0);
     return response.data['action'];
   }
 }

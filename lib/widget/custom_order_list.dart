@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:watch_store/component/extension.dart';
+import 'package:watch_store/data/model/order_model.dart';
 import 'package:watch_store/widget/surface_container.dart';
 
 import '../component/text_style.dart';
-import '../data/model/order_model.dart';
 import '../res/colors.dart';
 import '../res/dimens.dart';
 
@@ -34,20 +34,19 @@ class CustomOrderList extends StatelessWidget {
                     padding: const EdgeInsets.all(AppDimens.small),
                     decoration: BoxDecoration(
                         color: AppColors.scaffoldBackgroundColor,
-                        borderRadius:
-                        BorderRadius.circular(AppDimens.small)),
+                        borderRadius: BorderRadius.circular(AppDimens.small)),
                     child: Text(
                       orderStatus == 'Processing'
                           ? 'در حال پردازش'
                           : orderStatus == 'Cancelled'
-                          ? 'لغو شده'
-                          : 'تحویل شده',
+                              ? 'لغو شده'
+                              : 'تحویل شده',
                       style: AppTextStyles.productTitle.copyWith(
                           color: orderStatus == 'Processing'
                               ? Colors.blue
                               : orderStatus == 'Cancelled'
-                              ? Colors.red
-                              : Colors.green,
+                                  ? Colors.red
+                                  : Colors.green,
                           fontWeight: FontWeight.w500),
                     ),
                   ),

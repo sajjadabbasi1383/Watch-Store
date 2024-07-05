@@ -61,7 +61,7 @@ class AppTextStyles {
 
   static const TextStyle mainButton = TextStyle(
       fontFamily: FontFamily.dana,
-      fontSize: 15,
+      fontSize: 14,
       fontWeight: FontWeight.w500,
       color: AppColors.mainButtonText);
 

@@ -1,10 +1,9 @@
 import 'package:dio/dio.dart';
-import 'package:watch_store/data/model/brand_model.dart';
-import 'package:watch_store/data/model/product_model.dart';
 import 'package:watch_store/data/config/api_constant.dart';
+import 'package:watch_store/data/model/brand_model.dart';
+import 'package:watch_store/data/model/product_details_model.dart';
+import 'package:watch_store/data/model/product_model.dart';
 import 'package:watch_store/utils/response_validator.dart';
-
-import '../model/product_details_model.dart';
 
 abstract class IProductDataSrc {
   Future<ProductDetailsModel> getProductDetails(int id);
@@ -31,7 +30,7 @@ class ProductRemoteDataSrc implements IProductDataSrc {
 
     final response =
         await httpClient.get(ApiConstant.productsByBrand + id.toString());
-    HttpResponseValidator.isValidStatusCode(response.statusCode??0);
+    HttpResponseValidator.isValidStatusCode(response.statusCode ?? 0);
     for (var element in (response.data['products_by_brands']['data'] as List)) {
       products.add(ProductModel.fromJson(element));
     }
@@ -44,7 +43,7 @@ class ProductRemoteDataSrc implements IProductDataSrc {
 
     final response =
         await httpClient.get(ApiConstant.productsByCategory + id.toString());
-    HttpResponseValidator.isValidStatusCode(response.statusCode??0);
+    HttpResponseValidator.isValidStatusCode(response.statusCode ?? 0);
     for (var element in response.data['products_by_category']['data'] as List) {
       products.add(ProductModel.fromJson(element));
     }
@@ -57,7 +56,7 @@ class ProductRemoteDataSrc implements IProductDataSrc {
 
     final response =
         await httpClient.get(ApiConstant.baseUrl + routeParam.toString());
-    HttpResponseValidator.isValidStatusCode(response.statusCode??0);
+    HttpResponseValidator.isValidStatusCode(response.statusCode ?? 0);
     for (var element in response.data['all_products']['data'] as List) {
       products.add(ProductModel.fromJson(element));
     }
@@ -70,7 +69,7 @@ class ProductRemoteDataSrc implements IProductDataSrc {
 
     final response =
         await httpClient.get(ApiConstant.search + searchKey.toString());
-    HttpResponseValidator.isValidStatusCode(response.statusCode??0);
+    HttpResponseValidator.isValidStatusCode(response.statusCode ?? 0);
     for (var element in response.data['all_products']['data'] as List) {
       products.add(ProductModel.fromJson(element));
     }
@@ -79,38 +78,21 @@ class ProductRemoteDataSrc implements IProductDataSrc {
 
   @override
   Future<List<BrandModel>> getAllBrands() async {
-    List<BrandModel> brands=<BrandModel>[];
+    List<BrandModel> brands = <BrandModel>[];
 
-    final response=await httpClient.get(ApiConstant.brands);
-    HttpResponseValidator.isValidStatusCode(response.statusCode??0);
-    for(var element in response.data['all_brands'] as List){
+    final response = await httpClient.get(ApiConstant.brands);
+    HttpResponseValidator.isValidStatusCode(response.statusCode ?? 0);
+    for (var element in response.data['all_brands'] as List) {
       brands.add(BrandModel.fromJson(element));
     }
     return brands;
-
   }
 
   @override
   Future<ProductDetailsModel> getProductDetails(int id) async {
-    final response=await httpClient.get(ApiConstant.productDetails+id.toString());
-    HttpResponseValidator.isValidStatusCode(response.statusCode??0);
+    final response =
+        await httpClient.get(ApiConstant.productDetails + id.toString());
+    HttpResponseValidator.isValidStatusCode(response.statusCode ?? 0);
     return ProductDetailsModel.fromJson(response.data['data'][0]);
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

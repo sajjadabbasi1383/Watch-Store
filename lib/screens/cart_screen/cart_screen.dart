@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:watch_store/component/extension.dart';
 import 'package:watch_store/component/text_style.dart';
+import 'package:watch_store/data/model/cart_model.dart';
 import 'package:watch_store/res/colors.dart';
 import 'package:watch_store/res/dimens.dart';
 import 'package:watch_store/res/strings.dart';
@@ -13,7 +13,6 @@ import 'package:watch_store/screens/profile/bloc/profile_bloc.dart';
 import 'package:watch_store/widget/app_bar.dart';
 
 import '../../component/button_style.dart';
-import '../../data/model/cart_model.dart';
 import '../../widget/custom_loading.dart';
 import '../../widget/shopping_cart_item.dart';
 
@@ -46,7 +45,8 @@ class _CartScreenState extends State<CartScreen> {
                 IconButton(
                   onPressed: () {
                     BlocProvider.of<CartBloc>(context).add(CartInitEvent());
-                    BlocProvider.of<CartBloc>(context).add(CartCountItemEvent());
+                    BlocProvider.of<CartBloc>(context)
+                        .add(CartCountItemEvent());
                   },
                   icon: const Icon(CupertinoIcons.refresh),
                 ),
@@ -61,7 +61,7 @@ class _CartScreenState extends State<CartScreen> {
         body: Column(
           children: [
             Container(
-              height: size.height * .100,
+              height: size.height * .115,
               width: double.infinity,
               margin: const EdgeInsets.only(
                   top: AppDimens.medium, bottom: AppDimens.small),
@@ -185,9 +185,7 @@ class _CartScreenState extends State<CartScreen> {
                     ),
                   );
                 } else {
-                  return const Expanded(
-                    child: CustomLoading()
-                  );
+                  return const Expanded(child: CustomLoading());
                 }
               },
             ),
@@ -280,8 +278,8 @@ class _CartScreenState extends State<CartScreen> {
                           ],
                         ),
                         SizedBox(
-                          height: size.height * .052,
-                          width: size.width * .38,
+                          height: size.height * .06,
+                          width: size.width * .37,
                           child: ElevatedButton(
                             style: AppButtonStyle.continueShoppingButtonStyle,
                             onPressed: () {

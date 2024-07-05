@@ -1,8 +1,7 @@
 import 'package:watch_store/data/model/banner_model.dart';
+import 'package:watch_store/data/model/category_model.dart';
 import 'package:watch_store/data/model/product_model.dart';
 import 'package:watch_store/data/model/slide_model.dart';
-
-import 'category_model.dart';
 
 class HomeModel {
   List<SlideModel> sliders;

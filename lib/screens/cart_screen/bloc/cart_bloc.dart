@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:watch_store/data/model/cart_model.dart';
 
-import '../../../data/model/cart_model.dart';
 import '../../../data/repo/cart_repo.dart';
 
 part 'cart_event.dart';

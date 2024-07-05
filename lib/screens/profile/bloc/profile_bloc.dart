@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:watch_store/data/model/address_model.dart';
+import 'package:watch_store/data/model/order_model.dart';
 
-import '../../../data/model/address_model.dart';
-import '../../../data/model/order_model.dart';
 import '../../../data/model/profile_model.dart';
 import '../../../data/repo/profile_repo.dart';
 

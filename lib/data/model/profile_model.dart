@@ -1,4 +1,3 @@
-
 import 'package:watch_store/data/model/address_model.dart';
 
 class ProfileModel {
@@ -9,14 +8,13 @@ class ProfileModel {
 
   ProfileModel(
       {this.userInfo,
-        this.userProcessingCount,
-        this.userReceivedCount,
-        this.userCancelCount});
+      this.userProcessingCount,
+      this.userReceivedCount,
+      this.userCancelCount});
 
   ProfileModel.fromJson(Map<String, dynamic> json) {
-    userInfo = json['user_info'] != null
-        ? UserInfo.fromJson(json['user_info'])
-        : null;
+    userInfo =
+        json['user_info'] != null ? UserInfo.fromJson(json['user_info']) : null;
     userProcessingCount = json['user_processing_count'];
     userReceivedCount = json['user_received_count'];
     userCancelCount = json['user_cancel_count'];
@@ -49,7 +47,7 @@ class UserInfo {
     mobile = json['mobile'];
     phone = json['phone'];
     address =
-    json['address'] != null ? AddressModel.fromJson(json['address']) : null;
+        json['address'] != null ? AddressModel.fromJson(json['address']) : null;
   }
 
   Map<String, dynamic> toJson() {

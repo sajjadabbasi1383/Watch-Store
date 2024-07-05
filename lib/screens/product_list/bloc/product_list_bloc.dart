@@ -1,9 +1,8 @@
-
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:watch_store/data/model/brand_model.dart';
+import 'package:watch_store/data/model/product_model.dart';
 
-import '../../../data/model/brand_model.dart';
-import '../../../data/model/product_model.dart';
 import '../../../data/repo/product_repo.dart';
 
 part 'product_list_event.dart';

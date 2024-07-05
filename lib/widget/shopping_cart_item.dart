@@ -4,11 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:watch_store/component/extension.dart';
+import 'package:watch_store/data/model/cart_model.dart';
 import 'package:watch_store/screens/cart_screen/bloc/cart_bloc.dart';
 import 'package:watch_store/widget/surface_container.dart';
 
 import '../component/text_style.dart';
-import '../data/model/cart_model.dart';
 import '../gen/assets.gen.dart';
 import '../res/colors.dart';
 
@@ -54,7 +54,8 @@ class _ShoppingCartItemState extends State<ShoppingCartItem> {
                             widget.cartModel.deleteLoading = true;
                           });
                           BlocProvider.of<CartBloc>(context).add(
-                              DeleteFromCartEvent(int.parse(widget.cartModel.productId!)));
+                              DeleteFromCartEvent(
+                                  int.parse(widget.cartModel.productId!)));
                         },
                         icon: SvgPicture.asset(Assets.svg.delete.path)),
                     const Expanded(child: SizedBox.shrink()),
@@ -64,7 +65,8 @@ class _ShoppingCartItemState extends State<ShoppingCartItem> {
                             widget.cartModel.countLoading = true;
                           });
                           BlocProvider.of<CartBloc>(context).add(
-                              RemoveFromCartEvent(int.parse(widget.cartModel.productId!)));
+                              RemoveFromCartEvent(
+                                  int.parse(widget.cartModel.productId!)));
                         },
                         icon: SvgPicture.asset(Assets.svg.minus.path)),
                     widget.cartModel.countLoading
@@ -84,8 +86,8 @@ class _ShoppingCartItemState extends State<ShoppingCartItem> {
                           setState(() {
                             widget.cartModel.countLoading = true;
                           });
-                          BlocProvider.of<CartBloc>(context)
-                              .add(AddToCartEvent(int.parse(widget.cartModel.productId!)));
+                          BlocProvider.of<CartBloc>(context).add(AddToCartEvent(
+                              int.parse(widget.cartModel.productId!)));
                         },
                         icon: SvgPicture.asset(Assets.svg.plus.path)),
                   ],

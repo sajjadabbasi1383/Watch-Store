@@ -1,9 +1,8 @@
 import 'package:dio/dio.dart';
+import 'package:watch_store/data/model/brand_model.dart';
 import 'package:watch_store/data/model/product_details_model.dart';
+import 'package:watch_store/data/model/product_model.dart';
 import 'package:watch_store/data/src/product_data_src.dart';
-
-import '../model/brand_model.dart';
-import '../model/product_model.dart';
 
 abstract class IProductRepo {
   Future<ProductDetailsModel> getProductDetails(int id);
@@ -17,7 +16,6 @@ abstract class IProductRepo {
   Future<List<ProductModel>> searchProducts(String searchKey);
 
   Future<List<BrandModel>> getAllBrands();
-
 }
 
 class ProductRepository implements IProductRepo {
@@ -45,8 +43,8 @@ class ProductRepository implements IProductRepo {
   Future<List<BrandModel>> getAllBrands() => _iProductDataSrc.getAllBrands();
 
   @override
-  Future<ProductDetailsModel> getProductDetails(int id) =>_iProductDataSrc.getProductDetails(id);
+  Future<ProductDetailsModel> getProductDetails(int id) =>
+      _iProductDataSrc.getProductDetails(id);
 }
 
-
-final productRepository=ProductRepository(ProductRemoteDataSrc(Dio()));
+final productRepository = ProductRepository(ProductRemoteDataSrc(Dio()));

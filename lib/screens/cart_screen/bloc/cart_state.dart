@@ -3,7 +3,6 @@ part of 'cart_bloc.dart';
 @immutable
 sealed class CartState {}
 
-
 final class CartLoadingState extends CartState {}
 
 final class CartErrorState extends CartState {
@@ -37,7 +36,7 @@ final class CartItemRemoveState extends CartState {
 
 final class CartItemCountState extends CartState {}
 
-final class RecivedPaymentLinkState extends CartState{
+final class RecivedPaymentLinkState extends CartState {
   final String url;
   RecivedPaymentLinkState(this.url);
 }

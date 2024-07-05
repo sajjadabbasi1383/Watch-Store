@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:watch_store/data/config/api_constant.dart';
+import 'package:watch_store/data/model/address_model.dart';
+import 'package:watch_store/data/model/order_model.dart';
 import 'package:watch_store/utils/response_validator.dart';
 
-import '../model/address_model.dart';
-import '../model/order_model.dart';
 import '../model/profile_model.dart';
 
 abstract class IProfileDataSrc {

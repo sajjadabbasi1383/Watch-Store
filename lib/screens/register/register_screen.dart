@@ -1,10 +1,8 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:watch_store/component/extension.dart';
 import 'package:watch_store/component/text_style.dart';
@@ -14,9 +12,7 @@ import 'package:watch_store/res/dimens.dart';
 import 'package:watch_store/res/strings.dart';
 import 'package:watch_store/route_manager/screen_names.dart';
 import 'package:watch_store/screens/register/cubit/register_cubit.dart';
-import 'package:watch_store/utils/image_handler.dart';
 import 'package:watch_store/widget/app_text_field.dart';
-import 'package:watch_store/widget/avatar.dart';
 import 'package:watch_store/widget/main_button.dart';
 import 'package:watch_store/widget/snack_bar.dart';
 
@@ -205,7 +201,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 style: AppTextStyles.mainButton,
                               ),
                         onPressed: () async {
-                           if (_formKey.currentState!.validate()) {
+                          if (_formKey.currentState!.validate()) {
                             UserModel user = UserModel(
                                 name: _nameController.text,
                                 phone: _phoneController.text,

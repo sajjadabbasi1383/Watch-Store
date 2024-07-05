@@ -16,7 +16,7 @@ import 'package:watch_store/screens/profile/bloc/profile_bloc.dart';
 import 'package:watch_store/screens/register/cubit/register_cubit.dart';
 import 'package:watch_store/utils/shared_preferences_constant.dart';
 import 'package:watch_store/utils/shared_preferences_manager.dart';
-import 'package:device_preview/device_preview.dart';
+
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -44,10 +44,7 @@ void main() {
     BlocProvider(
       create: (context) => ProfileBloc(profileRepository),
     ),
-  ], child: DevicePreview(
-    enabled: true,
-    builder: (context) => const MyApp(), // Wrap your app
-  ),));
+  ], child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {

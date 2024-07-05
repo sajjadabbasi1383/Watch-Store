@@ -6,6 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:watch_store/component/extension.dart';
 import 'package:watch_store/component/text_style.dart';
+import 'package:watch_store/data/model/product_details_model.dart';
 import 'package:watch_store/gen/assets.gen.dart';
 import 'package:watch_store/res/colors.dart';
 import 'package:watch_store/res/dimens.dart';
@@ -15,7 +16,6 @@ import 'package:watch_store/widget/app_bar.dart';
 import 'package:watch_store/widget/cart_badge.dart';
 import 'package:watch_store/widget/snack_bar.dart';
 import '../../component/button_style.dart';
-import '../../data/model/product_details_model.dart';
 import '../../widget/custom_loading.dart';
 import '../cart_screen/bloc/cart_bloc.dart';
 
@@ -308,8 +308,8 @@ class _ProductSingleScreenState extends State<ProductSingleScreen> {
                             },
                             builder: (cartContext, cartState) {
                               return SizedBox(
-                                height: size.height * .055,
-                                width: size.width * .4,
+                                height: size.height * .06,
+                                width: size.width * .41,
                                 child: ElevatedButton(
                                   style: AppButtonStyle.mainButtonStyle,
                                   onPressed: () {
